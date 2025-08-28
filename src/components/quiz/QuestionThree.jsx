@@ -261,7 +261,7 @@ const QuestionThree = () => {
                 </motion.div>
               )}
             </div>
-            <div className="lg:p-8 w-full mt-4">
+            <div className="lg:p-8 w-full mt-8">
               <div
                 data-test="slider"
                 className="relative flex flex-col justify-center"
