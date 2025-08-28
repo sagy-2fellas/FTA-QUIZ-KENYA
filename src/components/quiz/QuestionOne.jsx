@@ -30,7 +30,7 @@ const QuestionOne = ({}) => {
 
   const [factToggled1, setFactToggled1] = useState(false);
   return (
-    <div className={`${styles.boxWidth}  mx-auto z-50 h-full `}>
+    <div className={`${styles.boxWidth} mx-auto z-50 h-full quiz-content`}>
       {/* NAVIGATION */}
 
       <div
@@ -148,12 +148,12 @@ const QuestionOne = ({}) => {
 
       {/* CONTENT */}
       <div className="h-full w-full flex flex-col md:flex-row">
-        <div className="flex items-center justify-center md:justify-start h-full md:flex-initial md:w-1/4">
+        <div className="flex items-center justify-center md:justify-start h-full md:flex-initial md:w-1/4 pt-8 sm:pt-12 md:pt-0">
           <motion.h2
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-3xl xs:text-4xl sm:!text-7xl    2xl:!text-8xl text-center md:text-left max-w-xs sm:max-w-xl  md:max-w-[20rem]"
+            className="font-alegreya text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-8xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 sm:px-6 question-text"
           >
             Where do you live in Kenya?
           </motion.h2>

@@ -35,7 +35,7 @@ const useShareableState = () => {
 
 const QuizSection = ({ children }) => {
   return (
-    <div className="section !h-full  flex items-center justify-center">
+    <div className="section !h-full flex items-center justify-center pt-20 sm:pt-24 md:pt-0">
       {children}
     </div>
   );
