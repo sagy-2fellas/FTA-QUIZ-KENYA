@@ -287,7 +287,7 @@ const QuestionFour = () => {
                 <motion.div
                   data-test="slider-handle"
                   ref={handleRef}
-                                      className="relative z-10 rounded-full cursor-pointer bg-ft-blue hover:bg-ft-dark-green transition-colors duration-200"
+                                      className="relative z-10 bg-transparent rounded-full cursor-pointer"
                   drag="x"
                   dragMomentum={false}
                   dragConstraints={constraintsRef}
@@ -307,6 +307,10 @@ const QuestionFour = () => {
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
+                      backgroundImage: `url('/img/tea-toggle.png')`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
                     }}
                 ></motion.div>
               </div>
