@@ -199,24 +199,7 @@ const QuestionOne = ({}) => {
           )}
         </AnimatePresence>
         
-        {/* Speech Bubble for Selected Province - Desktop: Above Map */}
-        <AnimatePresence>
-          {value && (
-            <div className="hidden md:flex justify-center mb-2">
-              <motion.div
-                key={value}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box shadow-lg border border-gray-200 bg-white pb-2 pt-1 px-3 text-sm font-alegreya text-black w-fit"
-              >
-                {value}
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-        
+
         <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
           <MapSection
             width={500}
