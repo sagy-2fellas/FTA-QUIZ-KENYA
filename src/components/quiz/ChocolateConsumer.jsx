@@ -15,8 +15,8 @@ import QuizNavigation from "../QuizNavigation";
 const ChocolateConsumer = () => {
   const dispatch = useDispatch();
   const min = 1;
-  const max = 3;
-  const allowedValues = [1, 2, 3];
+  const max = 5;
+  const allowedValues = [1, 2, 3, 4, 5];
   const [value, setValue] = useState(2);
   const [dragging, setDragging] = useState(false);
   const constraintsRef = useRef();
@@ -71,9 +71,11 @@ const ChocolateConsumer = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "Won't fight you for it";
-    if (value === 2) return "My go-to snack";
-    if (value === 3) return "Diagnosed chocoholic";
+    if (value === 1) return "I don't do chocolate. (Yes, I'm fine.)";
+    if (value === 2) return "I'll have a piece… if you offer.";
+    if (value === 3) return "One slab doesn't stand a chance around me.";
+    if (value === 4) return "Certified chocoholic.";
+    if (value === 5) return "If it's not chocolate, I'm not interested.";
     return Math.floor(value); // Default case (if needed)
   };
 

@@ -19,8 +19,8 @@ import Link from "next/link";
 const QuestionFive = () => {
   const dispatch = useDispatch();
   const min = 1;
-  const max = 3;
-  const allowedValues = [1, 2, 3];
+  const max = 5;
+  const allowedValues = [1, 2, 3, 4, 5];
   const [value, setValue] = useState(2);
   const [dragging, setDragging] = useState(false);
   const constraintsRef = useRef();
@@ -74,9 +74,11 @@ const QuestionFive = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "Hmm, no thanks";
-    if (value === 2) return "I order by the glass";
-    if (value === 3) return "Certified cork dork";
+    if (value === 1) return "Never. Grapes and I are on a break.";
+    if (value === 2) return "A cheeky glass every now and then.";
+    if (value === 3) return "My wine rack calls me by name.";
+    if (value === 4) return "Weekends are for wine.";
+    if (value === 5) return "One glass? Amateur hour. Pass the bottle.";
     return Math.floor(value); // Default case (if needed)
   };
 

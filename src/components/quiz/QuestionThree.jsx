@@ -15,8 +15,8 @@ import QuizNavigation from "../QuizNavigation";
 const QuestionThree = () => {
   const dispatch = useDispatch();
   const min = 1;
-  const max = 3;
-  const allowedValues = [1, 2, 3];
+  const max = 5;
+  const allowedValues = [1, 2, 3, 4, 5];
   const [value, setValue] = useState(2);
   const [dragging, setDragging] = useState(false);
   const constraintsRef = useRef();
@@ -77,9 +77,11 @@ const QuestionThree = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "I don't do coffee";
-    if (value === 2) return "One cup a day";
-    if (value === 3) return "Blood type: Espresso";
+    if (value === 1) return "None. I run on vibes.";
+    if (value === 2) return "A cup here, a cup there.";
+    if (value === 3) return "Don't talk to me before my third mug.";
+    if (value === 4) return "Coffee is my love language.";
+    if (value === 5) return "Espresso is my blood type.";
     return Math.floor(value); // Default case (if needed)
   };
 
