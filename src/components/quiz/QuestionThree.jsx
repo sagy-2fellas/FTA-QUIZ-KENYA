@@ -104,7 +104,7 @@ const QuestionThree = () => {
             />
           </div>
           <div
-            className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
+            className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
           >
             <div
               className={

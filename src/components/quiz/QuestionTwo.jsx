@@ -19,7 +19,7 @@ import {
 } from "framer-motion";
 
 const QuestionTwo = () => {
-  const [overlayClick, setOverlayClick] = useState(true);
+  const [overlayClick, setOverlayClick] = useState(false);
   const overlayRef = useRef(null);
   const dispatch = useDispatch();
   const min = 1;
@@ -125,7 +125,7 @@ const QuestionTwo = () => {
           />
         </div>
         <div
-          className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
+          className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
         >
           <div
             className={
