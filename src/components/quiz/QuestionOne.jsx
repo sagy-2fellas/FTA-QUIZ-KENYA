@@ -175,7 +175,7 @@ const QuestionOne = ({}) => {
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-8xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight"
+            className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:text-5xl 2xl:text-7xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight pt-8 xs:pt-12 lg:pt-16 2xl:pt-20"
           >
             Where do you live in Kenya?
           </motion.h2>
@@ -191,7 +191,7 @@ const QuestionOne = ({}) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box shadow-xl border border-white bg-white pb-4 pt-1 px-4 sm:text-xl font-alegreya text-black w-fit"
+                className="message-box shadow-xl border border-white bg-white pb-6 pt-1 px-4 sm:text-3xl text-2xl font-alegreya text-black w-fit"
               >
                 {value}
               </motion.div>

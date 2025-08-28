@@ -242,7 +242,7 @@ const QuestionThree = () => {
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
-              className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:!text-5xl 2xl:!text-7xl pt-4 xs:pt-8 lg:pt-12 2xl:!pt-16 text-center"
+              className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:text-5xl 2xl:text-7xl pt-8 xs:pt-12 lg:pt-16 2xl:pt-20 text-center"
             >
               How would you describe your
               <span className="sm:block md:inline"> coffee ritual?</span>
