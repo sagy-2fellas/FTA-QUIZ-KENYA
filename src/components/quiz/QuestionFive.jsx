@@ -226,7 +226,7 @@ const QuestionFive = () => {
             </p>
           </FactCard>
         </div>
-        <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 lg:gap-y-6 2xl:gap-y-8 pt-4 lg:pt-6 2xl:pt-8">
+        <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-1 lg:gap-y-1 2xl:gap-y-2 pt-4 lg:pt-6 2xl:pt-8">
           {" "}
           <motion.h2
             initial={{ opacity: 0, y: 300 }}
