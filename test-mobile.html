@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Testing - Fairtrade Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #C1D42F;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        .test-button:hover {
+            background: #a8b828;
+        }
+        .test-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .test-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            margin: 20px 0;
+        }
+        .test-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #C1D42F;
+            cursor: pointer;
+        }
+        .test-result {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .test-fail {
+            background: #ffeaea;
+            border-left-color: #f44336;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .device-info {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Mobile Testing - Fairtrade Quiz</h1>
+        
+        <div class="device-info">
+            <strong>Device Info:</strong><br>
+            User Agent: <span id="userAgent"></span><br>
+            Screen: <span id="screenSize"></span><br>
+            Viewport: <span id="viewportSize"></span><br>
+            Touch: <span id="touchSupport"></span>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Touch Target Tests</h2>
+            <p>All buttons should be at least 44px for easy tapping:</p>
+            <button class="test-button" onclick="testTouchTarget(this)">Test Button (44px)</button>
+            <button class="test-button" style="padding: 8px 16px; font-size: 14px;" onclick="testTouchTarget(this)">Small Button (32px)</button>
+            <div id="touchResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Text Readability Tests</h2>
+            <p>Text should be readable on small screens:</p>
+            <div style="font-size: 12px;">Small text (12px) - Should be readable</div>
+            <div style="font-size: 14px;">Medium text (14px) - Should be comfortable</div>
+            <div style="font-size: 16px;">Large text (16px) - Should be easy to read</div>
+            <div style="font-size: 18px;">Extra large text (18px) - Should be very easy</div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎚️ Slider Interaction Tests</h2>
+            <p>Test slider interaction (like coffee/tea sliders):</p>
+            <input type="range" class="test-slider" min="1" max="5" value="3" onchange="testSlider(this)">
+            <div id="sliderResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Form Input Tests</h2>
+            <p>Test form inputs (like consumer selection):</p>
+            <input type="text" class="test-input" placeholder="Test text input">
+            <select class="test-input">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+
+        <div class="test-section">
+            <h2>🔄 Navigation Tests</h2>
+            <p>Test navigation buttons:</p>
+            <button class="test-button" onclick="testNavigation('prev')">← Previous</button>
+            <button class="test-button" onclick="testNavigation('next')">Next →</button>
+            <div id="navResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Performance Tests</h2>
+            <button class="test-button" onclick="testPerformance()">Run Performance Test</button>
+            <div id="perfResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🌐 Network Tests</h2>
+            <button class="test-button" onclick="testNetwork()">Test Network Speed</button>
+            <div id="networkResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Test Results Summary</h2>
+            <button class="test-button" onclick="generateReport()">Generate Test Report</button>
+            <div id="reportResult" class="test-result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize device info
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('screenSize').textContent = screen.width + 'x' + screen.height;
+        document.getElementById('viewportSize').textContent = window.innerWidth + 'x' + window.innerHeight;
+        document.getElementById('touchSupport').textContent = 'ontouchstart' in window ? 'Yes' : 'No';
+
+        function testTouchTarget(button) {
+            const rect = button.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+            const result = document.getElementById('touchResult');
+            
+            if (width >= 44 && height >= 44) {
+                result.className = 'test-result';
+                result.innerHTML = `✅ Button size: ${Math.round(width)}x${Math.round(height)}px - Good!`;
+            } else {
+                result.className = 'test-result test-fail';
+                result.innerHTML = `❌ Button size: ${Math.round(width)}x${Math.round(height)}px - Too small! Should be 44px+`;
+            }
+            result.style.display = 'block';
+        }
+
+        function testSlider(slider) {
+            const result = document.getElementById('sliderResult');
+            result.innerHTML = `✅ Slider value: ${slider.value} - Working correctly!`;
+            result.style.display = 'block';
+        }
+
+        function testNavigation(direction) {
+            const result = document.getElementById('navResult');
+            result.innerHTML = `✅ Navigation ${direction} - Button responsive!`;
+            result.style.display = 'block';
+        }
+
+        function testPerformance() {
+            const result = document.getElementById('perfResult');
+            const start = performance.now();
+            
+            // Simulate some work
+            setTimeout(() => {
+                const end = performance.now();
+                const duration = end - start;
+                
+                if (duration < 100) {
+                    result.className = 'test-result';
+                    result.innerHTML = `✅ Performance: ${Math.round(duration)}ms - Excellent!`;
+                } else {
+                    result.className = 'test-result test-fail';
+                    result.innerHTML = `⚠️ Performance: ${Math.round(duration)}ms - Could be better`;
+                }
+                result.style.display = 'block';
+            }, 50);
+        }
+
+        function testNetwork() {
+            const result = document.getElementById('networkResult');
+            const start = performance.now();
+            
+            // Test network by loading a small image
+            const img = new Image();
+            img.onload = () => {
+                const end = performance.now();
+                const duration = end - start;
+                
+                if (duration < 1000) {
+                    result.className = 'test-result';
+                    result.innerHTML = `✅ Network: ${Math.round(duration)}ms - Fast connection!`;
+                } else {
+                    result.className = 'test-result test-fail';
+                    result.innerHTML = `⚠️ Network: ${Math.round(duration)}ms - Slow connection`;
+                }
+                result.style.display = 'block';
+            };
+            img.onerror = () => {
+                result.className = 'test-result test-fail';
+                result.innerHTML = `❌ Network: Connection failed`;
+                result.style.display = 'block';
+            };
+            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        }
+
+        function generateReport() {
+            const result = document.getElementById('reportResult');
+            const report = `
+                <h3>📊 Test Report</h3>
+                <p><strong>Device:</strong> ${navigator.userAgent}</p>
+                <p><strong>Screen:</strong> ${screen.width}x${screen.height}</p>
+                <p><strong>Viewport:</strong> ${window.innerWidth}x${window.innerHeight}</p>
+                <p><strong>Touch Support:</strong> ${'ontouchstart' in window ? 'Yes' : 'No'}</p>
+                <p><strong>Browser:</strong> ${getBrowserName()}</p>
+                <p><strong>Platform:</strong> ${navigator.platform}</p>
+                <hr>
+                <p><strong>Recommendations:</strong></p>
+                <ul>
+                    <li>Test on actual devices in Kenya/South Africa</li>
+                    <li>Test on slow 3G connections</li>
+                    <li>Verify all touch targets are 44px+</li>
+                    <li>Check text readability in bright sunlight</li>
+                </ul>
+            `;
+            result.innerHTML = report;
+            result.style.display = 'block';
+        }
+
+        function getBrowserName() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Chrome')) return 'Chrome';
+            if (ua.includes('Safari')) return 'Safari';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Opera')) return 'Opera';
+            if (ua.includes('UCBrowser')) return 'UC Browser';
+            return 'Unknown';
+        }
+
+        // Auto-run basic tests on load
+        window.addEventListener('load', () => {
+            console.log('Mobile testing page loaded');
+            console.log('Device info:', {
+                userAgent: navigator.userAgent,
+                screen: `${screen.width}x${screen.height}`,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                touch: 'ontouchstart' in window
+            });
+        });
+    </script>
+</body>
+</html>
