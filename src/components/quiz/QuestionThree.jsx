@@ -261,25 +261,25 @@ const QuestionThree = () => {
                 </motion.div>
               )}
             </div>
-            <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
+            <div className="lg:p-8 w-full">
               <div
                 data-test="slider"
                 className="relative flex flex-col justify-center"
               >
                 <motion.div
                   data-test="slider-background"
-                  className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full"
+                  className="absolute w-full h-4 rounded-full"
                   style={{
                     background,
                   }}
                 />
 
                 {/* Indicators with values */}
-                <div className="absolute w-full px-4 sm:px-12 lg:px-10 xl:px-12 2xl:px-16">
+                <div className="absolute w-full px-4 sm:px-12 lg:px-10">
                   <div className="flex justify-between">
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
                   </div>
                 </div>
                 <div
@@ -295,7 +295,7 @@ const QuestionThree = () => {
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="relative z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
+                    className="relative z-10 bg-transparent rounded-full cursor-pointer"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
@@ -309,19 +309,31 @@ const QuestionThree = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.3 : 1,
+                      scale: dragging ? 1.5 : 1,
                     }}
                     style={{
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
-                      backgroundImage: `url('/img/2.png')`, // Set your image path here
+                      backgroundImage: `url('/img/2.png')`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}
                   ></motion.div>
                 </div>
+                <div
+                  data-test="slider-clickable-area"
+                  className="absolute w-full h-10 "
+                  onPointerDown={(event) => {
+                    let { left, width } =
+                      progressBarRef.current.getBoundingClientRect();
+                    let position = event.pageX - left;
+                    let newProgress = clamp(position / width, 0, 1);
+                    let newValue = newProgress * (max - min);
+                    snapToClosestValue(newValue); // Snap to the closest value
+                  }}
+                />
               </div>
             </div>
           </div>

@@ -168,24 +168,6 @@ const QuestionOne = ({}) => {
       </div>
       {/* END NAVIGATION FACT */}
 
-      {/* Speech Bubble for Selected Province - Mobile: Above Map */}
-      <AnimatePresence>
-        {value && (
-          <div className="flex justify-center mb-4 mt-8 md:hidden">
-            <motion.div
-              key={value}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="message-box shadow-xl border border-white bg-white pb-6 pt-1 px-4 sm:text-2xl font-alegreya text-black w-fit"
-            >
-              {value}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
       {/* CONTENT */}
       <div className="h-full w-full flex flex-col md:flex-row">
         <div className="flex items-center justify-center md:justify-start h-full md:flex-initial md:w-1/4">
@@ -199,7 +181,25 @@ const QuestionOne = ({}) => {
           </motion.h2>
         </div>
         
-        <div className="md:flex items-center flex-1 pb-4 sm:pb-10 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
+        {/* Speech Bubble for Selected Province - Mobile: Between Question and Map */}
+        <AnimatePresence>
+          {value && (
+            <div className="flex justify-center mb-2 md:hidden">
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="message-box shadow-xl border border-white bg-white pb-4 pt-1 px-4 sm:text-xl font-alegreya text-black w-fit"
+              >
+                {value}
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+        
+        <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
           <MapSection
             width={500}
             height={500}
