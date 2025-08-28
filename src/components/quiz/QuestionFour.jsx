@@ -264,14 +264,16 @@ const QuestionFour = () => {
                 }}
               />
 
-              {/* Indicators with values */}
-              <div className="absolute w-full px-4 sm:px-12 lg:px-10">
-                <div className="flex justify-between">
-                  <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                  <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                  <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                              {/* Indicators with values */}
+                <div className="absolute w-full px-4 lg:px-10 xl:px-12 2xl:px-16">
+                  <div className="flex justify-between">
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                  </div>
                 </div>
-              </div>
               <div
                 data-test="slider-progress"
                 ref={progressBarRef}
@@ -285,7 +287,7 @@ const QuestionFour = () => {
                 <motion.div
                   data-test="slider-handle"
                   ref={handleRef}
-                  className="relative z-10 bg-transparent rounded-full cursor-pointer"
+                                      className="relative z-10 rounded-full cursor-pointer bg-ft-blue hover:bg-ft-dark-green transition-colors duration-200"
                   drag="x"
                   dragMomentum={false}
                   dragConstraints={constraintsRef}
@@ -301,15 +303,11 @@ const QuestionFour = () => {
                   animate={{
                     scale: dragging ? 1.5 : 1,
                   }}
-                  style={{
-                    width: handleSize,
-                    height: handleSize,
-                    x: handleX,
-                    backgroundImage: `url('/img/tea-toggle.png')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                  }}
+                                      style={{
+                      width: handleSize,
+                      height: handleSize,
+                      x: handleX,
+                    }}
                 ></motion.div>
               </div>
               <div
