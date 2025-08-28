@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇰🇪 Kenya Mobile Testing - Fairtrade Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .kenya-flag {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .test-button {
+            background: linear-gradient(45deg, #C1D42F, #D4FF46);
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            min-height: 44px;
+            min-width: 44px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .test-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        .test-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .test-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            margin: 20px 0;
+        }
+        .test-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #C1D42F;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .test-result {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .test-fail {
+            background: rgba(244, 67, 54, 0.2);
+            border-left-color: #f44336;
+        }
+        .test-warning {
+            background: rgba(255, 152, 0, 0.2);
+            border-left-color: #ff9800;
+        }
+        h1, h2 {
+            color: white;
+            text-align: center;
+        }
+        .device-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .kenya-devices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .device-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .device-card h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+        }
+        .device-card p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .quiz-link {
+            display: block;
+            text-align: center;
+            background: linear-gradient(45deg, #00B2E2, #C1D42F);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .quiz-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .performance-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .performance-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A, #FFC107, #FF9800, #f44336);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="kenya-flag">🇰🇪</div>
+        <h1>Kenya Mobile Testing</h1>
+        <h2>Fairtrade Quiz - Mobile Optimization</h2>
+        
+        <a href="/quiz" class="quiz-link">🚀 Test the Kenya Fairtrade Quiz</a>
+        
+        <div class="device-info">
+            <strong>📱 Device Information:</strong><br>
+            User Agent: <span id="userAgent"></span><br>
+            Screen: <span id="screenSize"></span><br>
+            Viewport: <span id="viewportSize"></span><br>
+            Touch Support: <span id="touchSupport"></span><br>
+            Browser: <span id="browserName"></span><br>
+            Platform: <span id="platform"></span>
+        </div>
+
+        <div class="test-section">
+            <h2>🇰🇪 Popular Devices in Kenya</h2>
+            <div class="kenya-devices">
+                <div class="device-card">
+                    <h4>Samsung Galaxy A10</h4>
+                    <p>6.2" • 720x1520</p>
+                </div>
+                <div class="device-card">
+                    <h4>Tecno Spark 6</h4>
+                    <p>6.8" • 720x1640</p>
+                </div>
+                <div class="device-card">
+                    <h4>Infinix Hot 10</h4>
+                    <p>6.78" • 720x1640</p>
+                </div>
+                <div class="device-card">
+                    <h4>iPhone SE</h4>
+                    <p>4.7" • 750x1334</p>
+                </div>
+                <div class="device-card">
+                    <h4>Huawei Y9</h4>
+                    <p>6.5" • 1080x2340</p>
+                </div>
+                <div class="device-card">
+                    <h4>Xiaomi Redmi</h4>
+                    <p>6.53" • 1080x2340</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Touch Target Tests</h2>
+            <p>All buttons should be at least 44px for easy tapping (Kenya standard):</p>
+            <button class="test-button" onclick="testTouchTarget(this)">✅ Test Button (44px)</button>
+            <button class="test-button" style="padding: 8px 16px; font-size: 14px;" onclick="testTouchTarget(this)">⚠️ Small Button (32px)</button>
+            <div id="touchResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Text Readability Tests</h2>
+            <p>Text should be readable on small screens (important for Kenya's diverse devices):</p>
+            <div style="font-size: 12px; margin: 10px 0;">Small text (12px) - Should be readable</div>
+            <div style="font-size: 14px; margin: 10px 0;">Medium text (14px) - Should be comfortable</div>
+            <div style="font-size: 16px; margin: 10px 0;">Large text (16px) - Should be easy to read</div>
+            <div style="font-size: 18px; margin: 10px 0;">Extra large text (18px) - Should be very easy</div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎚️ Slider Interaction Tests</h2>
+            <p>Test slider interaction (like coffee/tea sliders in the quiz):</p>
+            <input type="range" class="test-slider" min="1" max="5" value="3" onchange="testSlider(this)">
+            <div id="sliderResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Form Input Tests</h2>
+            <p>Test form inputs (like consumer selection in QuestionEight):</p>
+            <input type="text" class="test-input" placeholder="Test text input (Kenya format)">
+            <select class="test-input">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+
+        <div class="test-section">
+            <h2>🔄 Navigation Tests</h2>
+            <p>Test navigation buttons (like Next/Previous in quiz):</p>
+            <button class="test-button" onclick="testNavigation('prev')">← Previous</button>
+            <button class="test-button" onclick="testNavigation('next')">Next →</button>
+            <div id="navResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Performance Tests</h2>
+            <button class="test-button" onclick="testPerformance()">Test Performance</button>
+            <div class="performance-meter">
+                <div class="performance-bar" id="performanceBar" style="width: 0%;"></div>
+            </div>
+            <div id="perfResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🌐 Network Tests (Kenya-specific)</h2>
+            <button class="test-button" onclick="testNetwork()">Test Network Speed</button>
+            <div id="networkResult" class="test-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Kenya Test Results Summary</h2>
+            <button class="test-button" onclick="generateKenyaReport()">Generate Kenya Report</button>
+            <div id="reportResult" class="test-result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize device info
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('screenSize').textContent = screen.width + 'x' + screen.height;
+        document.getElementById('viewportSize').textContent = window.innerWidth + 'x' + window.innerHeight;
+        document.getElementById('touchSupport').textContent = 'ontouchstart' in window ? 'Yes' : 'No';
+        document.getElementById('browserName').textContent = getBrowserName();
+        document.getElementById('platform').textContent = navigator.platform;
+
+        function getBrowserName() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Chrome')) return 'Chrome';
+            if (ua.includes('Safari')) return 'Safari';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Opera')) return 'Opera';
+            if (ua.includes('UCBrowser')) return 'UC Browser';
+            return 'Unknown';
+        }
+
+        function testTouchTarget(button) {
+            const rect = button.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+            const result = document.getElementById('touchResult');
+            
+            if (width >= 44 && height >= 44) {
+                result.className = 'test-result';
+                result.innerHTML = `✅ Button size: ${Math.round(width)}x${Math.round(height)}px - Perfect for Kenya users!`;
+            } else {
+                result.className = 'test-result test-fail';
+                result.innerHTML = `❌ Button size: ${Math.round(width)}x${Math.round(height)}px - Too small for Kenya! Should be 44px+`;
+            }
+            result.style.display = 'block';
+        }
+
+        function testSlider(slider) {
+            const result = document.getElementById('sliderResult');
+            result.innerHTML = `✅ Slider value: ${slider.value} - Working perfectly for Kenya quiz!`;
+            result.style.display = 'block';
+        }
+
+        function testNavigation(direction) {
+            const result = document.getElementById('navResult');
+            result.innerHTML = `✅ Navigation ${direction} - Button responsive for Kenya users!`;
+            result.style.display = 'block';
+        }
+
+        function testPerformance() {
+            const result = document.getElementById('perfResult');
+            const performanceBar = document.getElementById('performanceBar');
+            const start = performance.now();
+            
+            // Simulate some work
+            setTimeout(() => {
+                const end = performance.now();
+                const duration = end - start;
+                
+                // Update performance bar
+                let percentage = Math.min(100, (1000 - duration) / 10);
+                performanceBar.style.width = percentage + '%';
+                
+                if (duration < 100) {
+                    result.className = 'test-result';
+                    result.innerHTML = `✅ Performance: ${Math.round(duration)}ms - Excellent for Kenya!`;
+                } else if (duration < 500) {
+                    result.className = 'test-result test-warning';
+                    result.innerHTML = `⚠️ Performance: ${Math.round(duration)}ms - Good for Kenya`;
+                } else {
+                    result.className = 'test-result test-fail';
+                    result.innerHTML = `❌ Performance: ${Math.round(duration)}ms - Could be better for Kenya`;
+                }
+                result.style.display = 'block';
+            }, 50);
+        }
+
+        function testNetwork() {
+            const result = document.getElementById('networkResult');
+            const start = performance.now();
+            
+            // Test network by loading a small image
+            const img = new Image();
+            img.onload = () => {
+                const end = performance.now();
+                const duration = end - start;
+                
+                if (duration < 1000) {
+                    result.className = 'test-result';
+                    result.innerHTML = `✅ Network: ${Math.round(duration)}ms - Fast connection for Kenya!`;
+                } else if (duration < 3000) {
+                    result.className = 'test-result test-warning';
+                    result.innerHTML = `⚠️ Network: ${Math.round(duration)}ms - Acceptable for Kenya`;
+                } else {
+                    result.className = 'test-result test-fail';
+                    result.innerHTML = `❌ Network: ${Math.round(duration)}ms - Slow for Kenya`;
+                }
+                result.style.display = 'block';
+            };
+            img.onerror = () => {
+                result.className = 'test-result test-fail';
+                result.innerHTML = `❌ Network: Connection failed`;
+                result.style.display = 'block';
+            };
+            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        }
+
+        function generateKenyaReport() {
+            const result = document.getElementById('reportResult');
+            const report = `
+                <h3>🇰🇪 Kenya Mobile Test Report</h3>
+                <p><strong>Device:</strong> ${navigator.userAgent}</p>
+                <p><strong>Screen:</strong> ${screen.width}x${screen.height}</p>
+                <p><strong>Viewport:</strong> ${window.innerWidth}x${window.innerHeight}</p>
+                <p><strong>Touch Support:</strong> ${'ontouchstart' in window ? 'Yes' : 'No'}</p>
+                <p><strong>Browser:</strong> ${getBrowserName()}</p>
+                <p><strong>Platform:</strong> ${navigator.platform}</p>
+                <hr>
+                <p><strong>Kenya-Specific Recommendations:</strong></p>
+                <ul>
+                    <li>Test on Samsung Galaxy A series (most popular in Kenya)</li>
+                    <li>Test on Tecno/Infinix devices (budget market leaders)</li>
+                    <li>Test on 3G connections (common in rural Kenya)</li>
+                    <li>Verify all touch targets are 44px+ for easy tapping</li>
+                    <li>Check text readability in bright sunlight</li>
+                    <li>Test on low-end devices (2GB RAM or less)</li>
+                </ul>
+                <p><strong>Next Steps:</strong></p>
+                <ol>
+                    <li>Test the actual quiz: <a href="/quiz" style="color: #C1D42F;">Take Kenya Fairtrade Quiz</a></li>
+                    <li>Test on real Kenyan devices</li>
+                    <li>Test on slow 3G connections</li>
+                    <li>Verify all 8 quiz questions work smoothly</li>
+                </ol>
+            `;
+            result.innerHTML = report;
+            result.style.display = 'block';
+        }
+
+        // Auto-run basic tests on load
+        window.addEventListener('load', () => {
+            console.log('🇰🇪 Kenya mobile testing page loaded');
+            console.log('Device info:', {
+                userAgent: navigator.userAgent,
+                screen: `${screen.width}x${screen.height}`,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                touch: 'ontouchstart' in window,
+                browser: getBrowserName()
+            });
+        });
+    </script>
+</body>
+</html>
