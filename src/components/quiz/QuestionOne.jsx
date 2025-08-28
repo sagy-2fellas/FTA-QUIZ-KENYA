@@ -5,7 +5,7 @@ import FactCard from "../FactCard";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addProvince } from "../../slices/QOneSlice";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapSection } from "../map/map-section";
 import { data } from "../map/data";
 
@@ -187,6 +187,24 @@ const QuestionOne = ({}) => {
             handleSelection={handleSelection}
           />
         </div>
+        
+        {/* Speech Bubble for Selected Province */}
+        <AnimatePresence>
+          {value && (
+            <div className="flex justify-center mb-4 md:mb-0">
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="message-box shadow-xl border border-white bg-white pb-6 pt-1 px-4 md:px-10 md:text-3xl sm:text-2xl font-alegreya text-black w-fit"
+              >
+                {value}
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
         <div className=" md:flex justify-between pr-12 xl:pr-16 flex-col items-end pt-28 lg:pt-32 xl:pt-40 flex-1 hidden">
           <div>
             <FactCard link="#">
