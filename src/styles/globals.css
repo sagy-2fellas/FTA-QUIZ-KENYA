@@ -658,9 +658,7 @@ a {
 /* Mobile fixes for quiz layout */
 @media screen and (max-width: 768px) {
   .fp-section {
-    padding-top: 80px !important;
-    padding-bottom: 20px !important;
-    min-height: calc(100vh - 100px) !important;
+    padding-top: 60px !important;
   }
   
   .quiz-nav {
@@ -670,12 +668,6 @@ a {
     right: 0 !important;
     z-index: 1000 !important;
     background: #f2f2f2 !important;
-  }
-  
-  /* Ensure content fits in viewport */
-  .fp-section .section {
-    max-height: calc(100vh - 100px) !important;
-    overflow-y: auto !important;
   }
   
   /* Fix navigation buttons positioning */
