@@ -269,7 +269,7 @@ const QuestionSix = () => {
       {/*END NAVIGATION */}
 
       {/* DESKTOP VERSION */}
-      <div className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-center ">
+      <div className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-center gap-y-4 sm:gap-y-6 lg:gap-y-8">
         <div className=" flex flex-col md:flex-row items-center justify-center h-full flex-initial md:w-1/5 pt-8 md:pt-12 lg:pt-16 2xl:pt-20">
           <h2 className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl verticle-text">
             Let's do a quick shop!
@@ -284,7 +284,7 @@ const QuestionSix = () => {
             initial={{ opacity: 0, x: -300 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="flex items-end justify-center w-full h-full pb-28 lg:pb-0 gap-y-4 sm:gap-y-6 lg:gap-y-8"
+            className="flex items-end justify-center w-full h-full pb-28 lg:pb-0 lg:p-8 mt-16"
           >
             <ShoppingIcon
               selectProduct={selectProduct}
