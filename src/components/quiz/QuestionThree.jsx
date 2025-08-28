@@ -61,13 +61,19 @@ const QuestionThree = () => {
 
   useEffect(() => {
     const updateInitialPosition = () => {
-      let newProgress = (value - min) / (max - min); // Adjust for min value
-      let progressBarBounds = progressBarRef.current.getBoundingClientRect();
-      handleX.set(newProgress * progressBarBounds.width);
+      if (progressBarRef.current) {
+        let newProgress = (value - min) / (max - min); // Adjust for min value
+        let progressBarBounds = progressBarRef.current.getBoundingClientRect();
+        handleX.set(newProgress * progressBarBounds.width);
+      }
     };
 
     // Delay setting the initial position until layout is fully measured
-    setTimeout(updateInitialPosition, 0);
+    setTimeout(updateInitialPosition, 100);
+    
+    // Also update on window resize
+    window.addEventListener('resize', updateInitialPosition);
+    return () => window.removeEventListener('resize', updateInitialPosition);
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
@@ -258,7 +264,7 @@ const QuestionThree = () => {
             <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
               <div
                 data-test="slider"
-                className="relative flex flex-col justify-center"
+                className="relative flex flex-col justify-center h-20"
               >
                 <motion.div
                   data-test="slider-background"
@@ -285,11 +291,11 @@ const QuestionThree = () => {
                     right: handleSize / 2,
                   }}
                 />
-                <div ref={constraintsRef}>
+                <div ref={constraintsRef} className="w-full h-full relative">
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="relative z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
+                    className="absolute z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
