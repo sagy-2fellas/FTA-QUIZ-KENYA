@@ -24,10 +24,10 @@ function Stepper() {
     });
   }, [activeStepIndex]);
   return (
-    <section className="z-10 pt-4 sm:pt-6 md:pt-0 quiz-stepper">
-      <h3 className="lg:mb-4 text-lg sm:text-xl font-alegreya px-4 sm:px-6">Quiz Questions</h3>
+    <section className="z-10">
+      <h3 className="lg:mb-4 text-lg sm:text-xl font-alegreya">Quiz Questions</h3>
 
-      <div className="w-full sm:w-4/6 flex flex-row items-center justify-start z-10 overflow-x-auto px-4 sm:px-6">
+      <div className="w-full sm:w-4/6 flex flex-row items-center justify-start z-10 overflow-x-auto">
         <div className="stepper-item bg-black h-8 w-8 sm:h-10 sm:w-10 lg:w-12 lg:h-12 flex items-center justify-center text-center font-medium border-2 rounded-full min-w-[32px] sm:min-w-[40px] lg:min-w-[48px]">
           <p className="text-ft-blue font-exo text-sm sm:text-base lg:text-lg">1</p>
         </div>
