@@ -271,7 +271,7 @@ const QuestionSix = () => {
       {/* DESKTOP VERSION */}
       <div className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-between ">
         <div className=" flex flex-col md:flex-row items-center justify-start h-full flex-initial md:w-1/5 pt-24 md:pt-20">
-          <h2 className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:text-5xl 2xl:text-7xl verticle-text">
+          <h2 className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl verticle-text">
             Let's do a quick shop!
           </h2>
           <p className="font-alegreya 2xl:text-4xl text-2xl sm:text-3xl md:text-2xl verticle-text">
