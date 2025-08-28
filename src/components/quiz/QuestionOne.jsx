@@ -35,6 +35,7 @@ const QuestionOne = ({}) => {
 
       <div
         className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 md:-translate-y-[15%]`}
+        style={{ maxWidth: 'calc(100vw - 2rem)' }}
       >
         <div className="relative">
           <div className="absolute right-0 -top-52 buttonNotice-mobile  buttonNotice">

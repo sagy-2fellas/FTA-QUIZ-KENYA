@@ -655,4 +655,34 @@ a {
   animation: slide 1s infinite;
 }
 
+/* Mobile fixes for quiz layout */
+@media screen and (max-width: 768px) {
+  .fp-section {
+    padding-top: 80px !important;
+    padding-bottom: 20px !important;
+    min-height: calc(100vh - 100px) !important;
+  }
+  
+  .quiz-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: #f2f2f2 !important;
+  }
+  
+  /* Ensure content fits in viewport */
+  .fp-section .section {
+    max-height: calc(100vh - 100px) !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Fix navigation buttons positioning */
+  .absolute.right-2 {
+    right: 0.5rem !important;
+    max-width: calc(100vw - 1rem) !important;
+  }
+}
+
 

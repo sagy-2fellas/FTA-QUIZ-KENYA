@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,jsx}"],
+  purge: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,jsx}"],
+  mode: "jit",
   theme: {
     extend: {
       colors: {
@@ -11,12 +12,14 @@ module.exports = {
         "ft-bg": "#f2f2f2",
       },
       screens: {
-        xs: "320px", // Small phones
-        sm: "375px", // Standard phones
-        md: "414px", // Large phones
-        lg: "768px", // Tablets
-        xl: "1024px", // Small laptops
-        "2xl": "1200px", // Large screens
+        xs: "375px",
+        ss: "620px",
+        sm: "768px",
+        md2: "1024px",
+        md: "1060px",
+        lg: "1200px",
+        "2lg": "1500px",
+        xl: "1700px",
       },
       fontFamily: {
         alegreya: ["Alegreya", "sans-serif"],
