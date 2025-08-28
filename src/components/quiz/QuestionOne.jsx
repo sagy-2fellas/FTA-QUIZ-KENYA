@@ -199,6 +199,24 @@ const QuestionOne = ({}) => {
           )}
         </AnimatePresence>
         
+        {/* Speech Bubble for Selected Province - Desktop: Above Map */}
+        <AnimatePresence>
+          {value && (
+            <div className="hidden md:flex justify-center mb-4">
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="message-box shadow-xl border border-white bg-white pb-4 pt-1 px-4 md:px-6 text-lg md:text-xl font-alegreya text-black w-fit"
+              >
+                {value}
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+        
         <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
           <MapSection
             width={500}
@@ -206,24 +224,6 @@ const QuestionOne = ({}) => {
             handleSelection={handleSelection}
           />
         </div>
-        
-        {/* Speech Bubble for Selected Province - Desktop: Below Map */}
-        <AnimatePresence>
-          {value && (
-            <div className="hidden md:flex justify-center mb-4 md:mb-0">
-              <motion.div
-                key={value}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box shadow-xl border border-white bg-white pb-6 pt-1 px-4 md:px-10 md:text-3xl font-alegreya text-black w-fit"
-              >
-                {value}
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
         <div className=" md:flex justify-between pr-12 xl:pr-16 flex-col items-end pt-28 lg:pt-32 xl:pt-40 flex-1 hidden">
           <div>
             <FactCard link="#">
