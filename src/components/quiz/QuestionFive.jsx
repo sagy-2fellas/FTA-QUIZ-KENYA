@@ -226,13 +226,13 @@ const QuestionFive = () => {
             </p>
           </FactCard>
         </div>
-        <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 lg:gap-y-6 2xl:gap-y-8 pt-8 lg:pt-12 2xl:pt-16">
+        <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 lg:gap-y-6 2xl:gap-y-8 pt-4 lg:pt-6 2xl:pt-8">
           {" "}
           <motion.h2
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl pt-4 xs:pt-6 lg:pt-8 2xl:pt-10 text-center"
+            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-5xl 2xl:text-6xl pt-2 xs:pt-3 lg:pt-4 2xl:pt-5 text-center"
           >
             Between us friends, how much wine do you actually drink?
           </motion.h2>
