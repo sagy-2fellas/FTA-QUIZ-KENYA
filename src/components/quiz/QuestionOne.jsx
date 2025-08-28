@@ -171,7 +171,7 @@ const QuestionOne = ({}) => {
       {/* Speech Bubble for Selected Province - Mobile: Above Map */}
       <AnimatePresence>
         {value && (
-          <div className="flex justify-center mb-4 md:hidden">
+          <div className="flex justify-center mb-4 mt-8 md:hidden">
             <motion.div
               key={value}
               initial={{ opacity: 0, y: 20 }}

@@ -264,7 +264,7 @@ const QuestionThree = () => {
             <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
               <div
                 data-test="slider"
-                className="relative flex flex-col justify-center h-20"
+                className="relative flex flex-col justify-center"
               >
                 <motion.div
                   data-test="slider-background"
@@ -291,11 +291,11 @@ const QuestionThree = () => {
                     right: handleSize / 2,
                   }}
                 />
-                <div ref={constraintsRef} className="w-full h-full relative">
+                <div ref={constraintsRef}>
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="absolute z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
+                    className="relative z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
