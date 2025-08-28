@@ -230,7 +230,7 @@ const QuestionFive = () => {
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-xl xs:text-4xl sm:text-5xl lg:!text-5xl 2xl:!text-7xl pt-24 xs:pt-40 lg:pt-40 2xl:!pt-56 text-center"
+            className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:text-5xl 2xl:text-7xl pt-8 xs:pt-12 lg:pt-16 2xl:pt-20 text-center"
           >
             Between us friends, how much wine do you actually drink?
           </motion.h2>

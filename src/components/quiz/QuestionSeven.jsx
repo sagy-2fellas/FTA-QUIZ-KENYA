@@ -522,7 +522,7 @@ ensure I’m buying ethically`,
                 initial={{ opacity: 0, y: -50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, type: "spring", delay: 0.5 }}
-                className="font-alegreya 2xl:text-6xl lg:text-5xl  text-2xl xs:text-4xl sm:text-5xl   max-w-3xl  2xl:max-w-4xl text-center pt-20 xs:pt-40 lg:pt-20  xl:pt-56  "
+                className="font-alegreya text-2xl xs:text-4xl sm:text-5xl lg:text-5xl 2xl:text-7xl max-w-3xl 2xl:max-w-4xl text-center pt-8 xs:pt-12 lg:pt-16 2xl:pt-20"
               >
                 When you decide what to buy, where do you fall on the slider
                 below?{" "}
