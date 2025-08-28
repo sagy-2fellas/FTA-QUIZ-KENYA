@@ -787,8 +787,11 @@ a {
 @media screen and (max-width: 768px) {
   /* Fix fullpage.js mobile layout */
   .fp-section {
-    padding-top: 80px !important;
+    padding-top: 100px !important;
     min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   
   /* Fix quiz stepper positioning */
@@ -813,7 +816,18 @@ a {
   .fp-viewing-5 .fp-section,
   .fp-viewing-6 .fp-section,
   .fp-viewing-7 .fp-section {
-    padding-top: 80px !important;
+    padding-top: 100px !important;
+  }
+  
+  /* Fix quiz navigation positioning */
+  .quiz-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: #f2f2f2 !important;
+    padding: 10px 0 !important;
   }
 }
 

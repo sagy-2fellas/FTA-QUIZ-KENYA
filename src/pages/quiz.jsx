@@ -65,6 +65,8 @@ const FullpageWrapper = () => {
       licenseKey={"K33GH-CR597-09KK8-01PJK-OJTQP"}
       scrollOverflow={false}
       fitToSection={true}
+      responsiveWidth={768}
+      responsiveHeight={600}
       onLeave={(origin, destination, direction) => {
         returnSlide(destination.index);
       }}
