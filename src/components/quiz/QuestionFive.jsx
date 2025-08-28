@@ -244,7 +244,7 @@ const QuestionFive = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box   shadow-xl border  border-white bg-white  pb-6  pt-1 px-4 md:px-10 sm:text-3xl text-2xl  font-alegreya text-black md:text-black  "
+                className="message-box   shadow-xl border  border-white bg-white  pb-1  pt-1 px-4 md:px-10 sm:text-3xl text-2xl  font-alegreya text-black md:text-black  "
               >
                 {displayedValue()}
               </motion.div>
