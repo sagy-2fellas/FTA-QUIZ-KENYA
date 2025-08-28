@@ -214,16 +214,16 @@ const QuestionThree = () => {
         <div className="flex  h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0">
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
-              <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
+              <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
                 Six-year olds ensure your coffee stays nice and cheap
               </h3>
-              <p className="font-exo sm:text-sm text-xs">
+              <p className="font-exo text-sm xl:text-base 2xl:text-lg">
                 The cost of living is at an all-time high. Children as young as
                 six years old in coffee-producing countries are doing their part
                 to ensure your coffee stays affordable. They work between 8 and
                 10 hours a day.
               </p>
-              <p className="font-exo sm:text-xs text-xs mt-2">
+              <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2">
                 ILO (2004): International Programme on the Elimination of Child
                 Labour, Safety and Health Fact Sheet: Hazardous Child Labour in
                 Agriculture Coffee - Geneva. ILO_REF: INT/00/000/AAA
@@ -255,25 +255,25 @@ const QuestionThree = () => {
                 </motion.div>
               )}
             </div>
-            <div className="lg:p-8 w-full">
+            <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
               <div
                 data-test="slider"
                 className="relative flex flex-col justify-center"
               >
                 <motion.div
                   data-test="slider-background"
-                  className="absolute w-full h-4 rounded-full"
+                  className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full"
                   style={{
                     background,
                   }}
                 />
 
                 {/* Indicators with values */}
-                <div className="absolute w-full px-4 sm:px-12 lg:px-10">
+                <div className="absolute w-full px-4 sm:px-12 lg:px-10 xl:px-12 2xl:px-16">
                   <div className="flex justify-between">
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
                   </div>
                 </div>
                 <div
@@ -289,7 +289,7 @@ const QuestionThree = () => {
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="relative z-10 bg-transparent rounded-full cursor-pointer "
+                    className="relative z-10 bg-transparent rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
@@ -303,7 +303,7 @@ const QuestionThree = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.5 : 1,
+                      scale: dragging ? 1.3 : 1,
                     }}
                     style={{
                       width: handleSize,
@@ -311,7 +311,6 @@ const QuestionThree = () => {
                       x: handleX,
                       backgroundImage: `url('/img/2.png')`, // Set your image path here
                       backgroundSize: "cover",
-
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}

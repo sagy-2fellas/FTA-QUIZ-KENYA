@@ -180,14 +180,14 @@ const QuestionOne = ({}) => {
             Where do you live in Kenya?
           </motion.h2>
         </div>
-        <div className="md:flex items-center flex-1 pb-4 sm:pb-10 md:pb-0 px-4 sm:px-6">
+        <div className="md:flex items-center flex-1 pb-4 sm:pb-10 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
           <MapSection
-            width={400}
-            height={400}
+            width={500}
+            height={500}
             handleSelection={handleSelection}
           />
         </div>
-        <div className=" md:flex justify-between pr-12 flex-col items-end pt-28 lg:pt-40 flex-1 hidden">
+        <div className=" md:flex justify-between pr-12 xl:pr-16 flex-col items-end pt-28 lg:pt-32 xl:pt-40 flex-1 hidden">
           <div>
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl text-base border-l-2 border-ft-blue pl-2 mb-4">

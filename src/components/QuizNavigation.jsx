@@ -1,11 +1,11 @@
 const QuizNavigation = ({ navigateNext, navigatePrev, value }) => {
   return (
-    <div className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2`}>
+    <div className={`z-10 absolute right-4 xl:right-8 top-1/2 -translate-y-1/2 space-y-3`}>
       <div
         className={
           value != ""
-            ? "bg-ft-dark-green h-12 w-12 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg"
-            : "bg-ft-dark-green  h-12 w-12 rounded-l-full flex items-center justify-center shadow-lg"
+            ? "bg-ft-dark-green h-14 w-14 xl:h-16 xl:w-16 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+            : "bg-ft-dark-green h-14 w-14 xl:h-16 xl:w-16 rounded-l-full flex items-center justify-center shadow-lg"
         }
         onClick={navigatePrev}
       >
@@ -27,8 +27,8 @@ const QuizNavigation = ({ navigateNext, navigatePrev, value }) => {
       <div
         className={
           value != ""
-            ? "bg-ft-dark-green h-12 w-12 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg"
-            : "bg-gray-500 h-12 w-12 rounded-l-full flex items-center justify-center shadow-lg"
+            ? "bg-ft-dark-green h-14 w-14 xl:h-16 xl:w-16 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+            : "bg-gray-500 h-14 w-14 xl:h-16 xl:w-16 rounded-l-full flex items-center justify-center shadow-lg"
         }
         onClick={navigateNext}
       >

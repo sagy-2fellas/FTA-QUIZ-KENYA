@@ -30,7 +30,7 @@ const QuestionTwo = () => {
   const constraintsRef = useRef();
   const handleRef = useRef();
   const progressBarRef = useRef();
-  const handleSize = 80;
+  const handleSize = 80; // Will be responsive via CSS classes
   const handleX = useMotionValue(0);
   const progress = useTransform(handleX, (v) => v + handleSize / 2);
   const background = useMotionTemplate`linear-gradient(90deg, #C1D42F ${progress}px, #d1d5db 0)`;
@@ -248,22 +248,24 @@ const QuestionTwo = () => {
         <div className=" animate-q-4 absolute bottom-[5%] left-[30%] rotate-90 z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
-        <div className="hidden lg:flex flex-col justify-end h-full gap-y-4 xl:gap-y-20">
+        <div className="hidden lg:flex flex-col justify-end h-full gap-y-6 xl:gap-y-12 2xl:gap-y-16">
           <FactCard link="#">
-            <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
+            <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month?
             </h3>
-            <p className="font-exo sm:text-sm text-xs">
+            <p className="font-exo text-sm xl:text-base 2xl:text-lg">
               There are estimated to be over 3 million farmers and farm workers
               in Kenya. By law, the minimum wage for agricultural workers varies
               by region and specific tasks. But in reality, many workers earn
               between 7K to 10K KES per month, with some earning far less.
             </p>
-            <p className="font-exo sm:text-xs text-xs mt-2">
+            <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2">
               Source: WageIndicator Foundation
             </p>
           </FactCard>
-          <SlideTwoChar value={value} />
+          <div className="xl:scale-110 2xl:scale-125">
+            <SlideTwoChar value={value} />
+          </div>
         </div>
         <div className="flex  h-[92vh] lg:h-[95vh] 2xl:h-[90vh]  w-full">
           <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
@@ -301,27 +303,27 @@ const QuestionTwo = () => {
                 )}
               </div>
             </div>
-            <div className="lg:p-8 w-full">
+            <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
               <div
                 data-test="slider"
                 className="relative flex flex-col justify-center"
               >
                 <motion.div
                   data-test="slider-background"
-                  className="absolute w-full h-4 rounded-full"
+                  className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full"
                   style={{
                     background,
                   }}
                 />
 
                 {/* Indicators with values */}
-                <div className="absolute w-full px-4 lg:px-10">
+                <div className="absolute w-full px-4 lg:px-10 xl:px-12 2xl:px-16">
                   <div className="flex justify-between">
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
                   </div>
                 </div>
                 <div
@@ -337,7 +339,7 @@ const QuestionTwo = () => {
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="relative z-10  rounded-full cursor-pointer bg-ft-blue"
+                    className="relative z-10 rounded-full cursor-pointer bg-ft-blue hover:bg-ft-dark-green transition-colors duration-200"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
@@ -351,15 +353,13 @@ const QuestionTwo = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.2 : 0.8,
+                      scale: dragging ? 1.2 : 1,
                     }}
                     style={{
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
-
                       backgroundSize: "contain",
-
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}
