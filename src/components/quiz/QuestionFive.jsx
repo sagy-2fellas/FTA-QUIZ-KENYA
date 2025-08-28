@@ -226,13 +226,13 @@ const QuestionFive = () => {
             </p>
           </FactCard>
         </div>
-        <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-0 lg:gap-y-0 2xl:gap-y-0 pt-4 lg:pt-6 2xl:pt-8">
+        <div className="flex flex-col items-center justify-center  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 sm:gap-y-6 lg:gap-y-8">
           {" "}
           <motion.h2
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-5xl 2xl:text-6xl pt-2 xs:pt-3 lg:pt-4 2xl:pt-5 text-center"
+            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl pt-8 xs:pt-12 lg:pt-16 2xl:pt-20 text-center"
           >
             Between us friends, how much wine do you actually drink?
           </motion.h2>
@@ -244,13 +244,13 @@ const QuestionFive = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box   shadow-xl border  border-white bg-white  pb-1  pt-1 px-4 md:px-10 sm:text-3xl text-2xl  font-alegreya text-black md:text-black  "
+                className="message-box   shadow-xl border  border-white bg-white  pb-6 pt-1 px-4 md:px-10 sm:text-3xl text-2xl  font-alegreya text-black md:text-black  "
               >
                 {displayedValue()}
               </motion.div>
             )}
           </div>
-          <div className="lg:p-0.5 w-full">
+          <div className="lg:p-8 w-full mt-16">
             <div
               data-test="slider"
               className="relative flex flex-col justify-center"
