@@ -1,6 +1,5 @@
 import styles from "../style";
 import Image from "next/image";
-import Fta20Logo from "./svg/Fta20Logo";
 import Link from "next/link";
 const Home = () => {
   return (
@@ -9,18 +8,15 @@ const Home = () => {
       <div className={`${styles.boxWidth} mx-auto`}>
         <div className="grid lg:grid-cols-2">
           <div className="flex flex-col justify-center space-y-3 sm:space-y-4 lg:space-y-6 2xl:space-y-6 mx-auto z-50 py-4 lg:py-12">
-            <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 mx-auto lg:mx-0">
-              <div className="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24">
-                <Image 
-                  src="/img/logo-fairtrade.png" 
-                  width={135} 
-                  height={162} 
-                  alt="Fairtrade Logo"
-                  priority
-                  className="w-full h-auto"
-                />
-              </div>
-              <Fta20Logo className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20" />
+            <div className="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 mx-auto lg:mx-0">
+              <Image 
+                src="/img/logo-fairtrade.png" 
+                width={135} 
+                height={162} 
+                alt="Fairtrade Logo"
+                priority
+                className="w-full h-auto"
+              />
             </div>
             <div className="border-l-2 lg:py-8 border-ft-blue">
               <div className="space-y-2 sm:space-y-3 lg:space-y-4 2xl:space-y-5 mx-4 sm:mx-6 lg:mx-10">
