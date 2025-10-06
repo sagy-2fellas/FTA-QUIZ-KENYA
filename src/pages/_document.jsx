@@ -28,6 +28,13 @@ class MyDocument extends Document {
             content="https://www.befairrightnow.net/img/home-hero.jpg"
           />
           <Script
+            id="lucky-orange"
+            strategy="afterInteractive"
+            async
+            defer
+            src="https://tools.luckyorange.com/core/lo.js?site-id=47375252"
+          />
+          <Script
             id="linkedin-insight-tag"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
