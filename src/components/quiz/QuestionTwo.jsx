@@ -30,7 +30,7 @@ const QuestionTwo = () => {
   const constraintsRef = useRef();
   const handleRef = useRef();
   const progressBarRef = useRef();
-  const handleSize = 80; // Will be responsive via CSS classes
+  const handleSize = 72; // Slightly smaller on mobile to keep everything in view
   const handleX = useMotionValue(0);
   const progress = useTransform(handleX, (v) => v + handleSize / 2);
   const background = useMotionTemplate`linear-gradient(90deg, #C1D42F ${progress}px, #d1d5db 0)`;
@@ -274,7 +274,7 @@ const QuestionTwo = () => {
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
-              className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl pt-8 xs:pt-12 lg:pt-16 2xl:pt-20 text-center"
+              className="font-alegreya text-[clamp(22px,6vw,36px)] sm:text-5xl lg:text-6xl 2xl:text-7xl pt-8 xs:pt-10 lg:pt-16 2xl:pt-20 text-center"
             >
               How familiar are you with this logo?
             </motion.h2>
