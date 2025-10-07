@@ -10,14 +10,16 @@ export default async function handler(req, res) {
   // Replace with your actual Klaviyo list ID and private API key
   const LIST_ID = process.env.KLAVIYO_LIST_ID_KE || process.env.KLAVIYO_LIST_ID || "";
   const API_KEY = process.env.KLAVIYO_PRIVATE_API_KEY;
+  const trimmedListId = (LIST_ID || "").trim();
+  const trimmedApiKey = (API_KEY || "").trim();
 
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
   }
-  if (!API_KEY) {
+  if (!trimmedApiKey) {
     return res.status(500).json({ error: "Server missing KLAVIYO_PRIVATE_API_KEY" });
   }
-  if (!LIST_ID) {
+  if (!trimmedListId) {
     return res.status(500).json({ error: "Server missing KLAVIYO_LIST_ID_KE or KLAVIYO_LIST_ID" });
   }
 
@@ -38,7 +40,7 @@ export default async function handler(req, res) {
         accept: "application/vnd.api+json",
         revision: "2024-10-15",
         "content-type": "application/vnd.api+json",
-        Authorization: `Klaviyo-API-Key ${API_KEY}`,
+        Authorization: `Klaviyo-API-Key ${trimmedApiKey}`,
       },
       body: JSON.stringify({
         data: {
@@ -109,7 +111,7 @@ export default async function handler(req, res) {
             list: {
               data: {
                 type: "list",
-                id: LIST_ID, // Use your actual list ID
+                id: trimmedListId, // Use your actual list ID
               },
             },
           },
