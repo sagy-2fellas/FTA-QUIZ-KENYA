@@ -12,6 +12,11 @@ const tagManagerArgs = {
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs);
+    // Initialize Microsoft Clarity
+    if (typeof window !== "undefined") {
+      const { clarity } = require("@microsoft/clarity");
+      clarity.init("tmm5h0wrk6");
+    }
   }, []);
   return (
     <Provider store={store}>

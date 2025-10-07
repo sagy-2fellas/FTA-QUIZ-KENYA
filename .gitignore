@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+/tests/test-results
+/tests/playwright-report
+/tests/playwright.config.js
 
 # next.js
 /.next/
