@@ -8,11 +8,17 @@ export default async function handler(req, res) {
   const { email, firstName, lastName, customFields } = req.body;
 
   // Replace with your actual Klaviyo list ID and private API key
-  const LIST_ID = "VyReQX";
+  const LIST_ID = process.env.KLAVIYO_LIST_ID_KE || process.env.KLAVIYO_LIST_ID || "";
   const API_KEY = process.env.KLAVIYO_PRIVATE_API_KEY;
 
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
+  }
+  if (!API_KEY) {
+    return res.status(500).json({ error: "Server missing KLAVIYO_PRIVATE_API_KEY" });
+  }
+  if (!LIST_ID) {
+    return res.status(500).json({ error: "Server missing KLAVIYO_LIST_ID_KE or KLAVIYO_LIST_ID" });
   }
 
   const profileUrl = "https://a.klaviyo.com/api/profiles";
