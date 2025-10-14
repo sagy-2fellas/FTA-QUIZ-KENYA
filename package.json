@@ -10,11 +10,16 @@
     "test": "playwright test -c tests/playwright.config.js",
     "test:ui": "playwright test -c tests/playwright.config.js --ui",
     "test:headed": "playwright test -c tests/playwright.config.js --headed",
-    "test:debug": "playwright test -c tests/playwright.config.js --debug"
+    "test:debug": "playwright test -c tests/playwright.config.js --debug",
+    "test:mobile": "playwright test -c tests/playwright.config.js --grep 'Infinix|Tecno|Nokia|Opera Mini|UC Browser'",
+    "test:desktop": "playwright test -c tests/playwright.config.js --grep 'Desktop'",
+    "test:responsive": "playwright test tests/responsive-usability.spec.js -c tests/playwright.config.js",
+    "test:performance": "playwright test tests/performance.spec.js -c tests/playwright.config.js",
+    "test:tracking": "playwright test tests/tracking.spec.js -c tests/playwright.config.js",
+    "test:report": "playwright show-report playwright-report"
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.28",
-    "@microsoft/clarity": "^0.0.2",
     "@reduxjs/toolkit": "^1.8.6",
     "@types/d3": "^7.4.3",
     "@types/geojson": "^7946.0.14",
