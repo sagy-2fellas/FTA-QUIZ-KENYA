@@ -228,7 +228,7 @@ const QuestionTwo = () => {
       </div>
       {/* END NAVIGATION FACT */}
       {/* CONTENT SEVTION */}
-      <div className="flex h-full relative w-full">
+      <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] relative w-full pb-20 lg:pb-0">
         <div className="animate-q-3 absolute top-[35%] left-[22%]  z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
@@ -244,7 +244,7 @@ const QuestionTwo = () => {
         <div className=" animate-q-4 absolute bottom-[5%] left-[30%] rotate-90 z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
-        <div className="hidden lg:flex flex-col justify-end pb-8 gap-y-6">
+        <div className="hidden lg:flex flex-col justify-end flex-initial w-1/5 gap-y-6 pb-8">
           <FactCard link="#">
             <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month in Kenya?
@@ -260,8 +260,7 @@ const QuestionTwo = () => {
             <SlideTwoChar value={value} />
           </div>
         </div>
-        <div className="flex  h-[92vh] lg:h-[95vh] 2xl:h-[90vh]  w-full">
-          <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
+        <div className="flex flex-col items-center justify-center flex-initial w-full lg:w-4/5 gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
               initial={{ opacity: 0, y: 300 }}
