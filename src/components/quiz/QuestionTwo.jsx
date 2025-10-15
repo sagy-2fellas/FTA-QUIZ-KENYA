@@ -244,7 +244,7 @@ const QuestionTwo = () => {
         <div className=" animate-q-4 absolute bottom-[5%] left-[30%] rotate-90 z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
-        <div className="hidden lg:flex flex-col justify-end h-full gap-y-6 xl:gap-y-12 2xl:gap-y-16">
+        <div className="hidden lg:flex flex-col justify-end pb-8 gap-y-6">
           <FactCard link="#">
             <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month in Kenya?
