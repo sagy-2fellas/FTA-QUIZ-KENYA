@@ -186,12 +186,17 @@ const QuestionFour = () => {
               <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
                 It's okay, your kids will pay the price.
               </h3>
-              <p className="font-exo text-sm">
-                The harmful effects of water pollution, loss of biodiversity,
-                declining soil fertility, and climate change will fall squarely
-                on the shoulders of your children. In fact, the price of things
-                like Kenyan tea and coffee might increase so much, they might
-                never be able to enjoy it again.
+              <p className="font-exo text-sm mb-2">
+                Water scarcity, soil erosion, shrinking forests, and climate change don't just affect the land now - they disproportionately burden future generations. If ecosystems collapse, crops like Kenyan tea and coffee could become far more expensive or rare. Fairtrade supports farmers to adopt sustainable practices so future generations can still enjoy what Kenya produces best.
+              </p>
+              <p className="font-exo text-xs italic text-gray-600">
+                WWF (2010). Agriculture: Facts & Trends South Africa.
+              </p>
+              <p className="font-exo text-xs italic text-gray-600 mt-1">
+                Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025 from https://en.wikipedia.org/wiki/Deforestation_in_Kenya
+              </p>
+              <p className="font-exo text-xs italic text-gray-600 mt-1">
+                Kenya Forest Service (2023). Annual Forest Resources Report.
               </p>
             </div>
             <div className="flex justify-center mt-4">
@@ -218,12 +223,17 @@ const QuestionFour = () => {
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               It's okay, your kids will pay the price.
             </h3>
-            <p className="font-exo text-sm">
-              The harmful effects of water pollution, loss of biodiversity,
-              declining soil fertility, and climate change will fall squarely on
-              the shoulders of your children. In fact, the price of things like
-              Kenyan tea and coffee might increase so much, they might never be
-              able to enjoy it again.
+            <p className="font-exo text-sm mb-2">
+              Water scarcity, soil erosion, shrinking forests, and climate change don't just affect the land now - they disproportionately burden future generations. If ecosystems collapse, crops like Kenyan tea and coffee could become far more expensive or rare. Fairtrade supports farmers to adopt sustainable practices so future generations can still enjoy what Kenya produces best.
+            </p>
+            <p className="font-exo text-xs italic text-gray-600">
+              WWF (2010). Agriculture: Facts & Trends South Africa.
+            </p>
+            <p className="font-exo text-xs italic text-gray-600 mt-1">
+              Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025 from https://en.wikipedia.org/wiki/Deforestation_in_Kenya
+            </p>
+            <p className="font-exo text-xs italic text-gray-600 mt-1">
+              Kenya Forest Service (2023). Annual Forest Resources Report.
             </p>
           </FactCard>
         </div>

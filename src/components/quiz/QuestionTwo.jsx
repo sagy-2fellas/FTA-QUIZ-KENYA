@@ -202,17 +202,13 @@ const QuestionTwo = () => {
             </div>
             <div className="mb-4">
               <h3 className="font-alegreya sm:text-2xl border-l-2  border-ft-blue pl-2 mb-4">
-                Do you know what a farm worker earns per month?
+                Do you know what a farm worker earns per month in Kenya?
               </h3>
               <p className="font-exo sm:text-sm text-xs">
-                There are estimated to be over 3 million farmers and farm
-                workers in Kenya. By law, the minimum wage for agricultural
-                workers varies by region and specific tasks. But in reality,
-                many workers earn between 7K to 10K KES per month, with some
-                earning far less.
+                There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 13,611. Yet many workers still receive less than these rates.
               </p>
-              <p className="font-exo sm:text-xs text-xs mt-2">
-                Source: WageIndicator Foundation
+              <p className="font-exo sm:text-xs text-xs mt-2 italic text-gray-600">
+                (Source: Kenya Labour Market Profile 2024/2025)
               </p>
             </div>
             <div className="flex justify-center mt-4">
@@ -251,16 +247,13 @@ const QuestionTwo = () => {
         <div className="hidden lg:flex flex-col justify-end h-full gap-y-6 xl:gap-y-12 2xl:gap-y-16">
           <FactCard link="#">
             <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-              Do you know what a farm worker earns per month?
+              Do you know what a farm worker earns per month in Kenya?
             </h3>
             <p className="font-exo text-sm xl:text-base 2xl:text-lg">
-              There are estimated to be over 3 million farmers and farm workers
-              in Kenya. By law, the minimum wage for agricultural workers varies
-              by region and specific tasks. But in reality, many workers earn
-              between 7K to 10K KES per month, with some earning far less.
+              There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 13,611. Yet many workers still receive less than these rates.
             </p>
-            <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2">
-              Source: WageIndicator Foundation
+            <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2 italic text-gray-600">
+              (Source: Kenya Labour Market Profile 2024/2025)
             </p>
           </FactCard>
           <div className="xl:scale-110 2xl:scale-125">

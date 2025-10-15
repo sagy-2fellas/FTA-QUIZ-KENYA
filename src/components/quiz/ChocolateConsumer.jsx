@@ -183,29 +183,14 @@ const ChocolateConsumer = () => {
                 <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
                   Like taking chocolate from a baby - literally.
                 </h3>
-                <p className="font-exo sm:text-sm text-xs">
-                  You love chocolate, but do you love the fact that over 1.5
-                  million children are involved in cocoa production in Ghana and
-                  Côte d'Ivoire alone? The job involves dangerous tasks like
-                  using machetes, carrying heavy loads, and spraying pesticides.
-                  Leaves a bitter taste in your mouth, doesn't it?
+                <p className="font-exo sm:text-sm text-xs mb-2">
+                  You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
                 </p>
-                <p className="font-exo sm:text-xs text-xs mt-2">
-                  <a
-                    className="underline"
-                    target="_blank"
-                    href="https://www.cocoainitiative.org/issues/child-labour-cocoa"
-                  >
-                    Source 1
-                  </a>{" "}
-                  |{" "}
-                  <a
-                    className="underline"
-                    target="_blank"
-                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1497785"
-                  >
-                    Source 2
-                  </a>
+                <p className="font-exo sm:text-xs text-xs italic text-gray-600">
+                  NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC. https://www.norc.org/content/dam/norc-org/pdfs/NORC2028_CocoaBrief_10.pdf
+                </p>
+                <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
+                  U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB). https://www.dol.gov/agencies/ilab/our-work/child-forced-labor-trafficking/child-labor-cocoa
                 </p>
               </div>
               <div className="flex justify-center mt-4">
@@ -232,29 +217,14 @@ const ChocolateConsumer = () => {
               <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
                 Like taking chocolate from a baby - literally.
               </h3>
-              <p className="font-exo sm:text-sm text-xs">
-                You love chocolate, but do you love the fact that over 1.5
-                million children are involved in cocoa production in Ghana and
-                Côte d'Ivoire alone? The job involves dangerous tasks like using
-                machetes, carrying heavy loads, and spraying pesticides. Leaves
-                a bitter taste in your mouth, doesn't it?
+              <p className="font-exo sm:text-sm text-xs mb-2">
+                You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
               </p>
-              <p className="font-exo sm:text-xs text-xs mt-2">
-                <a
-                  className="underline"
-                  target="_blank"
-                  href="https://www.cocoainitiative.org/issues/child-labour-cocoa"
-                >
-                  Source 1
-                </a>{" "}
-                |{" "}
-                <a
-                  className="underline"
-                  target="_blank"
-                  href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1497785"
-                >
-                  Source 2
-                </a>
+              <p className="font-exo sm:text-xs text-xs italic text-gray-600">
+                NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC. https://www.norc.org/content/dam/norc-org/pdfs/NORC2028_CocoaBrief_10.pdf
+              </p>
+              <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
+                U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB). https://www.dol.gov/agencies/ilab/our-work/child-forced-labor-trafficking/child-labor-cocoa
               </p>
             </FactCard>
           </div>

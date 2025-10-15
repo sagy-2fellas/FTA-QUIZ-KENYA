@@ -181,15 +181,16 @@ const QuestionFive = () => {
             </div>
             <div className="mb-4">
               <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                It shouldn't matter that your favourite drink is produced by a
-                woman.
+                It shouldn't matter that your favourite drink comes from a woman. But it does.
               </h3>
-              <p className="font-exo text-sm">
-                But it does. In fact, it matters a LOT. Because even though
-                women make up over half of Kenya's agricultural workforce,
-                they're often paid less. That's not fair, right? They're also
-                given fewer resources and have less say in farm decisions than
-                men on the farm. Haki iko wapi?
+              <p className="font-exo text-sm mb-2">
+                Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
+              </p>
+              <p className="font-exo text-xs italic text-gray-600">
+                PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya. https://www.preventionweb.net/news/protecting-women-farmers-climate-risk-rural-kenya
+              </p>
+              <p className="font-exo text-xs italic text-gray-600 mt-1">
+                FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
               </p>
             </div>
             <div className="flex justify-center mt-4">
@@ -214,15 +215,16 @@ const QuestionFive = () => {
         <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
           <FactCard link="#">
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-              It shouldn't matter that your favourite drink is produced by a
-              woman.
+              It shouldn't matter that your favourite drink comes from a woman. But it does.
             </h3>
-            <p className="font-exo text-sm">
-              But it does. In fact, it matters a LOT. Because even though women
-              make up over half of Kenya's agricultural workforce, they're often
-              paid less. That's not fair, right? They're also given fewer
-              resources and have less say in farm decisions than men on the
-              farm. Haki iko wapi?
+            <p className="font-exo text-sm mb-2">
+              Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
+            </p>
+            <p className="font-exo text-xs italic text-gray-600">
+              PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya. https://www.preventionweb.net/news/protecting-women-farmers-climate-risk-rural-kenya
+            </p>
+            <p className="font-exo text-xs italic text-gray-600 mt-1">
+              FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
             </p>
           </FactCard>
         </div>

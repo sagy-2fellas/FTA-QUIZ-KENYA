@@ -187,18 +187,16 @@ const QuestionThree = () => {
               </div>
               <div className="mb-4 ">
                 <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                  Six-year olds ensure your coffee stays nice and cheap
+                  Six-year-olds help keep your coffee cheap.
                 </h3>
-                <p className="font-exo sm:text-sm text-xs">
-                  The cost of living is at an all-time high. Children as young
-                  as six years old in coffee-producing countries are doing their
-                  part to ensure your coffee stays affordable. They work between
-                  8 and 10 hours a day.
+                <p className="font-exo sm:text-sm text-xs mb-2">
+                  In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
                 </p>
-                <p className="font-exo sm:text-xs text-xs mt-2">
-                  ILO (2004): International Programme on the Elimination of
-                  Child Labour, Safety and Health Fact Sheet: Hazardous Child
-                  Labour in Agriculture Coffee - Geneva. ILO_REF: INT/00/000/AAA
+                <p className="font-exo sm:text-xs text-xs italic text-gray-600">
+                  International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva: ILO. https://www.ilo.org/global/topics/child-labour/WCMS_856670/lang--en/index.htm
+                </p>
+                <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
+                  International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
                 </p>
               </div>
               <div className="flex justify-center mt-4">
@@ -223,18 +221,16 @@ const QuestionThree = () => {
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                Six-year olds ensure your coffee stays nice and cheap
+                Six-year-olds help keep your coffee cheap.
               </h3>
-              <p className="font-exo text-sm xl:text-base 2xl:text-lg">
-                The cost of living is at an all-time high. Children as young as
-                six years old in coffee-producing countries are doing their part
-                to ensure your coffee stays affordable. They work between 8 and
-                10 hours a day.
+              <p className="font-exo text-sm xl:text-base 2xl:text-lg mb-2">
+                In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
               </p>
-              <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2">
-                ILO (2004): International Programme on the Elimination of Child
-                Labour, Safety and Health Fact Sheet: Hazardous Child Labour in
-                Agriculture Coffee - Geneva. ILO_REF: INT/00/000/AAA
+              <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600">
+                International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva: ILO. https://www.ilo.org/global/topics/child-labour/WCMS_856670/lang--en/index.htm
+              </p>
+              <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600 mt-1">
+                International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
               </p>
             </FactCard>
           </div>
