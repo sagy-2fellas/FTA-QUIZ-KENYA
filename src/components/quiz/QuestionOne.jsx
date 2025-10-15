@@ -130,7 +130,7 @@ const QuestionOne = ({}) => {
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="font-alegreya text-lg sm:text-xl border-l-2 border-ft-blue pl-2 flex-1">
-                  This isn't about farmers vs farm workers
+                  This isn't about farmers vs farm workers.
                 </h3>
                 <button
                   onClick={() => {
@@ -143,13 +143,11 @@ const QuestionOne = ({}) => {
                 </button>
               </div>
               <div className="mb-6">
-                <p className="font-exo text-sm sm:text-base leading-relaxed">
-                  This is about you. Farmers and farm workers alike need you to
-                  choose fairness so farming can remain sustainable. By choosing
-                  products with the Fairtrade logo, you're choosing sustainable
-                  farming, decent work, and fair relationships between farmers,
-                  farm workers and the retailers who buy their products. By
-                  choosing Fairtrade, you're choosing transparency.
+                <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+                  It's about you. Everyone in the supply chain deserves fairness - from the people growing the crop to those harvesting it. When you choose products with the Fairtrade Mark, you back sustainable farming, decent work, and fair relationships across the chain - farmers, farm workers, and buyers alike.
+                </p>
+                <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+                  Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025. Copenhagen: The Danish Trade Union Council for International Development Cooperation (DTUC). https://www.ulandssekretariatet.dk/wp-content/uploads/2024/09/Kenya-LMP-2024-final1.pdf
                 </p>
               </div>
               <button
@@ -211,15 +209,13 @@ const QuestionOne = ({}) => {
           <div>
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl text-base border-l-2 border-ft-blue pl-2 mb-4">
-                This isn't about farmers vs farm workers
+                This isn't about farmers vs farm workers.
               </h3>
-              <p className="font-exo sm:text-sm text-xs">
-                This is about you. Farmers and farm workers alike need you to
-                choose fairness so farming can remain sustainable. By choosing
-                products with the Fairtrade logo, you're choosing sustainable
-                farming, decent work, and fair relationships between farmers,
-                farm workers and the retailers who buy their products. By
-                choosing Fairtrade, you're choosing transparency.
+              <p className="font-exo sm:text-sm text-xs mb-3">
+                It's about you. Everyone in the supply chain deserves fairness - from the people growing the crop to those harvesting it. When you choose products with the Fairtrade Mark, you back sustainable farming, decent work, and fair relationships across the chain - farmers, farm workers, and buyers alike.
+              </p>
+              <p className="font-exo text-xs text-gray-600 italic">
+                Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025. Copenhagen: The Danish Trade Union Council for International Development Cooperation (DTUC). https://www.ulandssekretariatet.dk/wp-content/uploads/2024/09/Kenya-LMP-2024-final1.pdf
               </p>
             </FactCard>
           </div>
