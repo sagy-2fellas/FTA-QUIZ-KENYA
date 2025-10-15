@@ -228,7 +228,7 @@ const ChocolateConsumer = () => {
               </p>
             </FactCard>
           </div>
-          <div className="flex flex-col items-center justify-between  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-14 lg:gap-16 2xl:gap-y-20">
+          <div className="flex flex-col items-center justify-center  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
               initial={{ opacity: 0, y: 300 }}
