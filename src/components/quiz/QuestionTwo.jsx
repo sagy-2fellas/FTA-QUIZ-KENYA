@@ -362,7 +362,6 @@ const QuestionTwo = () => {
           </div>
         </div>
       </div>
-    </div>
 
       {overlayClick && (
         <div className="absolute top-0 left-0 inset-0 bg-black bg-opacity-80 w-full h-screen z-[9999]">
