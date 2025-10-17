@@ -21,7 +21,7 @@ const ThankYou = () => {
       } else {
         clearInterval(interval);
         document.location.href =
-          "https://gleam.io/1hDoY/befairrightnow-kenya-2024";
+          "https://gleam.io/BRBiR/befairrightnow-kenya-2025";
       }
     }, 1000);
   }
