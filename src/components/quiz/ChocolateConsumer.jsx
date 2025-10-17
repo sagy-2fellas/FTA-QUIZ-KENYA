@@ -50,6 +50,9 @@ const ChocolateConsumer = () => {
 
     setValue(closestValue);
 
+    // Dispatch answer immediately when slider value changes
+    dispatch(addChocolate(closestValue));
+
     let progressBarBounds = progressBarRef.current.getBoundingClientRect();
     const newProgress =
       ((closestValue - min) / (max - min)) * progressBarBounds.width; // Adjust for min value
@@ -69,6 +72,11 @@ const ChocolateConsumer = () => {
     // Delay setting the initial position until layout is fully measured
     setTimeout(updateInitialPosition, 0);
   }, [handleX, min, max, value]);
+
+  // Save initial default value to Redux on component mount
+  useEffect(() => {
+    dispatch(addChocolate(value));
+  }, []); // Empty dependency array = runs once on mount
 
   const displayedValue = () => {
     if (value === 1) return "I don't do chocolate. (Yes, I'm fine.)";
