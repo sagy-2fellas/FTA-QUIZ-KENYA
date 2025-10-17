@@ -187,8 +187,8 @@ const QuestionTwo = () => {
         <div
           className={
             factToggled2
-              ? `absolute top-1/2  right-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-10 w-72 mt-6 xs:!mt-0`
-              : `absolute  top-1/2  right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-10 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
+              ? `absolute top-1/2  right-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-50 w-72 mt-6 xs:!mt-0`
+              : `absolute  top-1/2  right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-50 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
           }
         >
           <div className="">
@@ -228,7 +228,7 @@ const QuestionTwo = () => {
       </div>
       {/* END NAVIGATION FACT */}
       {/* CONTENT SEVTION */}
-      <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] relative w-full pb-20 lg:pb-0">
+      <div className="flex h-full relative w-full">
         <div className="animate-q-3 absolute top-[35%] left-[22%]  z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
@@ -244,7 +244,7 @@ const QuestionTwo = () => {
         <div className=" animate-q-4 absolute bottom-[5%] left-[30%] rotate-90 z-[-1] hidden sm:block">
           <QuestionMarkIcon />
         </div>
-        <div className="hidden lg:flex flex-col justify-end flex-initial w-1/5 gap-y-6 pb-8">
+        <div className="hidden lg:flex flex-col justify-end h-full gap-y-4 xl:gap-y-20">
           <FactCard link="#">
             <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month in Kenya?
@@ -256,11 +256,10 @@ const QuestionTwo = () => {
               (Source: Kenya Labour Market Profile 2024/2025)
             </p>
           </FactCard>
-          <div className="xl:scale-110 2xl:scale-125">
-            <SlideTwoChar value={value} />
-          </div>
+          <SlideTwoChar value={value} />
         </div>
-        <div className="flex flex-col items-center justify-center flex-initial w-full lg:w-4/5 gap-y-4 sm:gap-y-6 lg:gap-y-8">
+        <div className="flex  h-[92vh] lg:h-[95vh] 2xl:h-[90vh]  w-full">
+          <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
               initial={{ opacity: 0, y: 300 }}
@@ -298,24 +297,24 @@ const QuestionTwo = () => {
             <div className="lg:p-8 xl:p-12 2xl:p-16 w-full">
               <div
                 data-test="slider"
-                className="relative flex flex-col justify-center"
+                className={`relative flex flex-col justify-center ${factToggled2 ? "pointer-events-none" : ""}`}
               >
                 <motion.div
                   data-test="slider-background"
-                  className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full"
+                  className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full pointer-events-none"
                   style={{
                     background,
                   }}
                 />
 
                 {/* Indicators with values */}
-                <div className="absolute w-full px-4 lg:px-10 xl:px-12 2xl:px-16">
+                <div className="absolute w-full px-4  lg:px-10">
                   <div className="flex justify-between">
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
-                    <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
+                    <span className="h-12 lg:h-10 w-4 bg-black rounded-full"></span>
                   </div>
                 </div>
                 <div
@@ -327,11 +326,11 @@ const QuestionTwo = () => {
                     right: handleSize / 2,
                   }}
                 />
-                <div ref={constraintsRef}>
+                <div ref={constraintsRef} className="relative select-none">
                   <motion.div
                     data-test="slider-handle"
                     ref={handleRef}
-                    className="relative z-10 rounded-full cursor-pointer bg-ft-blue hover:bg-ft-dark-green transition-colors duration-200"
+                    className="relative z-10 rounded-full cursor-pointer bg-ft-blue touch-manipulation touch-pan-x"
                     drag="x"
                     dragMomentum={false}
                     dragConstraints={constraintsRef}
@@ -345,13 +344,15 @@ const QuestionTwo = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.2 : 1,
+                      scale: dragging ? 1.2 : 0.8,
                     }}
                     style={{
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
+
                       backgroundSize: "contain",
+
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}
