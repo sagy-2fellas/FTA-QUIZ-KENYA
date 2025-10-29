@@ -76,11 +76,11 @@ const QuestionFour = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "Tea? Not my cup.";
-    if (value === 2) return "Occasional sipper, nothing serious.";
-    if (value === 3) return "Full-on kettle commander.";
-    if (value === 4) return "Life runs on steeped leaves.";
-    if (value === 5) return "I steep. Therefore, I am.";
+    if (value === 1) return "Not really for me";
+    if (value === 2) return "I'll drink it if you're making";
+    if (value === 3) return "Tea makes everything better";
+    if (value === 4) return "Tea over coffee any day";
+    if (value === 5) return "I live on tea!";
     return Math.floor(value); // Default case (if needed)
   };
 

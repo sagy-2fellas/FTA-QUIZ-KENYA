@@ -77,11 +77,11 @@ const QuestionThree = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "None. I run on vibes.";
-    if (value === 2) return "A cup here, a cup there.";
-    if (value === 3) return "Don't talk to me before my third mug.";
-    if (value === 4) return "Coffee is my love language.";
-    if (value === 5) return "Espresso is my blood type.";
+    if (value === 1) return "None. I run on vibes";
+    if (value === 2) return "One cup now and then";
+    if (value === 3) return "Can't start my day without it";
+    if (value === 4) return "Coffee keeps me going";
+    if (value === 5) return "Espresso runs in my blood!";
     return Math.floor(value); // Default case (if needed)
   };
 

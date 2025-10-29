@@ -74,11 +74,11 @@ const QuestionFive = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "Never. Grapes and I are on a break.";
-    if (value === 2) return "A cheeky glass every now and then.";
-    if (value === 3) return "My wine rack calls me by name.";
-    if (value === 4) return "Weekends are for wine.";
-    if (value === 5) return "One glass? Amateur hour. Pass the bottle.";
+    if (value === 1) return "None for me, thanks";
+    if (value === 2) return "A glass every now and then";
+    if (value === 3) return "I enjoy a glass to relax";
+    if (value === 4) return "Weekends are for wine";
+    if (value === 5) return "Pass me the whole bottle!";
     return Math.floor(value); // Default case (if needed)
   };
 

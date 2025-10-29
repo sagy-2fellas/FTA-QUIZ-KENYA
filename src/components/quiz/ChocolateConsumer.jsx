@@ -79,11 +79,11 @@ const ChocolateConsumer = () => {
   }, []); // Empty dependency array = runs once on mount
 
   const displayedValue = () => {
-    if (value === 1) return "I don't do chocolate. (Yes, I'm fine.)";
-    if (value === 2) return "I'll have a piece… if you offer.";
-    if (value === 3) return "One slab doesn't stand a chance around me.";
-    if (value === 4) return "Certified chocoholic.";
-    if (value === 5) return "If it's not chocolate, I'm not interested.";
+    if (value === 1) return "I can live without it";
+    if (value === 2) return "I'll have a piece… if you offer";
+    if (value === 3) return "I like it from time to time";
+    if (value === 4) return "Chocolate is my middle name";
+    if (value === 5) return "Chocolate all day, every day!";
     return Math.floor(value); // Default case (if needed)
   };
 
