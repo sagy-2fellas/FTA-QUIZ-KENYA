@@ -204,8 +204,8 @@ const QuestionTwo = () => {
               <h3 className="font-alegreya sm:text-2xl border-l-2  border-ft-blue pl-2 mb-4">
                 Do you know what a farm worker earns per month in Kenya?
               </h3>
-              <p className="font-exo sm:text-sm text-xs">
-                There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 13,611. Yet many workers still receive less than these rates.
+              <p className="font-exo sm:text-sm text-xs mb-2">
+                There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
               </p>
               <p className="font-exo sm:text-xs text-xs mt-2 italic text-gray-600">
                 (Source: Kenya Labour Market Profile 2024/2025)
@@ -249,8 +249,8 @@ const QuestionTwo = () => {
             <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month in Kenya?
             </h3>
-            <p className="font-exo text-sm xl:text-base 2xl:text-lg">
-              There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 13,611. Yet many workers still receive less than these rates.
+            <p className="font-exo text-sm xl:text-base 2xl:text-lg mb-2">
+              There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
             </p>
             <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2 italic text-gray-600">
               (Source: Kenya Labour Market Profile 2024/2025)

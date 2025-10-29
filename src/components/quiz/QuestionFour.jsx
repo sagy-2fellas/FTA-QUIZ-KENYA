@@ -193,7 +193,7 @@ const QuestionFour = () => {
                 WWF (2010). Agriculture: Facts & Trends South Africa.
               </p>
               <p className="font-exo text-xs italic text-gray-600 mt-1">
-                Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025 from https://en.wikipedia.org/wiki/Deforestation_in_Kenya
+                Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025
               </p>
               <p className="font-exo text-xs italic text-gray-600 mt-1">
                 Kenya Forest Service (2023). Annual Forest Resources Report.
@@ -230,7 +230,7 @@ const QuestionFour = () => {
               WWF (2010). Agriculture: Facts & Trends South Africa.
             </p>
             <p className="font-exo text-xs italic text-gray-600 mt-1">
-              Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025 from https://en.wikipedia.org/wiki/Deforestation_in_Kenya
+              Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025
             </p>
             <p className="font-exo text-xs italic text-gray-600 mt-1">
               Kenya Forest Service (2023). Annual Forest Resources Report.

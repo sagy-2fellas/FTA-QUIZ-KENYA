@@ -187,7 +187,7 @@ const QuestionFive = () => {
                 Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
               </p>
               <p className="font-exo text-xs italic text-gray-600">
-                PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya. https://www.preventionweb.net/news/protecting-women-farmers-climate-risk-rural-kenya
+                PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
               </p>
               <p className="font-exo text-xs italic text-gray-600 mt-1">
                 FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
@@ -221,7 +221,7 @@ const QuestionFive = () => {
               Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
             </p>
             <p className="font-exo text-xs italic text-gray-600">
-              PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya. https://www.preventionweb.net/news/protecting-women-farmers-climate-risk-rural-kenya
+              PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
             </p>
             <p className="font-exo text-xs italic text-gray-600 mt-1">
               FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.

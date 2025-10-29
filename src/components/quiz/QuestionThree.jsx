@@ -193,7 +193,7 @@ const QuestionThree = () => {
                   In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
                 </p>
                 <p className="font-exo sm:text-xs text-xs italic text-gray-600">
-                  International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva: ILO. https://www.ilo.org/global/topics/child-labour/WCMS_856670/lang--en/index.htm
+                  International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
                 </p>
                 <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
                   International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
@@ -227,7 +227,7 @@ const QuestionThree = () => {
                 In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
               </p>
               <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600">
-                International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva: ILO. https://www.ilo.org/global/topics/child-labour/WCMS_856670/lang--en/index.htm
+                International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
               </p>
               <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600 mt-1">
                 International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
