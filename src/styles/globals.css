@@ -684,7 +684,22 @@ a {
   }
 }
 
-/* Instagram iOS Browser Fixes - ONLY applies to Instagram app */
+/* Social Media iOS Browser Fixes - applies to Instagram, Facebook, TikTok, etc. */
+.social-browser {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.social-browser button,
+.social-browser .cursor-pointer,
+.social-browser [role="button"],
+.social-browser a {
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+}
+
+/* Backward compatibility - keep Instagram-specific class */
 .instagram-browser {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
   touch-action: pan-y;
@@ -699,7 +714,7 @@ a {
   touch-action: manipulation !important;
 }
 
-/* Fix viewport height issue in Instagram overlay */
+/* Fix viewport height issue in social media overlays */
 .instagram-overlay-issue .quiz-nav {
   top: var(--instagram-offset, 0) !important;
 }

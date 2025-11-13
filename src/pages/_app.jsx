@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs);
 
-    // Initialize Instagram browser fixes (only runs for Instagram iOS)
+    // Initialize social media browser fixes (Instagram, Facebook, TikTok, etc. on iOS)
     initInstagramFixes();
   }, []);
   return (
