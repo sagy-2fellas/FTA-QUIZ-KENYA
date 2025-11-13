@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import TagManager from "react-gtm-module";
 import { useEffect } from "react";
 import Script from "next/script";
+import { initInstagramFixes } from "../utils/instagramFix";
 
 const tagManagerArgs = {
   gtmId: "GTM-KB2G5XF",
@@ -12,6 +13,9 @@ const tagManagerArgs = {
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs);
+
+    // Initialize Instagram browser fixes (only runs for Instagram iOS)
+    initInstagramFixes();
   }, []);
   return (
     <Provider store={store}>
