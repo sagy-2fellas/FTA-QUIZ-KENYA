@@ -677,4 +677,11 @@ a {
   }
 }
 
+/* Additional fixes for 360px screens */
+@media screen and (max-width: 360px) {
+  .absolute.right-2 {
+    right: 0.25rem !important;
+  }
+}
+
 

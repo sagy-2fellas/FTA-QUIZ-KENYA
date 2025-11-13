@@ -56,7 +56,7 @@ const FullpageWrapper = () => {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerHeight < 700 || window.innerWidth < 768);
+      setIsSmallScreen(window.innerHeight < 700 || window.innerWidth < 640);
     };
 
     checkScreenSize();
@@ -84,6 +84,7 @@ const FullpageWrapper = () => {
       fitToSection={!isSmallScreen}
       scrollingSpeed={isSmallScreen ? 300 : 700}
       normalScrollElements={isSmallScreen ? '.section' : null}
+      autoScrolling={!isSmallScreen}
       onLeave={(origin, destination, direction) => {
         returnSlide(destination.index);
       }}

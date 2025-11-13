@@ -246,26 +246,26 @@ const QuestionTwo = () => {
         </div>
         <div className="hidden lg:flex flex-col justify-end h-full gap-y-4 xl:gap-y-20">
           <FactCard link="#">
-            <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
+            <h3 className="font-alegreya sm:text-2xl text-base border-l-2  border-ft-blue pl-2 mb-4">
               Do you know what a farm worker earns per month in Kenya?
             </h3>
-            <p className="font-exo text-sm xl:text-base 2xl:text-lg mb-2">
+            <p className="font-exo sm:text-sm text-xs mb-2">
               There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
             </p>
-            <p className="font-exo text-xs xl:text-sm 2xl:text-base mt-2 italic text-gray-600">
+            <p className="font-exo sm:text-xs text-xs mt-2 italic text-gray-600">
               (Source: Kenya Labour Market Profile 2024/2025)
             </p>
           </FactCard>
           <SlideTwoChar value={value} />
         </div>
-        <div className="flex  h-[92vh] lg:h-[95vh] 2xl:h-[90vh]  w-full">
+        <div className="flex min-h-[600px] max-h-[92vh] lg:h-[95vh] 2xl:h-[90vh] w-full overflow-y-auto">
           <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
-              className="font-alegreya text-[clamp(22px,6vw,36px)] sm:text-5xl lg:text-6xl 2xl:text-7xl pt-8 xs:pt-10 lg:pt-16 2xl:pt-20 text-center"
+              className="font-alegreya text-[clamp(22px,6vw,36px)] sm:text-5xl lg:!text-5xl 2xl:!text-7xl pt-8 xs:pt-10 lg:pt-16 2xl:!pt-20 text-center"
             >
               How familiar are you with this logo?
             </motion.h2>
