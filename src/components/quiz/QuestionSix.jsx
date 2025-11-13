@@ -40,7 +40,7 @@ const QuestionSix = () => {
   };
 
   const dispatch = useDispatch();
-  let allowNext = "42";
+  let allowNext = shopArray.length > 0 ? "enabled" : "";
 
   const selectProduct = (product) => {
     updateShopArray((arr) => [...arr, `${product}`]);
@@ -213,8 +213,8 @@ const QuestionSix = () => {
         <div
           className={
             refineToggled === false
-              ? "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%] sm:w-[600px] md:sm:w-[700px] p-2 xs:p-10 md:p-6 z-50 absolute pointer-events-none opacity-0 transition-all duration-100 mt-6 xs:mt-0"
-              : "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%]  sm:w-[600px] md:sm:w-[700px] p-2 xs:p-10 md:p-6  z-50 absolute pointer-events-auto opacity-100 transition-all duration-1000 mt-6 xs:mt-0"
+              ? "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%] sm:w-[600px] md:sm:w-[700px] max-h-[80vh] overflow-y-auto p-2 xs:p-10 md:p-6 z-50 absolute pointer-events-none opacity-0 transition-all duration-100 mt-6 xs:mt-0"
+              : "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%]  sm:w-[600px] md:sm:w-[700px] max-h-[80vh] overflow-y-auto p-2 xs:p-10 md:p-6  z-50 absolute pointer-events-auto opacity-100 transition-all duration-1000 mt-6 xs:mt-0"
           }
         >
           <h3 className="font-alegreya text-3xl text-black z-50">
@@ -234,14 +234,19 @@ const QuestionSix = () => {
             ""
           ) : (
             <form
-              className="flex flex-col space-y-2 mt-6"
+              className="flex flex-col space-y-4 mt-6"
               onSubmit={submitRefined}
             >
               {shopArray.map((x, i) => {
                 return (
-                  <label key={`${x}--${i}`}>
-                    <input name={x} type="checkbox" onChange={handleChange} />
-                    <span className="ml-2 text-sm lg:text-base">
+                  <label key={`${x}--${i}`} className="flex items-center cursor-pointer py-2 min-h-[44px]">
+                    <input
+                      name={x}
+                      type="checkbox"
+                      onChange={handleChange}
+                      className="w-5 h-5 min-w-[20px] min-h-[20px] cursor-pointer"
+                    />
+                    <span className="ml-3 text-sm lg:text-base flex-1">
                       Some of my <span className="lowercase">{x}</span>{" "}
                       {x === "Coffee Beans" ? "have" : "has"} this label
                     </span>
@@ -282,7 +287,7 @@ const QuestionSix = () => {
           {" "}
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
             className="flex items-end justify-center w-full h-full pb-28 lg:pb-0 lg:p-8 mt-2"
           >
@@ -330,7 +335,7 @@ const QuestionSix = () => {
         <div className=" w-full row-span-3  flex items-end justify-center">
           <motion.div
             initial={{ opacity: 0, x: -300 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
             className=" top-48 w-auto absolute -right-72  h-[65%] xs:h-[70%] ss:h-[80%] ss:-right-5  xs:-right-56 xs:top-64 ss:top-64"
           >
