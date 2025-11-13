@@ -51,10 +51,27 @@ const FullpageWrapper = () => {
 
   const router = useRouter();
 
+  // Detect small screens for responsive behavior
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
   useEffect(() => {
-    fullpage_api.setAllowScrolling(false);
-    fullpage_api.setKeyboardScrolling(false);
-  });
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerHeight < 700 || window.innerWidth < 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    // Allow scrolling on small screens, disable on larger screens
+    if (fullpage_api) {
+      fullpage_api.setAllowScrolling(!isSmallScreen);
+      fullpage_api.setKeyboardScrolling(!isSmallScreen);
+    }
+  }, [isSmallScreen]);
 
   // useEffect(() => {
   //   router.push("/?counter=10", undefined, { shallow: true });
@@ -63,9 +80,10 @@ const FullpageWrapper = () => {
   return (
     <ReactFullpage
       licenseKey={"K33GH-CR597-09KK8-01PJK-OJTQP"}
-      scrollOverflow={false}
-      fitToSection={true}
-
+      scrollOverflow={isSmallScreen}
+      fitToSection={!isSmallScreen}
+      scrollingSpeed={isSmallScreen ? 300 : 700}
+      normalScrollElements={isSmallScreen ? '.section' : null}
       onLeave={(origin, destination, direction) => {
         returnSlide(destination.index);
       }}
@@ -122,7 +140,7 @@ const Quiz = () => {
         <title>Quiz Questions</title>
         <meta
           name="viewport"
-          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
       </Head>
       <SlideContext.Provider value={[currentSlide]}>
