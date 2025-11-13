@@ -498,7 +498,7 @@ ensure I’m buying ethically`,
 
         {/* end quiz nav */}
 
-        <div className="flex flex-col w-full justify-between h-[90vh] sm:h-[85vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0">
+        <div className="flex flex-col w-full justify-between min-h-[600px] max-h-[90vh] sm:max-h-[85vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0 overflow-y-auto">
           <div className="flex lg:justify-between justify-center  w-full ">
             <div className="hidden lg:flex flex-initial w-1/5 pt-20 lg:pt-40 xl:pt-56">
               <FactCard link="#">
