@@ -36,7 +36,7 @@ export const MapSection = ({
       setProjectionCenter([52, -5]);
     } else if (windowWidth < 620) {
       setSvgWidth(320);
-      setSvgHeight(340);
+      setSvgHeight(280);
       setProjectionCenter([47, -1]);
     } else if (windowWidth < 1024) {
       setSvgWidth(500);
