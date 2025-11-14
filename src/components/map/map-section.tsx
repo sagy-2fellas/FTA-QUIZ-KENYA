@@ -95,20 +95,48 @@ export const MapSection = ({
   const allSvgPaths = data?.features.map((shape) => {
     const pathData = geoPathGenerator(shape) ?? "";
     const isSelected = shape.name === selectedId;
+    const isSmallRegion = shape.name === "Nairobi" || shape.name === "Western";
 
     return (
       <React.Fragment key={shape.id}>
         <path
           d={pathData}
           stroke="#f2f2f2"
-          strokeWidth={2}
+          strokeWidth={isSmallRegion ? 8 : 2}
           fill={shape.name === selectedId ? "#00B2E2" : "black"}
           onClick={() => {
             const regionName = shape.name; // Assuming `name` holds the region's name
             setSelectedId(regionName);
             handleSelection(regionName); // Pass selected region to parent component
           }}
+          style={{
+            cursor: 'pointer',
+            ...(isSmallRegion && {
+              paintOrder: 'stroke',
+              strokeLinejoin: 'round',
+              strokeLinecap: 'round'
+            })
+          }}
         />
+
+        {/* Invisible larger hit area for small regions */}
+        {isSmallRegion && (
+          <path
+            d={pathData}
+            fill="transparent"
+            stroke="transparent"
+            strokeWidth={20}
+            onClick={() => {
+              const regionName = shape.name;
+              setSelectedId(regionName);
+              handleSelection(regionName);
+            }}
+            style={{
+              cursor: 'pointer',
+              pointerEvents: 'stroke'
+            }}
+          />
+        )}
       </React.Fragment>
     );
   });
