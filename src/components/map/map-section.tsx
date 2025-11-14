@@ -35,8 +35,8 @@ export const MapSection = ({
       setSvgHeight(240);
       setProjectionCenter([52, -5]);
     } else if (windowWidth < 620) {
-      setSvgWidth(380);
-      setSvgHeight(400);
+      setSvgWidth(320);
+      setSvgHeight(340);
       setProjectionCenter([47, -1]);
     } else if (windowWidth < 1024) {
       setSvgWidth(500);
@@ -160,12 +160,12 @@ export const MapSection = ({
     });
 
   return (
-    <div className={`${styles.boxWidth}`}>
+    <div className={`${styles.boxWidth} max-w-full`}>
       <motion.svg
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, type: "spring", delay: 0.5 }}
-        className="cursor-pointer"
+        className="cursor-pointer mx-auto"
         width={svgWidth}
         height={svgHeight}
       >
