@@ -258,7 +258,7 @@ const QuestionTwo = () => {
           </FactCard>
           <SlideTwoChar value={value} />
         </div>
-        <div className="flex min-h-[600px] max-h-[92vh] lg:h-[95vh] 2xl:h-[90vh] w-full overflow-y-auto">
+        <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] w-full overflow-y-auto">
           <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2

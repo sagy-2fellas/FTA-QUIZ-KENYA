@@ -217,7 +217,7 @@ const QuestionThree = () => {
         {/* END NAVIGATION FACT */}
 
         {/* CONTENT SECTION */}
-        <div className="flex min-h-[600px] max-h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-10 lg:pb-0 overflow-y-auto">
+        <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-10 lg:pb-0 overflow-y-auto">
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">

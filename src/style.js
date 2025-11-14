@@ -1,5 +1,5 @@
 const styles = {
-  boxWidth: "xl:max-w-[1700px] w-full px-4 xl:px-0",
+  boxWidth: "xl:max-w-[1700px] w-full px-0 sm:px-4 xl:px-0",
   h1: "text-6xl uppercase py-6 font-oswald",
   h2: "text-4xl uppercase py-6 font-oswald",
   h3: "text-3xl uppercase py-6 font-oswald",

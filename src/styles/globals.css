@@ -658,9 +658,9 @@ a {
 /* Mobile fixes for quiz layout */
 @media screen and (max-width: 768px) {
   .fp-section {
-    padding-top: 60px !important;
+    padding-top: 50px !important;
   }
-  
+
   .quiz-nav {
     position: fixed !important;
     top: 0 !important;
@@ -668,19 +668,6 @@ a {
     right: 0 !important;
     z-index: 1000 !important;
     background: #f2f2f2 !important;
-  }
-  
-  /* Fix navigation buttons positioning */
-  .absolute.right-2 {
-    right: 0.5rem !important;
-    max-width: calc(100vw - 1rem) !important;
-  }
-}
-
-/* Additional fixes for 360px screens */
-@media screen and (max-width: 360px) {
-  .absolute.right-2 {
-    right: 0.25rem !important;
   }
 }
 

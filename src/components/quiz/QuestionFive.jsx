@@ -211,7 +211,7 @@ const QuestionFive = () => {
       {/* END NAVIGATION FACT */}
 
       {/* DESKTOP VERSION */}
-      <div className="flex min-h-[600px] max-h-[90vh] md:h-[95vh] pb-20 lg:pb-0 overflow-y-auto">
+      <div className="flex h-[92vh] md:h-[95vh] pb-20 lg:pb-0 overflow-y-auto">
         <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
           <FactCard link="#">
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">

@@ -141,7 +141,7 @@ const Quiz = () => {
         <title>Quiz Questions</title>
         <meta
           name="viewport"
-          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </Head>
       <SlideContext.Provider value={[currentSlide]}>

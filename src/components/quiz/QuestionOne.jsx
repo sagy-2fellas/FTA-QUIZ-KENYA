@@ -30,7 +30,7 @@ const QuestionOne = ({}) => {
 
   const [factToggled1, setFactToggled1] = useState(false);
   return (
-    <div className={`${styles.boxWidth}  mx-auto z-0 h-full `}>
+    <div className={`${styles.boxWidth}  mx-auto z-0 h-full relative`}>
       {/* NAVIGATION */}
 
       <div
@@ -173,27 +173,25 @@ const QuestionOne = ({}) => {
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight pt-8 xs:pt-12 lg:pt-16 2xl:pt-20"
+            className="font-alegreya text-[clamp(20px,5vw,28px)] xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight pt-3 xs:pt-5 lg:pt-12 2xl:pt-16"
           >
             Where do you live in Kenya?
           </motion.h2>
         </div>
         
-        {/* Speech Bubble for Selected Province - Mobile: Between Question and Map */}
+        {/* Speech Bubble for Selected Province - Mobile: Absolutely Positioned */}
         <AnimatePresence>
           {value && (
-            <div className="flex justify-center mb-2 md:hidden">
-              <motion.div
-                key={value}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="message-box shadow-xl border border-white bg-white pb-6 pt-1 px-4 sm:text-3xl text-2xl font-alegreya text-black w-fit"
-              >
-                {value}
-              </motion.div>
-            </div>
+            <motion.div
+              key={value}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="absolute top-[100px] xs:top-[130px] left-1/2 -translate-x-1/2 z-20 md:hidden message-box shadow-xl border border-white bg-white pb-2 pt-1 px-4 sm:text-3xl text-2xl font-alegreya text-black w-fit max-w-[90vw]"
+            >
+              {value}
+            </motion.div>
           )}
         </AnimatePresence>
         
