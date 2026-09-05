@@ -11,6 +11,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addWine } from "../../slices/QFiveSlice";
 import QuizNavigation from "../QuizNavigation";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 import WineOneIcon from "../svg/WineOneIcon";
 import WineTwoIcon from "../svg/WineTwoIcon";
 import WineThreeIcon from "../svg/WineThreeIcon";
@@ -96,122 +98,40 @@ const QuestionFive = () => {
   return (
     <div className={`${styles.boxWidth} z-0 h-full mx-auto`}>
       {/* NAVIGATION */}
-      <div>
-        <div className="hidden lg:block">
-          <QuizNavigation
-            navigateNext={navigateNext}
-            navigatePrev={navigatePrev}
-            value={value}
-          />
-        </div>
-        <div
-          className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
-        >
-          <div
-            className={
-              value != ""
-                ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                : "bg-ft-dark-green  h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-            }
-            onClick={navigatePrev}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-5 h-5 rotate-180"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-          <div
-            className={
-              value != ""
-                ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                : "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-            }
-            onClick={() => {
-              if (value !== "") {
-                setFactToggled5(!factToggled5);
-              }
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-        </div>
+      <div className="hidden lg:block">
+        <QuizNavigation
+          navigateNext={navigateNext}
+          navigatePrev={navigatePrev}
+          value={value}
+        />
       </div>
       {/* END NAVIGATION */}
 
       {/* NAVIGATION FACT */}
-      <div className="lg:hidden  ">
-        <div
-          className={
-            factToggled5
-              ? `absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-20 w-72 mt-6 xs:!mt-0`
-              : `absolute  top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-20 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
-          }
-        >
-          <div className="">
-            <div
-              onClick={() => {
-                setFactToggled5(!factToggled5);
-              }}
-              className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white flex absolute left-1 top-1 rounded-lg font-exo text-lg "
-            >
-              x
-            </div>
-            <div className="mb-4">
-              <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                It shouldn't matter that your favourite drink comes from a woman. But it does.
-              </h3>
-              <p className="font-exo text-sm mb-2">
-                Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
-              </p>
-              <p className="font-exo text-xs italic text-gray-600">
-                PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
-              </p>
-              <p className="font-exo text-xs italic text-gray-600 mt-1">
-                FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
-              </p>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-ft-dark-green text-white px-4 py-2 rounded-md shadow-lg font-exo text-base w-full"
-                onClick={() => {
-                  window.fullpage_api.moveSectionDown(); // Move to the next slide
-                  dispatch(addWine(value));
-                  setFactToggled5(false); // Close the popup after navigating
-                }}
-              >
-                Go to Next Question
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileFactDialog
+        open={factToggled5}
+        onClose={() => setFactToggled5(false)}
+        title="It shouldn't matter that your favourite drink comes from a woman. But it does."
+        onContinue={() => {
+          setFactToggled5(false);
+          dispatch(addWine(value));
+          window.fullpage_api.moveSectionDown();
+        }}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
+        </p>
+      </MobileFactDialog>
       {/* END NAVIGATION FACT */}
 
       {/* DESKTOP VERSION */}
-      <div className="flex h-[92vh] md:h-[95vh] pb-20 lg:pb-0 overflow-y-auto">
+      <div data-quiz-pane className="flex h-[92vh] md:h-[95vh] pb-20 lg:pb-0 overflow-y-auto">
         <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
           <FactCard link="#">
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
@@ -231,6 +151,8 @@ const QuestionFive = () => {
         <div className="flex flex-col items-center justify-center  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 sm:gap-y-6 lg:gap-y-8">
           {" "}
           <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -332,6 +254,16 @@ const QuestionFive = () => {
         </div>
         <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6"></div>
       </div>
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={() => {
+          if (value !== "") setFactToggled5(true);
+        }}
+        canContinue={value !== ""}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };

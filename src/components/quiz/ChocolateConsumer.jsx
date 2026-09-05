@@ -11,6 +11,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addChocolate } from "../../slices/ChocolateConsumerSlice";
 import QuizNavigation from "../QuizNavigation";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 
 const ChocolateConsumer = () => {
   const dispatch = useDispatch();
@@ -105,121 +107,39 @@ const ChocolateConsumer = () => {
       {" "}
       <div className={`${styles.boxWidth} h-full z-0 mx-auto`}>
         {/* NAVIGATION */}
-        <div>
-          <div className="hidden lg:block">
-            <QuizNavigation
-              navigateNext={navigateNext}
-              navigatePrev={navigatePrev}
-              value={value}
-            />
-          </div>
-          <div
-            className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
-          >
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-ft-dark-green  h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={navigatePrev}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5 rotate-180"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={() => {
-                if (value !== "") {
-                  setFactToggled3(!factToggled3);
-                }
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-        {/* END NAVIGATION */}
+      <div className="hidden lg:block">
+        <QuizNavigation
+          navigateNext={navigateNext}
+          navigatePrev={navigatePrev}
+          value={value}
+        />
+      </div>
+      {/* END NAVIGATION */}
         {/* NAVIGATION FACT */}
-        <div className="lg:hidden ">
-          <div
-            className={
-              factToggled3
-                ? `absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-20 w-72 mt-6 xs:!mt-0`
-                : `absolute  top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-20 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
-            }
-          >
-            <div className="">
-              <div
-                onClick={() => {
-                  setFactToggled3(!factToggled3);
-                }}
-                className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white flex absolute left-1 top-1 rounded-lg font-exo text-lg "
-              >
-                x
-              </div>
-              <div className="mb-4 ">
-                <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                  Like taking chocolate from a baby - literally.
-                </h3>
-                <p className="font-exo sm:text-sm text-xs mb-2">
-                  You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
-                </p>
-                <p className="font-exo sm:text-xs text-xs italic text-gray-600">
-                  NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC.
-                </p>
-                <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
-                  U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB).
-                </p>
-              </div>
-              <div className="flex justify-center mt-4">
-                <button
-                  className="bg-ft-dark-green text-white px-4 py-2 rounded-md shadow-lg font-exo text-base w-full"
-                  onClick={() => {
-                    window.fullpage_api.moveSectionDown(); // Move to the next slide
-                    dispatch(addChocolate(value));
-                    setFactToggled3(false); // Close the popup after navigating
-                  }}
-                >
-                  Go to Next Question
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* END NAVIGATION FACT */}
+      <MobileFactDialog
+        open={factToggled3}
+        onClose={() => setFactToggled3(false)}
+        title="Like taking chocolate from a baby - literally."
+        onContinue={() => {
+          setFactToggled3(false);
+          dispatch(addChocolate(value));
+          window.fullpage_api.moveSectionDown();
+        }}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB).
+        </p>
+      </MobileFactDialog>
+      {/* END NAVIGATION FACT */}
 
         {/* CONTENT SECTION */}
-        <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0 overflow-y-auto">
+        <div data-quiz-pane className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0 overflow-y-auto">
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
@@ -239,6 +159,8 @@ const ChocolateConsumer = () => {
           <div className="flex flex-col items-center justify-center  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -331,6 +253,16 @@ const ChocolateConsumer = () => {
 
         {/* CONTENT SECTION */}
       </div>
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={() => {
+          if (value !== "") setFactToggled3(true);
+        }}
+        canContinue={value !== ""}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };

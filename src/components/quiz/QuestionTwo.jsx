@@ -7,6 +7,8 @@ import Slider from "../SliderOne";
 import { useSelector, useDispatch } from "react-redux";
 import { addFamiliar } from "../../slices/QTwoSlice";
 import QuizNavigation from "../QuizNavigation";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { TiArrowForward } from "react-icons/ti";
@@ -116,116 +118,33 @@ const QuestionTwo = () => {
   return (
     <div className={`${styles.boxWidth} z-0 h-full`}>
       {/* quiz nav */}
-      <div>
-        <div className="hidden lg:block">
-          <QuizNavigation
-            navigateNext={navigateNext}
-            navigatePrev={navigatePrev}
-            value={value}
-          />
-        </div>
-        <div
-          className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
-        >
-          <div
-            className={
-              value != ""
-                ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                : "bg-ft-dark-green  h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-            }
-            onClick={navigatePrev}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-5 h-5 rotate-180"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-          <div
-            className={
-              value != ""
-                ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                : "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-            }
-            onClick={() => {
-              if (value !== "") {
-                setFactToggled2(!factToggled2);
-              }
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-        </div>
+      <div className="hidden lg:block">
+        <QuizNavigation
+          navigateNext={navigateNext}
+          navigatePrev={navigatePrev}
+          value={value}
+        />
       </div>
-
       {/* end quiz nav */}
 
       {/* NAVIGATION FACT */}
-      <div className="lg:hidden">
-        <div
-          className={
-            factToggled2
-              ? `absolute top-1/2  right-1/2 -translate-y-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-50 w-72 mt-6 xs:!mt-0`
-              : `absolute  top-1/2  right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-50 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
-          }
-        >
-          <div className="">
-            <div
-              onClick={() => {
-                setFactToggled2(!factToggled2);
-              }}
-              className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white flex absolute left-1 top-1 rounded-lg font-exo text-lg "
-            >
-              x
-            </div>
-            <div className="mb-4">
-              <h3 className="font-alegreya sm:text-2xl border-l-2  border-ft-blue pl-2 mb-4">
-                Do you know what a farm worker earns per month in Kenya?
-              </h3>
-              <p className="font-exo sm:text-sm text-xs mb-2">
-                There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
-              </p>
-              <p className="font-exo sm:text-xs text-xs mt-2 italic text-gray-600">
-                (Source: Kenya Labour Market Profile 2024/2025)
-              </p>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-ft-dark-green text-white px-4 py-2 rounded-md shadow-lg font-exo text-base w-full"
-                onClick={() => {
-                  window.fullpage_api.moveSectionDown();
-                  dispatch(addFamiliar(value)); // Move to the next slide
-                  setFactToggled2(false); // Close the popup after navigating
-                }}
-              >
-                Go to Next Question
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileFactDialog
+        open={factToggled2}
+        onClose={() => setFactToggled2(false)}
+        title="Do you know what a farm worker earns per month in Kenya?"
+        onContinue={() => {
+          setFactToggled2(false);
+          dispatch(addFamiliar(value));
+          window.fullpage_api.moveSectionDown();
+        }}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          (Source: Kenya Labour Market Profile 2024/2025)
+        </p>
+      </MobileFactDialog>
       {/* END NAVIGATION FACT */}
       {/* CONTENT SEVTION */}
       <div className="flex h-full relative w-full">
@@ -258,10 +177,12 @@ const QuestionTwo = () => {
           </FactCard>
           <SlideTwoChar value={value} />
         </div>
-        <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] w-full overflow-y-auto">
+        <div data-quiz-pane className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] w-full overflow-y-auto">
           <div className="flex flex-col items-center justify-center  flex-initial w-full  lg:w-4/5  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -381,6 +302,16 @@ const QuestionTwo = () => {
           </div>
         </div>
       )}
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={() => {
+          if (value !== "") setFactToggled2(true);
+        }}
+        canContinue={value !== ""}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { goShopping } from "../../slices/QSixSlice";
 import { goFTShopping } from "../../slices/QSixSliceRefined";
 import QuizNavigation from "../QuizNavigation";
+import MobileQuizNav from "../MobileQuizNav";
 import { motion } from "framer-motion";
 
 const QuestionSix = () => {
@@ -54,7 +55,12 @@ const QuestionSix = () => {
     window.fullpage_api.moveSectionUp();
   };
   const navigateNext = (event) => {
-    if (!refinePrompt && shopArray.length > 0) {
+    // Question 6 requires at least one product. The previous `else` branch
+    // advanced the quiz whatever the cart contained, so an empty cart skipped
+    // straight past without ever dispatching a selection.
+    if (shopArray.length === 0) return;
+
+    if (!refinePrompt) {
       setRefinePrompt(true);
     } else {
       window.fullpage_api.moveSectionDown();
@@ -266,17 +272,22 @@ const QuestionSix = () => {
 
       {/*END CART */}
       {/* NAVIGATION */}
-      <QuizNavigation
-        navigateNext={navigateNext}
-        navigatePrev={navigatePrev}
-        value={allowNext}
-      />
+      <div className="hidden lg:block">
+        <QuizNavigation
+          navigateNext={navigateNext}
+          navigatePrev={navigatePrev}
+          value={allowNext}
+        />
+      </div>
       {/*END NAVIGATION */}
 
       {/* DESKTOP VERSION */}
-      <div className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-center gap-y-1 sm:gap-y-1 lg:gap-y-2">
+      <div data-quiz-pane className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-center gap-y-1 sm:gap-y-1 lg:gap-y-2">
         <div className=" flex flex-col md:flex-row items-center justify-center h-full flex-initial md:w-1/5 pt-8 md:pt-12 lg:pt-16 2xl:pt-20">
-          <h2 className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl verticle-text">
+          <h2
+            data-quiz-heading
+            tabIndex={-1}
+            className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl verticle-text">
             Let's do a quick shop!
           </h2>
           <p className="font-alegreya 2xl:text-4xl text-2xl sm:text-3xl md:text-2xl verticle-text">
@@ -393,6 +404,14 @@ const QuestionSix = () => {
       </div> */}
 
       {/*END MOBILE VERSION */}
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={navigateNext}
+        canContinue={shopArray.length > 0}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };

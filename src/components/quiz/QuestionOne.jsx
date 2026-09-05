@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addProvince } from "../../slices/QOneSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapSection } from "../map/map-section";
-import { data } from "../map/data";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 
 const QuestionOne = ({}) => {
   const [value, setValue] = useState("");
@@ -34,7 +35,7 @@ const QuestionOne = ({}) => {
       {/* NAVIGATION */}
 
       <div
-        className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 md:-translate-y-[15%]`}
+        className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 md:-translate-y-[15%] desktop:hidden hidden lg:block`}
       >
         <div className="relative">
           <div className="absolute right-0 -top-52 buttonNotice-mobile  buttonNotice">
@@ -118,62 +119,41 @@ const QuestionOne = ({}) => {
       {/* END NAVIGATION */}
 
       {/* NAVIGATION FACT */}
-      <div className="md:hidden">
-        <div
-          className={
-            factToggled1
-              ? `fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4`
-              : `fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none`
-          }
-        >
-          <div className="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4 max-h-[80vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="font-alegreya text-lg sm:text-xl border-l-2 border-ft-blue pl-2 flex-1">
-                  This isn't about farmers vs farm workers.
-                </h3>
-                <button
-                  onClick={() => {
-                    setFactToggled1(!factToggled1);
-                  }}
-                  className="ml-4 bg-ft-dark-green text-white w-8 h-8 rounded-full flex items-center justify-center font-exo text-lg touch-manipulation min-h-[44px] min-w-[44px]"
-                  aria-label="Close fact"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="mb-6">
-                <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-                  It's about you. Everyone in the supply chain deserves fairness - from the people growing the crop to those harvesting it. When you choose products with the Fairtrade Mark, you back sustainable farming, decent work, and fair relationships across the chain - farmers, farm workers, and buyers alike.
-                </p>
-                <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-                  Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025. Copenhagen: The Danish Trade Union Council for International Development Cooperation (DTUC).
-                </p>
-              </div>
-              <button
-                className="bg-ft-dark-green text-white px-6 py-3 rounded-md shadow-lg font-exo text-base w-full touch-manipulation min-h-[44px]"
-                onClick={() => {
-                  window.fullpage_api.moveSectionDown(); // Move to the next slide
-                  dispatch(addProvince(value));
-                  setFactToggled1(false); // Close the popup after navigating
-                }}
-              >
-                Go to Next Question
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileFactDialog
+        open={factToggled1}
+        onClose={() => setFactToggled1(false)}
+        title="This isn't about farmers vs farm workers."
+        onContinue={() => {
+          setFactToggled1(false);
+          dispatch(addProvince(value));
+          window.fullpage_api.moveSectionDown();
+        }}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          It's about you. Everyone in the supply chain deserves fairness - from
+          the people growing the crop to those harvesting it. When you choose
+          products with the Fairtrade Mark, you back sustainable farming, decent
+          work, and fair relationships across the chain - farmers, farm workers,
+          and buyers alike.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025.
+          Copenhagen: The Danish Trade Union Council for International
+          Development Cooperation (DTUC).
+        </p>
+      </MobileFactDialog>
       {/* END NAVIGATION FACT */}
 
       {/* CONTENT */}
       <div className="h-full w-full flex flex-col md:flex-row">
         <div className="flex items-center justify-center md:justify-start h-full md:flex-initial md:w-1/4">
           <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
             initial={{ opacity: 0, y: 300 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="font-alegreya text-[clamp(20px,5vw,28px)] xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight pt-3 xs:pt-5 lg:pt-12 2xl:pt-16"
+            className="font-alegreya text-[clamp(20px,5vw,28px)] xs:text-6xl sm:text-7xl lg:text-7xl desktop:text-8xl fhd:text-9xl 2xl:text-9xl text-center md:text-left max-w-xs sm:max-w-xl md:max-w-[20rem] px-4 leading-tight pt-3 xs:pt-5 lg:pt-12 2xl:pt-16"
           >
             Where do you live in Kenya?
           </motion.h2>
@@ -196,7 +176,7 @@ const QuestionOne = ({}) => {
         </AnimatePresence>
         
 
-        <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12 desktop:px-16 fhd:px-20">
           <MapSection
             width={500}
             height={500}
@@ -224,6 +204,15 @@ const QuestionOne = ({}) => {
       </div>
 
       {/* END CONTENT */}
+
+      <MobileQuizNav
+        onNext={() => {
+          if (value !== "") setFactToggled1(true);
+        }}
+        canContinue={value !== ""}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };

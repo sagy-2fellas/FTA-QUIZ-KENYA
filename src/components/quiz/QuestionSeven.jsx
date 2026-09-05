@@ -1,6 +1,8 @@
 import styles from "../../style";
 import FactCard from "../FactCard";
 import QuizNavigation from "../QuizNavigation";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 import SliderRight from "../svg/SliderRightIcon";
 import SliderLeft from "../svg/SliderLeftIcon";
 import Slider from "../SliderTwo";
@@ -384,121 +386,31 @@ ensure I’m buying ethically`,
       </div>
 
       <div className={`${styles.boxWidth} z-0 h-full mx-auto relative`}>
-        <div>
-          <div
-            className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
-          >
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-ft-dark-green  h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={navigatePrev}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5 rotate-180"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={() => {
-                if (value !== "") {
-                  setFactToggled7(!factToggled7);
-                }
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        {/* <div
-          onClick={() => {
-            setFactToggled7(!factToggled7);
+        <MobileFactDialog
+          open={factToggled7}
+          onClose={() => setFactToggled7(false)}
+          title="Farms are disappearing."
+          continueLabel="View your results"
+          onContinue={() => {
+            setFactToggled7(false);
+            navigateNext();
           }}
-          className="cursor-pointer absolute left-0 top-1/2 -translate-y-1/2 "
         >
-          <span class="animate-ping  absolute inline-flex h-full w-full rounded-r-full bg-ft-blue opacity-75  "></span>
-          <span class="relative inline-flex rounded-r-full w-16 h-18 bg-ft-blue  flex-col items-center justify-center p-2 text-xs !pr-6 text-white ">
-            <span className="font-bold z-50">click</span>
-            <span className="font-bold z-50">for a</span>
-            <span className="font-bold z-50">fact!</span>
-          </span>
-        </div> */}
-        <div
-          className={
-            factToggled7
-              ? ` bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-20 w-72 lg:hidden absolute  top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 mt-6 xs:mt-0`
-              : ` bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-20 w-72 opacity-0 pointer-events-none lg:hidden absolute  top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 mt-6 xs:mt-0`
-          }
-        >
-          <div className="">
-            <div
-              onClick={() => {
-                setFactToggled7(!factToggled7);
-              }}
-              className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white flex absolute left-1 top-1 rounded-lg font-exo text-lg "
-            >
-              x
-            </div>
-            <div className="mb-4">
-              <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                Farms are disappearing.
-              </h3>
-              <p className="font-exo text-sm">
-                Kenya's vital ecosystems are under threat, endangering countless
-                species and the essential services they provide to farms. Simply
-                put, your favorite cup of Kenyan tea might not be around forever
-                if things don't change.
-              </p>
-              <p className="font-exo sm:text-xs text-xs mt-2">
-                World Wildlife Fund (WWF) (2010): Agriculture: Facts & Trends
-                South Africa, South Africa.
-              </p>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-ft-dark-green text-white px-4 py-2 rounded-md shadow-lg font-exo text-base w-full"
-                onClick={navigateNext}
-              >
-                View your results
-              </button>
-            </div>
-          </div>
-        </div>
+          <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+            Kenya's vital ecosystems are under threat, endangering countless
+            species and the essential services they provide to farms. Simply
+            put, your favorite cup of Kenyan tea might not be around forever if
+            things don't change.
+          </p>
+          <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+            World Wildlife Fund (WWF) (2010): Agriculture: Facts & Trends South
+            Africa, South Africa.
+          </p>
+        </MobileFactDialog>
 
         {/* end quiz nav */}
 
-        <div className="flex flex-col w-full justify-between h-[92vh] sm:h-[85vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0 overflow-y-auto">
+        <div data-quiz-pane className="flex flex-col w-full justify-between h-[92vh] sm:h-[85vh] lg:h-[95vh] 2xl:h-[90vh] pb-20 lg:pb-0 overflow-y-auto">
           <div className="flex lg:justify-between justify-center  w-full ">
             <div className="hidden lg:flex flex-initial w-1/5 pt-20 lg:pt-40 xl:pt-56">
               <FactCard link="#">
@@ -519,6 +431,8 @@ ensure I’m buying ethically`,
             </div>
             <div className="flex justify-center  h-full items-center">
               <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
                 initial={{ opacity: 0, y: -50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -572,6 +486,17 @@ ensure I’m buying ethically`,
           </div>
         </div>
       </div>
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={() => {
+          if (currentValue !== "") setFactToggled7(true);
+        }}
+        canContinue={currentValue !== ""}
+        continueLabel="See results"
+        nextAriaLabel="View your results"
+      />
+
     </div>
   );
 };

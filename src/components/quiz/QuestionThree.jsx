@@ -11,6 +11,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addCoffee } from "../../slices/QThreeSlice";
 import QuizNavigation from "../QuizNavigation";
+import MobileFactDialog from "../MobileFactDialog";
+import MobileQuizNav from "../MobileQuizNav";
 
 const QuestionThree = () => {
   const dispatch = useDispatch();
@@ -103,121 +105,39 @@ const QuestionThree = () => {
       {" "}
       <div className={`${styles.boxWidth} h-full z-0 mx-auto`}>
         {/* NAVIGATION */}
-        <div>
-          <div className="hidden lg:block">
-            <QuizNavigation
-              navigateNext={navigateNext}
-              navigatePrev={navigatePrev}
-              value={value}
-            />
-          </div>
-          <div
-            className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 space-y-2 lg:hidden`}
-          >
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-ft-dark-green  h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={navigatePrev}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5 rotate-180"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-            <div
-              className={
-                value != ""
-                  ? "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] cursor-pointer shadow-lg"
-                  : "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center touch-manipulation min-h-[44px] min-w-[44px] shadow-lg"
-              }
-              onClick={() => {
-                if (value !== "") {
-                  setFactToggled3(!factToggled3);
-                }
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={3}
-                stroke="white"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-        {/* END NAVIGATION */}
+      <div className="hidden lg:block">
+        <QuizNavigation
+          navigateNext={navigateNext}
+          navigatePrev={navigatePrev}
+          value={value}
+        />
+      </div>
+      {/* END NAVIGATION */}
         {/* NAVIGATION FACT */}
-        <div className="lg:hidden ">
-          <div
-            className={
-              factToggled3
-                ? `absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4 rounded-md shadow-lg z-20 w-72 mt-6 xs:!mt-0`
-                : `absolute  top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 bg-white px-4 pt-10 pb-4  rounded-md shadow-lg z-20 w-72 opacity-0 pointer-events-none mt-6 xs:!mt-0`
-            }
-          >
-            <div className="">
-              <div
-                onClick={() => {
-                  setFactToggled3(!factToggled3);
-                }}
-                className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white flex absolute left-1 top-1 rounded-lg font-exo text-lg "
-              >
-                x
-              </div>
-              <div className="mb-4 ">
-                <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                  Six-year-olds help keep your coffee cheap.
-                </h3>
-                <p className="font-exo sm:text-sm text-xs mb-2">
-                  In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
-                </p>
-                <p className="font-exo sm:text-xs text-xs italic text-gray-600">
-                  International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
-                </p>
-                <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
-                  International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
-                </p>
-              </div>
-              <div className="flex justify-center mt-4">
-                <button
-                  className="bg-ft-dark-green text-white px-4 py-2 rounded-md shadow-lg font-exo text-base w-full"
-                  onClick={() => {
-                    window.fullpage_api.moveSectionDown(); // Move to the next slide
-                    dispatch(addCoffee(value));
-                    setFactToggled3(false); // Close the popup after navigating
-                  }}
-                >
-                  Go to Next Question
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* END NAVIGATION FACT */}
+      <MobileFactDialog
+        open={factToggled3}
+        onClose={() => setFactToggled3(false)}
+        title="Six-year-olds help keep your coffee cheap."
+        onContinue={() => {
+          setFactToggled3(false);
+          dispatch(addCoffee(value));
+          window.fullpage_api.moveSectionDown();
+        }}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
+        </p>
+      </MobileFactDialog>
+      {/* END NAVIGATION FACT */}
 
         {/* CONTENT SECTION */}
-        <div className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-10 lg:pb-0 overflow-y-auto">
+        <div data-quiz-pane className="flex h-[92vh] lg:h-[95vh] 2xl:h-[90vh] pb-10 lg:pb-0 overflow-y-auto">
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
@@ -237,6 +157,8 @@ const QuestionThree = () => {
           <div className="flex flex-col items-center justify-center  flex-initial w-full lg:w-3/5 2xl:w-4/6  gap-y-4 sm:gap-y-6 lg:gap-y-8">
             {" "}
             <motion.h2
+            data-quiz-heading
+            tabIndex={-1}
               initial={{ opacity: 0, y: 300 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -342,6 +264,16 @@ const QuestionThree = () => {
 
         {/* CONTENT SECTION */}
       </div>
+
+      <MobileQuizNav
+        onPrev={navigatePrev}
+        onNext={() => {
+          if (value !== "") setFactToggled3(true);
+        }}
+        canContinue={value !== ""}
+        nextAriaLabel="Continue to the next question"
+      />
+
     </div>
   );
 };
