@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../style";
 
 const NotFair = () => {
@@ -69,6 +69,78 @@ const NotFair = () => {
     }
   };
 
+  // The result pages mount their own ReactFullpage instance, whose keydown
+  // handler calls preventDefault() on Tab, Enter and Space. On the signup form
+  // that means a keyboard user cannot Tab between First name, Last name, Email
+  // and the submit button, and cannot type a space in a text field.
+  //
+  // Same narrow remedy as the quiz page: shield only the keys fullpage breaks,
+  // only for this form's own controls, using stopPropagation (never
+  // preventDefault) so native browser behaviour is untouched.
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    const KEYS = new Set(["Tab", "Enter", " ", "Spacebar"]);
+    const shieldFormKeys = (event) => {
+      if (!KEYS.has(event.key)) return;
+      const target = event.target;
+      if (!target || typeof target.closest !== "function") return;
+      const form = formRef.current;
+      if (!form || !form.contains(target)) return;
+      if (!target.matches("input, select, textarea, button")) return;
+      event.stopPropagation();
+    };
+    document.addEventListener("keydown", shieldFormKeys, true);
+    return () => document.removeEventListener("keydown", shieldFormKeys, true);
+  }, []);
+
+  // Android shrinks the viewport when the soft keyboard opens, which can leave
+  // the focused field behind it. Rather than guessing at the keyboard's
+  // animation with a timer, track the field that has focus and react to the
+  // actual viewport geometry changing.
+  const focusedFieldRef = useRef(null);
+
+  useEffect(() => {
+    const reveal = () => {
+      const el = focusedFieldRef.current;
+      if (!el || !el.isConnected) return;
+
+      const vv = window.visualViewport;
+      const rect = el.getBoundingClientRect();
+      // Without visualViewport, fall back to the layout viewport.
+      const visibleTop = vv ? vv.offsetTop : 0;
+      const visibleBottom = visibleTop + (vv ? vv.height : window.innerHeight);
+
+      if (rect.top < visibleTop || rect.bottom > visibleBottom) {
+        // "instant" so assertions never race a smooth-scroll animation.
+        el.scrollIntoView({ block: "center", behavior: "instant" });
+      }
+    };
+
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener("resize", reveal);
+      vv.addEventListener("scroll", reveal);
+    } else {
+      window.addEventListener("resize", reveal);
+    }
+
+    return () => {
+      if (vv) {
+        vv.removeEventListener("resize", reveal);
+        vv.removeEventListener("scroll", reveal);
+      } else {
+        window.removeEventListener("resize", reveal);
+      }
+    };
+  }, []);
+
+  const keepFocusedFieldVisible = (e) => {
+    focusedFieldRef.current = e.target;
+    // Reveal immediately too: focus can move without the viewport changing.
+    e.target.scrollIntoView({ block: "center", behavior: "instant" });
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -80,11 +152,11 @@ const NotFair = () => {
   };
 
   return (
-    <div className="relative z-50 h-screen w-screen">
-      <div className="bgResults5 h-full w-screen bg-cover bg-center absolute"></div>
-      <div className={`${styles.boxWidth} mx-auto h-full z-50`}>
-        <div className="flex justify-center items-center h-full ">
-          <div className=" flex flex-col justify-center items-center h-full">
+    <div className="relative z-50 min-h-[100dvh] w-full overflow-y-auto overscroll-contain">
+      <div className="bgResults5 h-full w-full bg-cover bg-center absolute"></div>
+      <div className={`${styles.boxWidth} mx-auto z-50`}>
+        <div className="flex justify-center items-start min-h-[100dvh] py-6 pb-[calc(24px+env(safe-area-inset-bottom))]">
+          <div className=" flex flex-col justify-center items-center w-full">
             <h1 className="font-alegreya 2xl:text-8xl xs:text-4xl text-2xl text-white">
               Life isn't fair.
             </h1>
@@ -93,6 +165,7 @@ const NotFair = () => {
             </p>
 
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="xs:mt-4 grid grid-cols-2 gap-3 sm:gap-4"
             >
@@ -101,8 +174,8 @@ const NotFair = () => {
                   type="checkbox"
                   onChange={handleCheckbox}
                   name="wouldBuy"
-                  className=" rounded-2xl "
-                  defaultChecked
+                  className=" rounded-2xl min-h-[20px] min-w-[20px]"
+                  checked={formData.wouldBuy}
                 />{" "}
                 <span className="pl-4 font-exo text-white sm:text-lg lg:text-2xl">
                   I would buy more Fairtrade-certified products if they were
@@ -127,8 +200,9 @@ const NotFair = () => {
                 id="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
+                onFocus={keepFocusedFieldVisible}
                 required
-                className="col-span-1 sm:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
+                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="First name"
               />
               <label htmlFor="lastName" className="sr-only">
@@ -140,8 +214,9 @@ const NotFair = () => {
                 id="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
+                onFocus={keepFocusedFieldVisible}
                 required
-                className="col-span-1 sm:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
+                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="Last name"
               />
               <label htmlFor="email" className="sr-only">
@@ -153,6 +228,7 @@ const NotFair = () => {
                 id="email"
                 value={formData.email}
                 onChange={handleChange}
+                onFocus={keepFocusedFieldVisible}
                 required
                 className="col-span-2 sm:col-span-2 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="Email address"
