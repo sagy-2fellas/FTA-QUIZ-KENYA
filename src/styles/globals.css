@@ -658,7 +658,7 @@ a {
 /* Mobile fixes for quiz layout */
 @media screen and (max-width: 768px) {
   .fp-section {
-    padding-top: 50px !important;
+    padding-top: var(--quiz-header-h) !important;
   }
 
   .quiz-nav {
@@ -711,4 +711,195 @@ a {
   max-height: -webkit-fill-available;
 }
 
+/* ============================================================
+   MOBILE USABILITY (P0)
+   `quiz-mobile` is set on <html> by src/pages/quiz.jsx whenever
+   width < 640px or height < 700px. Desktop is untouched.
+   ============================================================ */
 
+:root {
+  /* Measured at runtime from .quiz-nav; the value here is only a
+     pre-hydration fallback so content is never hidden on first paint. */
+  --quiz-header-h: 68px;
+  --quiz-safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* --- Native vertical scrolling on small screens -------------- */
+.quiz-mobile,
+.quiz-mobile body {
+  height: auto !important;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Neutralise fullpage.js height/transform management. With
+   autoScrolling={false} fullpage still writes inline styles on the
+   wrapper; these keep sections in normal document flow. */
+.quiz-mobile #fullpage,
+.quiz-mobile .fp-section,
+.quiz-mobile .section {
+  height: auto !important;
+  max-height: none !important;
+  transform: none !important;
+}
+
+.quiz-mobile .section {
+  /* 100dvh, not 100vh: excludes the visible address bar. */
+  min-height: calc(100dvh - var(--quiz-header-h)) !important;
+  padding-top: var(--quiz-header-h) !important;
+  /* Room for the pinned navigation bar. */
+  padding-bottom: calc(96px + var(--quiz-safe-bottom)) !important;
+  box-sizing: border-box;
+  display: block !important;
+  overflow: visible !important;
+}
+
+/* Sections lay out from the top on mobile; vertical centring is what
+   pushed headings above the fold on 480px-tall screens. */
+.quiz-mobile .section > * {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+/* Any inner pane that opted into its own scroll container must not
+   trap the page scroll on mobile. */
+.quiz-mobile .section [data-quiz-pane] {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-bottom: 0 !important;
+}
+
+/* scrollOverflow wraps section content in .fp-overflow; on mobile that
+   inner scroller must not compete with the page scroll. */
+.quiz-mobile .fp-overflow {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.quiz-mobile #fp-nav {
+  display: none !important;
+}
+
+/* No horizontal overflow at any of the target widths. */
+.quiz-mobile #__next,
+.quiz-mobile #fullpage {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* --- Mobile question navigation ------------------------------
+   `position: sticky` is not enough here: the nav is the last child of its
+   wrapper, so on a section taller than the viewport it simply sits at the end
+   of the content — on a 320x480 screen that left Continue ~30px below the fold
+   with no way to scroll further. Pin the active section's nav to the viewport
+   instead, and reserve matching space in the section so it never covers
+   content. Only the active section's nav is rendered, so the eight copies
+   cannot stack on top of each other. */
+.quiz-mobile .section .quiz-mobile-nav {
+  display: none;
+}
+
+.quiz-mobile .section.active .quiz-mobile-nav {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  padding-bottom: var(--quiz-safe-bottom);
+  background: linear-gradient(to top, #f2f2f2 82%, rgba(242, 242, 242, 0));
+}
+
+/* --- Shared mobile fact dialog ------------------------------- */
+.quiz-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  /* Sits below the fixed quiz header, and never centres with a
+     translate that can push the top of a tall panel off-screen. */
+  padding: calc(var(--quiz-header-h) + 12px) 16px calc(12px + var(--quiz-safe-bottom));
+  overscroll-behavior: contain;
+}
+
+.quiz-dialog-panel {
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 32px);
+  max-width: 384px;
+  max-height: calc(100dvh - var(--quiz-header-h) - 24px);
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.quiz-dialog-head,
+.quiz-dialog-foot {
+  position: sticky;
+  flex: 0 0 auto;
+  background: #fff;
+  z-index: 1;
+}
+
+.quiz-dialog-head { top: 0; }
+.quiz-dialog-foot {
+  bottom: 0;
+  border-top: 1px solid #e5e7eb;
+  padding-bottom: var(--quiz-safe-bottom);
+}
+
+.quiz-dialog-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- Entrance animation must never gate essential content ----
+   Question headings, the selected-answer bubble and the maps were only
+   revealed by framer-motion's `whileInView`. Anything that delays or blocks
+   the IntersectionObserver (a backgrounded tab, a slow low-end device, an
+   assistive-tech context) left the user on a blank screen with nothing but a
+   disabled arrow. On mobile the content is visible from first paint and the
+   animation, where it still runs, is purely additive.
+   Scoped to the elements themselves, never their descendants, so SVG
+   `transform` attributes (e.g. the Kenya map markers) are untouched. */
+.quiz-mobile .section h2,
+.quiz-mobile .section h3,
+.quiz-mobile .section .message-box,
+.quiz-mobile .quiz-map {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* --- Focus visibility (was suppressed by the reset) ---------- */
+.quiz-mobile :focus-visible,
+.quiz-dialog-panel :focus-visible {
+  outline: 3px solid #00b2e2;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Low-cost Android: honour reduced motion ----------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
