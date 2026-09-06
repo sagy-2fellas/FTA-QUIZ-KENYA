@@ -10,56 +10,80 @@ const tagManagerArgs = {
   gtmId: "GTM-KB2G5XF",
 };
 
+/**
+ * Analytics load ONLY in the production deployment.
+ *
+ * Every environment shares one set of production IDs (GTM-KB2G5XF, Facebook
+ * Pixel 368869985423322, Clarity tmm5h0wrk6, Lucky Orange 47375252), so a
+ * preview URL or a local dev server was writing straight into live reporting
+ * and feeding the Pixel's retargeting audiences with test traffic.
+ *
+ * Vercel sets NEXT_PUBLIC_VERCEL_ENV to "production" only for deployments of
+ * the production branch; previews get "preview" and local dev gets undefined.
+ * Production therefore keeps working with no configuration change, while
+ * previews and local runs are silent by default.
+ *
+ * Set NEXT_PUBLIC_ENABLE_ANALYTICS="true" to force tracking on somewhere else
+ * (deliberately verifying a preview, say).
+ */
+const ANALYTICS_ENABLED =
+  process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === "true" ||
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
-    TagManager.initialize(tagManagerArgs);
+    if (ANALYTICS_ENABLED) TagManager.initialize(tagManagerArgs);
 
     // Initialize social media browser fixes (Instagram, Facebook, TikTok, etc. on iOS)
     initInstagramFixes();
   }, []);
   return (
     <Provider store={store}>
-      <Script
-        strategy="afterInteractive"
-        src="https://tools.luckyorange.com/core/lo.js?site-id=47375252"
-      ></Script>
-      <Script
-        id="clarity"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-        (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "tmm5h0wrk6");
-      `,
-        }}
-      />
-      <Script
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-   !function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '368869985423322');
-fbq('track', 'PageView');
-  `,
-        }}
-      />
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          src="https://www.facebook.com/tr?id=368869985423322&ev=PageView&noscript=1"
+      {ANALYTICS_ENABLED ? (
+        <>
+        <Script
+          strategy="afterInteractive"
+          src="https://tools.luckyorange.com/core/lo.js?site-id=47375252"
+        ></Script>
+        <Script
+          id="clarity"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "tmm5h0wrk6");
+        `,
+          }}
         />
-      </noscript>
+        <Script
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+     !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '368869985423322');
+  fbq('track', 'PageView');
+    `,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            src="https://www.facebook.com/tr?id=368869985423322&ev=PageView&noscript=1"
+          />
+        </noscript>
+        </>
+      ) : null}
       <Component {...pageProps} />
       <style global jsx>{`
         @font-face {
