@@ -122,7 +122,7 @@ test.describe('Microsoft Clarity', () => {
     console.log(`Clarity requests: ${clarityRequests.length}`);
   });
 
-  test('should have Clarity project ID tmm5h0wrk6', async ({ page }) => {
+  test('should have Clarity project ID ywrznolso9', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
@@ -137,7 +137,7 @@ test.describe('Microsoft Clarity', () => {
     const clarityScripts = [];
 
     page.on('response', response => {
-      if (response.url().includes('clarity.ms/tag/tmm5h0wrk6')) {
+      if (response.url().includes('clarity.ms/tag/ywrznolso9')) {
         clarityScripts.push(response.url());
       }
     });

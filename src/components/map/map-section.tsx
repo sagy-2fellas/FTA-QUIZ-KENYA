@@ -149,9 +149,9 @@ export const MapSection = ({
   }, [geo, selectedId]);
 
   return (
-    <div className="w-full max-w-[500px] mx-auto">
+    <div className="w-full max-w-[500px] mx-auto flex flex-col">
       <div
-        className="relative w-full"
+        className="relative w-full order-2 md:order-1"
         style={{ aspectRatio: VIEWBOX_WIDTH + " / " + VIEWBOX_HEIGHT }}
       >
         {status === "loading" && (
@@ -192,7 +192,7 @@ export const MapSection = ({
             viewBox={"0 0 " + VIEWBOX_WIDTH + " " + VIEWBOX_HEIGHT}
             preserveAspectRatio="xMidYMid meet"
             role="img"
-            aria-label="Map of Kenya. Use the region list below to choose your region."
+            aria-label="Map of Kenya. Use the region list to choose your region."
           >
             {shapes}
             {marker}
@@ -202,7 +202,7 @@ export const MapSection = ({
 
       {/* Always present: the map alone is not operable by keyboard or TalkBack,
           and this is also the fallback when the GeoJSON fails to load. */}
-      <div className="mt-3 px-2">
+      <div className="order-1 md:order-2 mb-3 md:mb-0 md:mt-3 px-2">
         <label
           htmlFor="kenya-region"
           className="block font-exo text-sm mb-1 text-black"

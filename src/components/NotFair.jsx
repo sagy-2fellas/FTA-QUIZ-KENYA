@@ -152,7 +152,7 @@ const NotFair = () => {
   };
 
   return (
-    <div className="relative z-50 min-h-[100dvh] w-full overflow-y-auto overscroll-contain">
+    <div className="results-signup relative z-50 min-h-[100dvh] w-full overflow-y-auto overscroll-contain">
       <div className="bgResults5 h-full w-full bg-cover bg-center absolute"></div>
       <div className={`${styles.boxWidth} mx-auto z-50`}>
         <div className="flex justify-center items-start min-h-[100dvh] py-6 pb-[calc(24px+env(safe-area-inset-bottom))]">
@@ -198,11 +198,12 @@ const NotFair = () => {
                 type="text"
                 name="firstName"
                 id="firstName"
+                autoComplete="given-name"
                 value={formData.firstName}
                 onChange={handleChange}
                 onFocus={keepFocusedFieldVisible}
                 required
-                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
+                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white min-h-[44px] py-2 px-4 sm:px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="First name"
               />
               <label htmlFor="lastName" className="sr-only">
@@ -212,11 +213,12 @@ const NotFair = () => {
                 type="text"
                 name="lastName"
                 id="lastName"
+                autoComplete="family-name"
                 value={formData.lastName}
                 onChange={handleChange}
                 onFocus={keepFocusedFieldVisible}
                 required
-                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
+                className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white min-h-[44px] py-2 px-4 sm:px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="Last name"
               />
               <label htmlFor="email" className="sr-only">
@@ -226,27 +228,29 @@ const NotFair = () => {
                 type="email"
                 name="email"
                 id="email"
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
                 onFocus={keepFocusedFieldVisible}
                 required
-                className="col-span-2 sm:col-span-2 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
+                className="col-span-2 sm:col-span-2 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white min-h-[44px] py-2 px-4 sm:px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="Email address"
               />
 
               <div className="col-span-2">
-                <label htmlFor="iAm" className="sr-only">
-                  I am...
+                <label htmlFor="iAm" className="block mb-2 font-exo text-base font-semibold text-white">
+                  Which best describes you?
                 </label>
+                <div className="signup-select-wrap">
                 <select
                   name="iAm"
                   id="iAm"
                   value={formData.iAm}
                   onChange={handleChange}
-                  className="w-full border rounded-2xl font-exo border-black bg-white py-1 sm:py-2 px-8 sm:text-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="signup-select w-full min-h-[48px] border rounded-2xl font-exo border-black bg-white py-2 px-4 sm:text-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
-                  <option value="" disabled selected hidden>
-                    I am...
+                  <option value="" disabled hidden>
+                    Select an option
                   </option>
                   <option value="individual-interested">
                     I'm an individual interested in learning more about
@@ -262,18 +266,24 @@ const NotFair = () => {
                     I'm an individual representing a business.
                   </option>
                 </select>
+                <span className="signup-select-arrow" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false">
+                    <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                </div>
               </div>
 
               <div className="xs:mt-3 rounded-md col-span-2">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full border shadow-xl rounded-2xl border-white text-white xs:py-2 px-4 md:px-10 text-2xl font-alegreya bg-ft-blue"
+                  className="w-full min-h-[48px] border shadow-xl rounded-2xl border-white text-white xs:py-2 px-4 md:px-10 text-2xl font-alegreya bg-ft-blue"
                 >
                   {loading ? "Submitting..." : "Take me to the giveaway"}
                 </button>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                {success && <p style={{ color: "green" }}>Success</p>}
+                {error && <p role="alert" className="mt-2 rounded-md bg-white px-3 py-2 font-exo text-red-700">{error}</p>}
+                {success && <p role="status" className="mt-2 rounded-md bg-white px-3 py-2 font-exo text-green-800">Success</p>}
               </div>
               <span className="font-exo text-ft-light-green !w-full text-center col-span-2">
                 (Only good stuff, no spam. Promise!)

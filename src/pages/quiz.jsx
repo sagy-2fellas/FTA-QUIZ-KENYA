@@ -30,7 +30,7 @@ const useShareableState = () => {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerHeight < 700 || window.innerWidth < 640);
+      setIsSmallScreen(window.innerHeight < 700 || window.innerWidth < 1200);
     };
 
     checkScreenSize();
@@ -176,7 +176,13 @@ const FullpageWrapper = () => {
             const active = document.querySelector(".section.active");
             // `origin` is undefined on first load, where moving focus would be
             // unexpected; isolation still applies.
-            if (!origin || !active) return;
+            if (!active) return;
+            // Tall questions must enter at their top, not at fullpage's
+            // bottom-aligned position that can hide the question title.
+            if (isSmallScreen) {
+              window.scrollTo({ top: window.scrollY + active.getBoundingClientRect().top, behavior: "instant" });
+            }
+            if (!origin) return;
             const heading = active.querySelector("[data-quiz-heading]");
             // preventScroll: fullpage owns the scroll position at this point.
             heading?.focus({ preventScroll: true });
@@ -251,7 +257,13 @@ const useQuizChrome = (isSmallScreen) => {
     const node = headerRef.current;
     if (!node) return undefined;
 
+    const headings = [...document.querySelectorAll("[data-quiz-heading]")];
     const measure = () => {
+      headings.forEach((heading) => {
+        heading.closest(".section")?.style.setProperty(
+          "--question-heading-h", `${Math.ceil(heading.getBoundingClientRect().height)}px`
+        );
+      });
       const height = Math.ceil(node.getBoundingClientRect().height);
       if (height > 0) {
         document.documentElement.style.setProperty(
@@ -268,6 +280,7 @@ const useQuizChrome = (isSmallScreen) => {
         ? new ResizeObserver(measure)
         : null;
     observer?.observe(node);
+    headings.forEach((heading) => observer?.observe(heading));
     window.addEventListener("resize", measure);
     window.addEventListener("orientationchange", measure);
 

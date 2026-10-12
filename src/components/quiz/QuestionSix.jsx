@@ -7,13 +7,13 @@ import { goShopping } from "../../slices/QSixSlice";
 import { goFTShopping } from "../../slices/QSixSliceRefined";
 import QuizNavigation from "../QuizNavigation";
 import MobileQuizNav from "../MobileQuizNav";
+import MobileFactDialog from "../MobileFactDialog";
 import { motion } from "framer-motion";
 
 const QuestionSix = () => {
   const [shopArray, updateShopArray] = useState([]);
   const [refinedCart, updateRefinedCart] = useState([]);
   const [refineToggled, setRefineToggled] = useState(false);
-  const [filterComplete, setFilterComplete] = useState(false);
   const [refinePrompt, setRefinePrompt] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
 
@@ -44,11 +44,27 @@ const QuestionSix = () => {
   let allowNext = shopArray.length > 0 ? "enabled" : "";
 
   const selectProduct = (product) => {
-    updateShopArray((arr) => [...arr, `${product}`]);
+    updateShopArray((arr) =>
+      arr.includes(product) ? arr.filter((item) => item !== product) : [...arr, product]
+    );
   };
 
+  const mobileProducts = [
+    ["White Wine", setIsWhite, "white-wine"],
+    ["Red Wine", setIsRed, "red-wine"],
+    ["Rosé", setIsRose, "rose"],
+    ["Coffee Beans", setIsBeans, "coffee-beans"],
+    ["Ground Coffee", setIsGround, "ground-coffee"],
+    ["Black Tea", setIsBlack, "black-tea"],
+    ["Rooibos Tea", setIsRooibos, "rooibos-tea"],
+    ["Herbal Tea", setIsHerbal, "herbal-tea"],
+  ];
+
   const handleChange = (event) => {
-    updateRefinedCart((arr) => [...arr, `${event.target.name}`]);
+    const { name, checked } = event.target;
+    updateRefinedCart((arr) =>
+      checked ? [...new Set([...arr, name])] : arr.filter((item) => item !== name)
+    );
   };
 
   const navigatePrev = () => {
@@ -87,19 +103,12 @@ const QuestionSix = () => {
     // }
   };
 
-  const submitRefined = (event) => {
-    window.fullpage_api.moveSectionDown();
-    // setFilterComplete(!false);
+  const submitRefined = () => {
+    dispatch(goShopping(shopArray));
+    dispatch(goFTShopping(refinedCart.filter((item) => shopArray.includes(item))));
     setRefinePrompt(false);
     setRefineToggled(false);
-    event.preventDefault();
-    function removeDuplicates(refinedCart) {
-      return refinedCart.filter(
-        (item, index) => refinedCart.indexOf(item) === index
-      );
-    }
-    dispatch(goShopping(shopArray));
-    dispatch(goFTShopping(removeDuplicates(refinedCart)));
+    window.fullpage_api.moveSectionDown();
   };
 
   return (
@@ -143,11 +152,13 @@ const QuestionSix = () => {
           </button>
         </div>
       </div>
-      <div
+      <button
+        type="button"
+        aria-label={`Shopping cart, ${shopArray.length} items`}
         onClick={() => {
           setToggleCart(!toggleCart);
         }}
-        className="shopping-cart w-12 h-12 xs:w-16 xs:h-16 shadow-lg rounded bg-white absolute right-4 bottom-4 sm:bottom-10 sm:right-10 z-40 "
+        className="shopping-cart hidden lg:block w-12 h-12 xs:w-16 xs:h-16 shadow-lg rounded bg-white absolute right-4 bottom-4 sm:bottom-10 sm:right-10 z-40 "
       >
         <div className="flex items-center justify-center relative w-full h-full">
           <div className="bg-ft-blue  rounded-full h-8 w-8 flex items-center justify-center  absolute top-[-36%] left-[-36%]">
@@ -170,10 +181,10 @@ const QuestionSix = () => {
             />
           </svg>
         </div>
-      </div>
+      </button>
       <div
         className={
-          refinePrompt || refineToggled || toggleCart
+          refinePrompt || toggleCart
             ? `bg-black absolute w-screen h-screen left-0 top-0 opacity-50 z-10`
             : "hidden"
         }
@@ -215,60 +226,37 @@ const QuestionSix = () => {
         </div>
       </div>
 
-      <div className={filterComplete === true ? "opacity-0" : ""}>
-        <div
-          className={
-            refineToggled === false
-              ? "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%] sm:w-[600px] md:sm:w-[700px] max-h-[80vh] overflow-y-auto p-2 xs:p-10 md:p-6 z-50 absolute pointer-events-none opacity-0 transition-all duration-100 mt-6 xs:mt-0"
-              : "bg-white rounded-lg shadow-lg  right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%]  sm:w-[600px] md:sm:w-[700px] max-h-[80vh] overflow-y-auto p-2 xs:p-10 md:p-6  z-50 absolute pointer-events-auto opacity-100 transition-all duration-1000 mt-6 xs:mt-0"
-          }
-        >
-          <h3 className="font-alegreya text-3xl text-black z-50">
-            Refine your selection
-          </h3>
-          <img
-            src="/img/fairtrade-mark.png"
-            className="lg:w-20 w-10 h-auto py-2 lg:py-5"
-            alt=""
-          />
-          <h3 className="font-alegreya  text-base lg:text-xl text-black z-50">
-            Remember this logo? It’s the Fairtrade logo. Check all the items you
-            usually buy that have it on the packaging. Be honest here! If you
-            don't know, don't tick any boxes – click submit!
-          </h3>
-          {shopArray === undefined ? (
-            ""
-          ) : (
-            <form
-              className="flex flex-col space-y-4 mt-6"
-              onSubmit={submitRefined}
-            >
-              {shopArray.map((x, i) => {
-                return (
-                  <label key={`${x}--${i}`} className="flex items-center cursor-pointer py-2 min-h-[44px]">
-                    <input
-                      name={x}
-                      type="checkbox"
-                      onChange={handleChange}
-                      className="w-5 h-5 min-w-[20px] min-h-[20px] cursor-pointer"
-                    />
-                    <span className="ml-3 text-sm lg:text-base flex-1">
-                      Some of my <span className="lowercase">{x}</span>{" "}
-                      {x === "Coffee Beans" ? "have" : "has"} this label
-                    </span>
-                  </label>
-                );
-              })}
-              <button
-                type="submit"
-                className="border mt-2 lg:!mt-10 rounded-2xl border-ft-blue text-white py-1 px-4 md:px-10 lg:text-2xl font-alegreya lg:w-full bg-ft-blue"
-              >
-                Submit
-              </button>
-            </form>
-          )}
+      <MobileFactDialog
+        open={refineToggled}
+        onClose={() => setRefineToggled(false)}
+        title="Refine your selection"
+        continueLabel="Submit"
+        onContinue={submitRefined}
+      >
+        <img src="/img/fairtrade-mark.png" width="48" height="57" alt="Fairtrade Mark" className="w-12 h-auto mb-3" />
+        <p className="font-exo text-sm leading-relaxed">
+          Remember this logo? It’s the Fairtrade logo. Check all the items you
+          usually buy that have it on the packaging. Be honest here! If you
+          don't know, don't tick any boxes – click submit!
+        </p>
+        <div className="flex flex-col mt-4 divide-y divide-gray-200">
+          {shopArray.map((product) => (
+            <label key={product} className="flex items-center cursor-pointer py-3 min-h-[44px] font-exo">
+              <input
+                name={product}
+                type="checkbox"
+                checked={refinedCart.includes(product)}
+                onChange={handleChange}
+                className="w-5 h-5 shrink-0 cursor-pointer accent-ft-blue"
+              />
+              <span className="ml-3 text-sm flex-1">
+                Some of my <span className="lowercase">{product}</span>{" "}
+                {product === "Coffee Beans" ? "have" : "has"} this label
+              </span>
+            </label>
+          ))}
         </div>
-      </div>
+      </MobileFactDialog>
 
       {/*END CART */}
       {/* NAVIGATION */}
@@ -283,7 +271,7 @@ const QuestionSix = () => {
 
       {/* DESKTOP VERSION */}
       <div data-quiz-pane className="flex flex-col md:flex-row w-full h-[90vh] sm:h-[95vh] justify-center gap-y-1 sm:gap-y-1 lg:gap-y-2">
-        <div className=" flex flex-col md:flex-row items-center justify-center h-full flex-initial md:w-1/5 pt-8 md:pt-12 lg:pt-16 2xl:pt-20">
+        <div className=" flex flex-col md:flex-row items-center justify-center h-full flex-initial md:w-1/5 pt-5 lg:pt-16 2xl:pt-20">
           <h2
             data-quiz-heading
             tabIndex={-1}
@@ -294,7 +282,36 @@ const QuestionSix = () => {
             Choose your favourites.
           </p>
         </div>
-        <div>
+        <div className="quiz-shop-shelves lg:hidden">
+          {[mobileProducts.slice(0, 3), mobileProducts.slice(3, 5), mobileProducts.slice(5)].map((shelf, index) => (
+            <div className="quiz-shop-shelf" key={index} style={{ gridTemplateColumns: `repeat(${shelf.length}, minmax(0, 1fr))` }}>
+              {shelf.map(([product, setSelected, artwork]) => {
+                const selected = shopArray.includes(product);
+                return (
+                  <button
+                    key={product}
+                    type="button"
+                    aria-label={product}
+                    aria-pressed={selected}
+                    onClick={() => {
+                      selectProduct(product);
+                      setSelected(!selected);
+                    }}
+                    className="quiz-shop-product"
+                  >
+                    <img src={`/img/shop/${artwork}.svg`} alt="" width="64" height="56" />
+                    <span>{product}</span>
+                    {selected && <svg className="quiz-shop-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" strokeWidth="3" /></svg>}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+          <p className="quiz-shop-count" aria-live="polite">
+            {shopArray.length ? `${shopArray.length} in your basket · Tap again to remove` : "Tap your favourites to fill your basket"}
+          </p>
+        </div>
+        <div className="hidden lg:block">
           {" "}
           <motion.div
             initial={{ opacity: 0, x: -300 }}

@@ -11,7 +11,9 @@ import { test, expect } from '@playwright/test';
  *   Email: marting@diatomic.com
  */
 
-test.describe('Kenya Klaviyo Real Submission Test', () => {
+// Legacy live Klaviyo test. It uses a fixed real address and must not run
+// against the Mailchimp route; use tests/mailchimp-api.test.mjs instead.
+test.describe.skip('Klaviyo Real Submission Test', () => {
 
   test('should submit real data to Klaviyo (Kenya)', async ({ page }) => {
     console.log('🚀 Starting real form submission test for Kenya...');

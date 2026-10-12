@@ -56,6 +56,11 @@ export default defineConfig({
       testMatch: /mobile-.*\.spec\.js/,
     },
     {
+      name: "tablet-1024x768",
+      use: { viewport: { width: 1024, height: 768 } },
+      testMatch: /mobile-.*\.spec\.js/,
+    },
+    {
       // Desktop must be untouched by the mobile keyboard shielding.
       name: "desktop-1280x800",
       use: { viewport: { width: 1280, height: 800 } },

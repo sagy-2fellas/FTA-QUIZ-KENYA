@@ -14,7 +14,7 @@ const tagManagerArgs = {
  * Analytics load ONLY in the production deployment.
  *
  * Every environment shares one set of production IDs (GTM-KB2G5XF, Facebook
- * Pixel 368869985423322, Clarity tmm5h0wrk6, Lucky Orange 47375252), so a
+ * Pixel 368869985423322, Clarity ywrznolso9, Lucky Orange 47375252), so a
  * preview URL or a local dev server was writing straight into live reporting
  * and feeding the Pixel's retargeting audiences with test traffic.
  *
@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "tmm5h0wrk6");
+          })(window, document, "clarity", "script", "ywrznolso9");
         `,
           }}
         />
@@ -93,7 +93,8 @@ function MyApp({ Component, pageProps }) {
         }
         @font-face {
           font-family: "Exo";
-          src: url("/fonts/Exo2-Bold.woff2") format("woff2");
+          src: url("/fonts/Exo2-Variable.ttf") format("truetype");
+          font-weight: 100 900;
           font-display: swap;
         }
       `}</style>{" "}

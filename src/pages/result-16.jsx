@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactFullpage from "@fullpage/react-fullpage";
+import ReactFullpage from "../components/ResultsFullpage";
+import MobileFactDialog from "../components/MobileFactDialog";
 import styles from "../style";
 import Head from "next/head";
 import NotFair from "../components/NotFair";
@@ -7,7 +8,7 @@ import Image from "next/image";
 
 const FullScreenSection = ({ children }) => {
   return (
-    <div className="section h-full flex items-center justify-center">
+    <div className="section result-section h-full flex items-center justify-center">
       {children}
     </div>
   );

@@ -190,14 +190,14 @@ const QuestionTwo = () => {
             >
               How familiar are you with this logo?
             </motion.h2>
-            <div className="grid lg:grid-cols-3 items-center gap-y-2 xs:gap-y-6">
-              <div className="lg:col-span-1 w-28 h-20 xs:h-full xs:w-full mx-auto">
+            <div className="grid lg:grid-cols-3 items-center gap-y-6">
+              <div className="lg:col-span-1 w-28 sm:w-36 lg:w-44 mx-auto">
                 <Image
                   src="/img/fairtrade-mark.png"
-                  height={150}
-                  width={300}
-                  alt="#"
-                  className="object-contain "
+                  height={981}
+                  width={824}
+                  alt="Fairtrade Mark"
+                  className="block w-full h-auto object-contain"
                 />
               </div>
               <div className="lg:col-span-2 mx-auto">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactFullpage from "@fullpage/react-fullpage";
+import ReactFullpage from "../components/ResultsFullpage";
+import MobileFactDialog from "../components/MobileFactDialog";
 import styles from "../style";
 import Head from "next/head";
 import NotFair from "../components/NotFair";
@@ -7,7 +8,7 @@ import Image from "next/image";
 
 const FullScreenSection = ({ children }) => {
   return (
-    <div className="section h-full flex items-center justify-center">
+    <div className="section result-section h-full flex items-center justify-center">
       {children}
     </div>
   );
@@ -80,32 +81,14 @@ const FullpageWrapper = () => {
             </FullScreenSection>
             <FullScreenSection>
               <div className=" z-50  w-screen h-full">
-                <div
-                  className={
-                    disclamerToggled
-                      ? `absolute left-0 lg:left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setDisclamerToggled(!disclamerToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute right-0 -top-[20%] lg:top-[-35%] xl:top-[-45%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p>
+                <MobileFactDialog open={disclamerToggled} onClose={() => setDisclamerToggled(false)} title="About Patrick"><div className="font-exo text-base leading-relaxed">
                       <span className="text-ft-blue">* </span>* Patrick isn’t a
                       real person. His story is based on the data around the
                       average Kenyan farm worker. He’s a face we’ve put to this
                       data to get you to care and start thinking Fair. He’s a
                       blend of all the people who grow and pick your coffee, tea
                       and wine.
-                    </p>
-                  </div>
-                </div>
+                    </div></MobileFactDialog>
                 <div className={` mx-auto h-full z-50 !px-0`}>
                   <div className="grid sm:grid-cols-2 h-full">
                     <div className="col-span-1 ">
@@ -160,23 +143,7 @@ const FullpageWrapper = () => {
                       </div>
                     </div>
 
-                    <div
-                      className={
-                        coffeeToggled
-                          ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-black py-10 px-4 lg:px-24 lg:py-24 rounded-xl shadow-2xl z-20 lg:mx-6 xl:mx-16 w-full lg:w-auto`
-                          : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                      }
-                    >
-                      <div className="relative">
-                        <span
-                          onClick={() => {
-                            setCoffeeToggled(!coffeeToggled);
-                          }}
-                          className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute lg:-right-[10%] lg:-top-[15%] -top-[5%] rounded-lg font-exo text-lg"
-                        >
-                          x
-                        </span>
-                        <p className="font-exo sm:text-xl pt-4 sm:pt-0">
+                    <MobileFactDialog open={coffeeToggled} onClose={() => setCoffeeToggled(false)} title="Your coffee"><div className="font-exo text-base leading-relaxed">
                           <span className="text-ft-blue text-2xl">
                             Patrick grows your morning caffeine fix.
                           </span>{" "}
@@ -197,18 +164,7 @@ const FullpageWrapper = () => {
                           </span>
                           That someone is you, every time you buy
                           Fairtrade-certified coffee.
-                        </p>
-                      </div>
-                      <div
-                        className={
-                          teaToggled || wineToggled || coffeeToggled
-                            ? "bg-black opacity-75 w-screen  z-10 absolute top-0 left-0"
-                            : ""
-                        }
-                      >
-                        {" "}
-                      </div>
-                    </div>
+                        </div></MobileFactDialog>
                   </div>
                 </div>
               </div>

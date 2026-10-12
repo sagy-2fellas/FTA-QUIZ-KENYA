@@ -7,7 +7,7 @@ An interactive quiz application that helps Kenyan users discover Fair Trade prod
 This Next.js application provides an engaging quiz experience for Kenyan consumers to:
 - Answer questions about their purchasing preferences
 - Receive personalized Fair Trade product recommendations
-- Enter a giveaway by subscribing via Klaviyo integration
+- Enter a giveaway by subscribing via Mailchimp integration
 - Learn about Fair Trade practices and impact in Kenya
 
 **Production URL**: https://fta-quiz-kenya.vercel.app
@@ -20,7 +20,7 @@ This Next.js application provides an engaging quiz experience for Kenyan consume
 - **Styling**: Tailwind CSS 3.1.8
 - **Animation**: Framer Motion 7.6.1
 - **Data Visualization**: D3.js 7.9.0
-- **Email Integration**: Klaviyo API
+- **Email Integration**: Mailchimp Marketing API
 - **Analytics**: Google Tag Manager
 - **Testing**: Playwright 1.56.0
 - **Deployment**: Vercel
@@ -29,7 +29,7 @@ This Next.js application provides an engaging quiz experience for Kenyan consume
 
 - Node.js 18.x or higher
 - npm or yarn
-- Klaviyo account with API key and list ID
+- Mailchimp account with Marketing API key and audience ID
 
 ## 🛠️ Getting Started
 
@@ -48,9 +48,9 @@ npm install
 Create a `.env.local` file in the root directory:
 
 ```bash
-# Klaviyo Configuration
-KLAVIYO_PRIVATE_API_KEY=pk_xxxxxxxxxxxxxxxxxxxxx
-KLAVIYO_LIST_ID_KE=xxxxxx
+# Mailchimp Configuration
+MAILCHIMP_API_KEY=your-key-us20
+MAILCHIMP_AUDIENCE_ID_KE=your-audience-id
 
 # Google Tag Manager (Optional)
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
@@ -81,7 +81,7 @@ ft-kenya-main/
 │   ├── components/          # React components
 │   ├── pages/              # Next.js pages (Pages Router)
 │   │   ├── api/           # API routes
-│   │   │   └── subscribe.js  # Klaviyo subscription endpoint
+│   │   │   └── subscribe.js  # Mailchimp subscription endpoint
 │   │   ├── result-[1-16].jsx  # Quiz result pages
 │   │   ├── quiz.jsx       # Main quiz page
 │   │   └── index.jsx      # Landing page
@@ -122,7 +122,7 @@ npm run test:debug
 
 ### Test Coverage
 
-- ✅ Klaviyo subscription flow
+- ✅ Mailchimp API route checks (`npm run test:mailchimp`)
 - ✅ Form validation
 - ✅ Duplicate email handling
 - ✅ Quiz completion flow
@@ -141,8 +141,8 @@ This project is automatically deployed to Vercel on push to `main` branch.
 
 Set these in Vercel Project Settings → Environment Variables:
 
-1. `KLAVIYO_PRIVATE_API_KEY` - Your Klaviyo private API key
-2. `KLAVIYO_LIST_ID_KE` - Your Klaviyo list ID for Kenya
+1. `MAILCHIMP_API_KEY` - Server-side Mailchimp Marketing API key
+2. `MAILCHIMP_AUDIENCE_ID_KE` - Mailchimp audience ID for Kenya
 3. `NEXT_PUBLIC_GTM_ID` (optional) - Google Tag Manager ID
 
 ### Manual Deployment
@@ -166,12 +166,11 @@ vercel --prod
 - Customized product recommendations
 - Tailored messaging based on answers
 
-### Klaviyo Integration
-- Email subscription handling
-- Quiz data sync to Klaviyo
-- Duplicate email handling
-- Custom profile properties
-- Kenya-specific list management
+### Mailchimp Integration
+- Email and name saved to the Kenya audience
+- Quiz answers stored in contact notes
+- Region and quiz tags added for segmentation
+- Existing unsubscribed contacts keep their status
 
 ### Data Visualization
 - D3.js integration for interactive charts
@@ -187,7 +186,7 @@ vercel --prod
 
 ### POST /api/subscribe
 
-Handles email subscriptions to Klaviyo.
+Handles quiz signups in Mailchimp.
 
 **Request Body**:
 ```json
@@ -205,16 +204,17 @@ Handles email subscriptions to Klaviyo.
 **Response**:
 ```json
 {
-  "success": true,
-  "message": "Successfully subscribed to the giveaway!"
+  "success": true
 }
 ```
 
-See [docs/klaviyo-integration.md](docs/klaviyo-integration.md) for detailed API documentation.
+See [docs/mailchimp-integration.md](docs/mailchimp-integration.md) for current setup and API behavior.
 
 ## 🔧 Recent Updates
 
-### October 2024: Klaviyo API Migration
+### Historical: October 2024 Klaviyo API Migration
+
+The route has since been replaced by the Mailchimp integration above.
 
 **Problem**: Form submissions were returning 403 "Invalid company" errors.
 
@@ -263,7 +263,7 @@ See [docs/klaviyo-integration.md](docs/klaviyo-integration.md) for technical det
 Comprehensive documentation is available in the `/docs` directory:
 
 - **[Architecture](docs/architecture.md)** - Project structure and technical architecture
-- **[Klaviyo Integration](docs/klaviyo-integration.md)** - Email subscription implementation details
+- **[Mailchimp Integration](docs/mailchimp-integration.md)** - Current email subscription implementation
 - **[Mobile Testing Guide](docs/mobile-testing-guide.md)** - Mobile testing procedures for Kenya
 - **[Testing Checklist](docs/testing-checklist.md)** - QA checklist for Kenya deployment
 - **[Legacy Mobile Testing Guide](docs/mobile-testing-guide-legacy.md)** - Historical testing documentation
@@ -296,7 +296,7 @@ Comprehensive documentation is available in the `/docs` directory:
 
 This project is customized for the Kenyan market:
 
-- **Klaviyo List**: Uses `KLAVIYO_LIST_ID_KE` for Kenya subscribers
+- **Mailchimp Audience**: Uses `MAILCHIMP_AUDIENCE_ID_KE` for Kenya subscribers
 - **Location**: Profile location set to "Kenya"
 - **Currency**: Kenya Shilling (KES) considerations
 - **Data Visualization**: D3.js with Kenya-specific GeoJSON data
@@ -317,7 +317,7 @@ For issues or questions:
 1. Check [documentation](docs/)
 2. Review [troubleshooting](#-troubleshooting) section
 3. Check Vercel deployment logs
-4. Review Klaviyo API logs
+4. Review Mailchimp API errors in Vercel logs
 
 ## 📄 License
 
@@ -325,6 +325,6 @@ This project is proprietary and confidential.
 
 ---
 
-**Last Updated**: October 2024
+**Last Updated**: October 2026
 **Maintained By**: Be Fair Right Now Team
 **Region**: Kenya

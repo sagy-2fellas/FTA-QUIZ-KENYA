@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,jsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
   theme: {
     extend: {
       colors: {
-        "ft-blue": "#00B2E2",
-        "ft-dark-green": "#C1D42F",
-        "ft-light-green": "#D4FF46",
+        "ft-blue": "#0FC0FC",
+        "ft-dark-green": "#D4FF47",
+        "ft-light-green": "#D4FF47",
         "ft-grey": "#E0E0E0",
         "ft-bg": "#f2f2f2",
       },

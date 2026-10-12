@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test -c tests/playwright.config.js",
+    "test:mailchimp": "node --test tests/mailchimp-api.test.mjs",
     "test:ui": "playwright test -c tests/playwright.config.js --ui",
     "test:headed": "playwright test -c tests/playwright.config.js --headed",
     "test:debug": "playwright test -c tests/playwright.config.js --debug",

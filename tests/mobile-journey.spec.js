@@ -131,12 +131,12 @@ const answerActiveSection = async (page, index) => {
     await activeSection(page).locator("#kenya-region").selectOption("Nairobi");
   }
   if (index === 6) {
-    // Cart products render as 13-27px SVG groups - below the 44px touch
-    // target guidance, and too small to hit-test reliably.
-    await activeSection(page)
-      .locator("#white-wine, #red-wine, #black-tea, #ground-coffee")
-      .first()
-      .dispatchEvent("click");
+    const coffee = activeSection(page).getByRole("button", { name: "Coffee Beans" });
+    const box = await coffee.boundingBox();
+    expect(box.width).toBeGreaterThanOrEqual(44);
+    expect(box.height).toBeGreaterThanOrEqual(44);
+    await coffee.click();
+    await expect(coffee).toHaveAttribute("aria-pressed", "true");
   }
 };
 
@@ -168,6 +168,14 @@ test.describe("mobile quiz completion", () => {
       // Only ever act on the section navigation actually put us on.
       await expectActiveSection(page, i);
       const current = activeSection(page);
+      await expect(page.getByRole("progressbar", { name: "Quiz progress" }))
+        .toHaveAttribute("aria-valuenow", String(i + 1));
+
+      if (i === 0) {
+        const region = current.locator("#kenya-region");
+        expect(await isInViewport(region), "region list is below the first phone screen")
+          .toBe(true);
+      }
 
       // Heading must be visible and clear of the fixed header.
       const heading = current.locator("h2").last();
@@ -181,6 +189,13 @@ test.describe("mobile quiz completion", () => {
         box.y + box.height,
         `section ${i + 1}: heading sits behind the fixed header`
       ).toBeGreaterThan(headerHeight);
+
+      // Every question starts at the same baseline, even when its content is tall.
+      await expect.poll(async () => heading.evaluate((el) => {
+        const header = document.querySelector(".quiz-nav").getBoundingClientRect();
+        return Math.round(el.getBoundingClientRect().top - header.bottom);
+      })).toBe(16);
+      await expect(heading).toHaveCSS("font-size", `${Math.max(28, Math.min(44, page.viewportSize().width * 0.031))}px`);
 
       const next = continueButton(page);
       await expect(next).toBeVisible();
@@ -516,4 +531,43 @@ test.describe("mobile quiz completion", () => {
     await expect(heading).toHaveCSS("opacity", "1");
     await context.close();
   });
+});
+
+
+test("refinement keeps Submit visible with all eight products and supports unticking", async ({ page }) => {
+  await gotoQuiz(page);
+  await page.evaluate(() => window.fullpage_api.moveTo("Question-6"));
+  await expectActiveSection(page, 6);
+  for (const name of ["White Wine", "Red Wine", "Rosé", "Coffee Beans", "Ground Coffee", "Black Tea", "Rooibos Tea", "Herbal Tea"]) {
+    await activeSection(page).getByRole("button", { name, exact: true }).click();
+  }
+  await continueButton(page).click();
+  await page.getByRole("button", { name: "OK", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Refine your selection" });
+  const submit = dialog.getByRole("button", { name: "Submit", exact: true });
+  await expect(dialog).toBeVisible();
+  expect(await isInViewport(submit)).toBe(true);
+  await expect(dialog.getByRole("checkbox")).toHaveCount(8);
+  const last = dialog.getByRole("checkbox").last();
+  await last.check();
+  await expect(last).toBeChecked();
+  await last.uncheck();
+  await expect(last).not.toBeChecked();
+  expect(await isInViewport(submit)).toBe(true);
+  await submit.click();
+  await expectActiveSection(page, 7);
+  await expect(dialog).toHaveCount(0);
+});
+
+test("Fairtrade logo and answer bubble do not overlap", async ({ page }) => {
+  await gotoQuiz(page);
+  await page.evaluate(() => window.fullpage_api.moveTo("Question-2"));
+  await expectActiveSection(page, 1);
+  const logo = activeSection(page).getByAltText("Fairtrade Mark");
+  await expect(logo).toBeVisible();
+  await expect.poll(async () => {
+    const a = await logo.boundingBox();
+    const b = await activeSection(page).locator(".message-box").boundingBox();
+    return b.y - (a.y + a.height);
+  }).toBeGreaterThanOrEqual(20);
 });

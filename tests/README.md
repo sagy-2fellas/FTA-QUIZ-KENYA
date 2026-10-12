@@ -23,7 +23,7 @@ Advanced performance metrics and optimization checks:
 Verifies all analytics scripts load correctly:
 - **Google Tag Manager** (GTM-KB2G5XF)
 - **Facebook Pixel** (368869985423322)
-- **Microsoft Clarity** (tmm5h0wrk6)
+- **Microsoft Clarity** (ywrznolso9)
 - **Lucky Orange** (47375252)
 - **LinkedIn Insight Tag** (7862545)
 - **Privacy**: Async loading, no blocking, no errors

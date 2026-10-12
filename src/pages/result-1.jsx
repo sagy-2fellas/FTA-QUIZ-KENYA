@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactFullpage from "@fullpage/react-fullpage";
+import ReactFullpage from "../components/ResultsFullpage";
+import MobileFactDialog from "../components/MobileFactDialog";
 import styles from "../style";
 import Image from "next/image";
 import ArrowIcon from "../components/svg/ArrowIcon";
@@ -8,7 +9,7 @@ import Head from "next/head";
 
 const FullScreenSection = ({ children }) => {
   return (
-    <div className="section h-full flex items-center justify-center">
+    <div className="section result-section h-full flex items-center justify-center">
       {children}
     </div>
   );
@@ -36,32 +37,14 @@ const FullpageWrapper = () => {
           <div className="h-full">
             <FullScreenSection>
               <div className=" z-50  w-full h-full">
-                <div
-                  className={
-                    disclamerToggled
-                      ? `absolute left-0 lg:left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setDisclamerToggled(!disclamerToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute right-0 -top-[20%] lg:top-[-35%] xl:top-[-45%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p>
+                <MobileFactDialog open={disclamerToggled} onClose={() => setDisclamerToggled(false)} title="About Patrick"><div className="font-exo text-base leading-relaxed">
                       <span className="text-ft-blue">* </span>* Patrick isn’t a
                       real person. His story is based on the data around the
                       average Kenyan farm worker. He’s a face we’ve put to this
                       data to get you to care and start thinking Fair. He’s a
                       blend of all the people who grow and pick your coffee, tea
                       and wine.
-                    </p>
-                  </div>
-                </div>
+                    </div></MobileFactDialog>
                 <div className={`mx-auto h-full z-50 `}>
                   <div className="flex flex-col  sm:flex-row h-full">
                     <div className="flex-1 h-full">
@@ -111,104 +94,32 @@ const FullpageWrapper = () => {
             </FullScreenSection>
             <FullScreenSection>
               <div className="relative w-full h-full">
-                <div
-                  className={
-                    adultToggled
-                      ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-ft-dark-green text-white px-4 w-[90%] lg:w-auto  lg:px-24 py-24 rounded-xl shadow-2xl z-20  m-auto lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setAdultToggled(!adultToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-blue px-2  text-white absolute lg:-right-[10%] -top-[35%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p className="font-exo text-2xl">
+                <MobileFactDialog open={adultToggled} onClose={() => setAdultToggled(false)} title="Age and education"><p className="font-exo text-base leading-relaxed">
                       There’s a chance that he’s a child. This means that he
                       could be under 16 years old, and may never have gone to
                       school, or began work on the farm when he was just a kid.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className={
-                    wageToggled
-                      ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-ft-dark-green text-white px-4 w-[90%] lg:w-auto  lg:px-24 py-24 rounded-xl shadow-2xl z-20  m-auto lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setWageToggled(!wageToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-blue px-2  text-white absolute lg:-right-[10%] -top-[20%] lg:-top-[20%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p className="font-exo text-2xl">
+                    </p></MobileFactDialog>
+                <MobileFactDialog open={wageToggled} onClose={() => setWageToggled(false)} title="Earnings"><p className="font-exo text-base leading-relaxed">
                       If he’s lucky, his employers pay him the Kenyan minimum
                       wage – 7,000-10,000 KES per month. Yes, he really is lucky
                       to have a job, but that doesn’t mean he’s making enough to
                       feed his family, get healthcare or send his children to
                       school.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className={
-                    farmToggled
-                      ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-ft-dark-green text-white px-4 w-[90%] lg:w-auto  lg:px-24 py-24 rounded-xl shadow-2xl z-20  m-auto lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setFarmToggled(!farmToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-blue px-2  text-white absolute lg:-right-[10%] -top-[20%] lg:-top-[20%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p className="font-exo text-2xl">
+                    </p></MobileFactDialog>
+                <MobileFactDialog open={farmToggled} onClose={() => setFarmToggled(false)} title="Farming and the environment"><p className="font-exo text-base leading-relaxed">
                       It’s likely that Patrick works with unsafe pesticides,
                       which end up in your products. We can’t say anything about
                       how the Earth gets treated on the farm where he works, or
                       if they use GMOs. We have no idea whether Patrick gets
                       sustainability support or training to protect the land for
                       future generations.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className={
-                    facilitiesToggled
-                      ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-ft-dark-green text-white px-4 w-[90%] lg:w-auto  lg:px-24 py-24 rounded-xl shadow-2xl z-20  m-auto lg:mx-16`
-                      : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                  }
-                >
-                  <div className="relative">
-                    <span
-                      onClick={() => {
-                        setFacilitiesToggled(!facilitiesToggled);
-                      }}
-                      className="shadow-lg cursor-pointer bg-ft-blue px-2  text-white absolute lg:-right-[10%] -top-[25%] lg:-top-[35%] rounded-lg font-exo text-lg"
-                    >
-                      x
-                    </span>
-                    <p className="font-exo text-2xl">
+                    </p></MobileFactDialog>
+                <MobileFactDialog open={facilitiesToggled} onClose={() => setFacilitiesToggled(false)} title="Access to basic facilities"><p className="font-exo text-base leading-relaxed">
                       If Patrick falls sick or is injured, there may not be a
                       hospital close by. His children may have to also work on
                       the farm because there might not be a school close by, or
                       one that Patrick can afford to send them to.
-                    </p>
-                  </div>
-                </div>
+                    </p></MobileFactDialog>
                 <div className="absolute top-0 h-full w-3/5 bg-cover bgWeCantPromise bg-no-repeat right-0 hidden md:block"></div>
                 <div className={`${styles.boxWidth} mx-auto h-full z-50`}>
                   <div className="grid lg:grid-cols-2 h-full ">
@@ -329,18 +240,7 @@ const FullpageWrapper = () => {
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={
-                      adultToggled ||
-                      wageToggled ||
-                      farmToggled ||
-                      facilitiesToggled
-                        ? "bg-black opacity-75 w-screen h-screen z-10 absolute top-0 left-0"
-                        : ""
-                    }
-                  >
-                    {" "}
-                  </div>
+
                 </div>
               </div>
             </FullScreenSection>
@@ -423,23 +323,7 @@ const FullpageWrapper = () => {
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={
-                      teaToggled
-                        ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-black py-10 px-4 lg:px-24 lg:py-24 rounded-xl shadow-2xl z-20 lg:mx-6 xl:mx-16 w-full lg:w-auto `
-                        : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                    }
-                  >
-                    <div className="relative">
-                      <span
-                        onClick={() => {
-                          setTeaToggled(!teaToggled);
-                        }}
-                        className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute lg:-right-[10%] -top-[5%] lg:-top-[15%] rounded-lg font-exo text-lg"
-                      >
-                        x
-                      </span>
-                      <p className="font-exo sm:text-xl">
+                  <MobileFactDialog open={teaToggled} onClose={() => setTeaToggled(false)} title="Your tea"><div className="font-exo text-base leading-relaxed">
                         <span className="text-ft-blue text-2xl">
                           Patrick picks the leaves for your evening cup of
                           rooibos tea.
@@ -463,26 +347,8 @@ const FullpageWrapper = () => {
                         </span>
                         That someone is you, every time you buy
                         Fairtrade-certified tea.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      wineToggled
-                        ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-black py-10 px-4 lg:px-24 lg:py-24 rounded-xl shadow-2xl z-20 lg:mx-6 xl:mx-16 w-full lg:w-auto`
-                        : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                    }
-                  >
-                    <div className="relative">
-                      <span
-                        onClick={() => {
-                          setWineToggled(!wineToggled);
-                        }}
-                        className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute lg:-right-[10%] lg:-top-[15%] -top-[5%] rounded-lg font-exo text-lg"
-                      >
-                        x
-                      </span>
-                      <p className="font-exo sm:text-xl pt-4 sm:pt-0">
+                      </div></MobileFactDialog>
+                  <MobileFactDialog open={wineToggled} onClose={() => setWineToggled(false)} title="Your wine"><div className="font-exo text-base leading-relaxed">
                         <span className="text-ft-blue text-2xl">
                           Patrick helps fuel wine-o'clock.
                         </span>{" "}
@@ -503,26 +369,8 @@ const FullpageWrapper = () => {
                         </span>
                         That someone is you, every time you buy
                         Fairtrade-certified wine.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      coffeeToggled
-                        ? `absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-black py-10 px-4 lg:px-24 lg:py-24 rounded-xl shadow-2xl z-20 lg:mx-6 xl:mx-16 w-full lg:w-auto`
-                        : `absolute left-1/2 top-[5%] bg-white px-4 py-10 rounded-md shadow-lg z-10 mx-16 opacity-0 pointer-events-none`
-                    }
-                  >
-                    <div className="relative">
-                      <span
-                        onClick={() => {
-                          setCoffeeToggled(!coffeeToggled);
-                        }}
-                        className="shadow-lg cursor-pointer bg-ft-dark-green px-2  text-white absolute lg:-right-[10%] lg:-top-[15%] -top-[5%] rounded-lg font-exo text-lg"
-                      >
-                        x
-                      </span>
-                      <p className="font-exo sm:text-xl pt-4 sm:pt-0">
+                      </div></MobileFactDialog>
+                  <MobileFactDialog open={coffeeToggled} onClose={() => setCoffeeToggled(false)} title="Your coffee"><div className="font-exo text-base leading-relaxed">
                         <span className="text-ft-blue text-2xl">
                           Patrick grows your morning caffeine fix.
                         </span>{" "}
@@ -543,18 +391,8 @@ const FullpageWrapper = () => {
                         </span>
                         That someone is you, every time you buy
                         Fairtrade-certified coffee.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      teaToggled || wineToggled || coffeeToggled
-                        ? "bg-black opacity-75 w-screen h-screen z-10 absolute top-0 left-0"
-                        : ""
-                    }
-                  >
-                    {" "}
-                  </div>
+                      </div></MobileFactDialog>
+
                 </div>
               </div>
             </FullScreenSection>
