@@ -1,3 +1,4 @@
+import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
 import MobileFactDialog from "../components/MobileFactDialog";
@@ -68,6 +69,7 @@ const FullpageWrapper = () => {
                           </span>
                           .
                         </h1>
+                <ResultBasket />
 
                         <p className="font-exo 2xl:text-2xl xs:text-lg text-gray-700 text-center">
                           He produces your coffee, tea and wine.

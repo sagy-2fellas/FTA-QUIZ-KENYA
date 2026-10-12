@@ -14,7 +14,6 @@ const QuestionSix = () => {
   const [shopArray, updateShopArray] = useState([]);
   const [refinedCart, updateRefinedCart] = useState([]);
   const [refineToggled, setRefineToggled] = useState(false);
-  const [refinePrompt, setRefinePrompt] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
 
   const [isHerbal, setIsHerbal] = useState(false);
@@ -70,43 +69,14 @@ const QuestionSix = () => {
   const navigatePrev = () => {
     window.fullpage_api.moveSectionUp();
   };
-  const navigateNext = (event) => {
-    // Question 6 requires at least one product. The previous `else` branch
-    // advanced the quiz whatever the cart contained, so an empty cart skipped
-    // straight past without ever dispatching a selection.
+  const navigateNext = () => {
     if (shopArray.length === 0) return;
-
-    if (!refinePrompt) {
-      setRefinePrompt(true);
-    } else {
-      window.fullpage_api.moveSectionDown();
-    }
-
-    // if (refineToggled === false && shopArray != "") {
-    //   setRefineToggled(!false);
-    //   console.log(shopArray);
-    // } else if (refineToggled === true && shopArray != "") {
-    //   window.fullpage_api.moveSectionDown();
-    //   setFilterComplete(!false);
-    //   event.preventDefault();
-    //   function removeDuplicates(refinedCart) {
-    //     return refinedCart.filter(
-    //       (item, index) => refinedCart.indexOf(item) === index
-    //     );
-    //   }
-    //   dispatch(goShopping(shopArray));
-    //   dispatch(goFTShopping(removeDuplicates(refinedCart)));
-    // } else {
-    //   window.fullpage_api.moveSectionDown();
-    //   dispatch(goShopping(shopArray));
-    //   dispatch(goFTShopping(refinedCart));
-    // }
+    setRefineToggled(true);
   };
 
   const submitRefined = () => {
     dispatch(goShopping(shopArray));
     dispatch(goFTShopping(refinedCart.filter((item) => shopArray.includes(item))));
-    setRefinePrompt(false);
     setRefineToggled(false);
     window.fullpage_api.moveSectionDown();
   };
@@ -184,60 +154,24 @@ const QuestionSix = () => {
       </button>
       <div
         className={
-          refinePrompt || toggleCart
+          toggleCart
             ? `bg-black absolute w-screen h-screen left-0 top-0 opacity-50 z-10`
             : "hidden"
         }
       >
         {" "}
       </div>
-      <div
-        className={
-          refinePrompt
-            ? "bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[50]  p-6 w-72 xs:w-2/3 lg:!w-1/2 xl:!w-1/3  lg:p-20 rounded-lg mt-6 xs:mt-0"
-            : "hidden"
-        }
-      >
-        <h3 className="font-alegreya text-2xl lg:text-4xl  text-center">
-          We don’t want to make assumptions, so refine your answers before you
-          continue.{" "}
-        </h3>
-        <div className="flex flex-col lg:flex-row lg:gap-5">
-          {" "}
-          <button
-            onClick={() => {
-              setRefineToggled(true);
-              setRefinePrompt(false);
-            }}
-            className="border mt-2 shadow-lg lg:!mt-10 rounded-2xl  py-1 px-4 md:px-10 text-xl font-alegreya w-full bg-ft-blue flex-1 text-ft-light-green"
-          >
-            OK
-          </button>{" "}
-          <button
-            onClick={() => {
-              setRefinePrompt(false);
-              window.fullpage_api.moveSectionDown();
-              dispatch(goShopping(shopArray));
-            }}
-            className="border mt-2 lg:!mt-10 rounded-2xl border-black py-1 px-4 md:px-10 text-xl font-alegreya w-full bg-white shadow-md"
-          >
-            Nah, I’m okay with a general answer
-          </button>
-        </div>
-      </div>
-
       <MobileFactDialog
         open={refineToggled}
         onClose={() => setRefineToggled(false)}
         title="Refine your selection"
-        continueLabel="Submit"
+        continueLabel="Save and continue"
         onContinue={submitRefined}
       >
         <img src="/img/fairtrade-mark.png" width="48" height="57" alt="Fairtrade Mark" className="w-12 h-auto mb-3" />
         <p className="font-exo text-sm leading-relaxed">
-          Remember this logo? It’s the Fairtrade logo. Check all the items you
-          usually buy that have it on the packaging. Be honest here! If you
-          don't know, don't tick any boxes – click submit!
+          Which of these products do you buy with this label? Not sure?
+          Leave them unticked and continue.
         </p>
         <div className="flex flex-col mt-4 divide-y divide-gray-200">
           {shopArray.map((product) => (
@@ -308,7 +242,7 @@ const QuestionSix = () => {
             </div>
           ))}
           <p className="quiz-shop-count" aria-live="polite">
-            {shopArray.length ? `${shopArray.length} in your basket · Tap again to remove` : "Tap your favourites to fill your basket"}
+            <span key={shopArray.length}>{shopArray.length ? `${shopArray.length} in your basket · Tap again to remove` : "Tap your favourites to fill your basket"}</span>
           </p>
         </div>
         <div className="hidden lg:block">

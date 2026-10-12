@@ -153,7 +153,10 @@ const NotFair = () => {
 
   return (
     <div className="results-signup relative z-50 min-h-[100dvh] w-full overflow-y-auto overscroll-contain">
-      <div className="bgResults5 h-full w-full bg-cover bg-center absolute"></div>
+      <div className="signup-portrait">
+        <img src="/img/patrick-full-alt.jpg" alt="Portrait illustrating Patrick’s story" />
+        <div><h2 className="font-alegreya">Every choice has a story.</h2><p className="font-exo">Keep yours going.</p></div>
+      </div>
       <div className={`${styles.boxWidth} mx-auto z-50`}>
         <div className="flex justify-center items-start min-h-[100dvh] py-6 pb-[calc(24px+env(safe-area-inset-bottom))]">
           <div className=" flex flex-col justify-center items-center w-full">
@@ -191,7 +194,7 @@ const NotFair = () => {
                 </p>
               </div>
               <div className="col-span-2"></div>
-              <label htmlFor="firstName" className="sr-only">
+              <label htmlFor="firstName" className="signup-field-label">
                 First name
               </label>
               <input
@@ -206,7 +209,7 @@ const NotFair = () => {
                 className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white min-h-[44px] py-2 px-4 sm:px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="First name"
               />
-              <label htmlFor="lastName" className="sr-only">
+              <label htmlFor="lastName" className="signup-field-label">
                 Last name
               </label>
               <input
@@ -221,7 +224,7 @@ const NotFair = () => {
                 className="col-span-2 xs:col-span-1 w-full min-w-0 appearance-none border rounded-2xl font-exo border-black bg-white min-h-[44px] py-2 px-4 sm:px-8 sm:text-xl text-gray-900 placeholder-gray-500 focus:border-white focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 "
                 placeholder="Last name"
               />
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="signup-field-label">
                 Email address
               </label>
               <input
@@ -253,17 +256,16 @@ const NotFair = () => {
                     Select an option
                   </option>
                   <option value="individual-interested">
-                    I'm an individual interested in learning more about
-                    Fairtrade products.
+                    Individual interested in Fairtrade
                   </option>
                   <option value="business-partnership">
-                    I'm a business interested in partnership opportunities.
+                    Business partnership
                   </option>
                   <option value="giveaway">
-                    I'm just here for the giveaway.
+                    Here for the giveaway
                   </option>
                   <option value="individual-representing-business">
-                    I'm an individual representing a business.
+                    Representing a business
                   </option>
                 </select>
                 <span className="signup-select-arrow" aria-hidden="true">

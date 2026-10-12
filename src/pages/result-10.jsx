@@ -1,3 +1,4 @@
+import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
 import MobileFactDialog from "../components/MobileFactDialog";
@@ -54,6 +55,7 @@ const FullpageWrapper = () => {
                 <h1 className="font-alegreya 2xl:text-6xl sm:text-5xl text-4xl mx-4 sm:mx-0 text-white max-w-5xl text-center mt-6 ">
                   If there was a way to win this quiz, you’d be the winner!
                 </h1>
+                <ResultBasket />
               </div>
             </FullScreenSection>
             <FullScreenSection>

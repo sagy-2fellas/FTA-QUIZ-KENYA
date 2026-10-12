@@ -493,7 +493,7 @@ ensure I’m buying ethically`,
           if (currentValue !== "") setFactToggled7(true);
         }}
         canContinue={currentValue !== ""}
-        continueLabel="See results"
+        continueLabel="Meet your grower"
         nextAriaLabel="View your results"
       />
 

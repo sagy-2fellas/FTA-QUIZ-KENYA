@@ -145,9 +145,7 @@ const answerActiveSection = async (page, index) => {
  * refine your cart?" prompt. Take the general-answer branch.
  */
 const clearRefinePrompt = async (page) => {
-  const general = page.getByRole("button", { name: /general answer/i });
-  await expect(general).toBeVisible();
-  await general.click();
+  await page.getByRole("dialog", { name: "Refine your selection" }).getByRole("button", { name: "Save and continue" }).click();
 };
 
 const gotoQuiz = async (page) => {
@@ -542,9 +540,8 @@ test("refinement keeps Submit visible with all eight products and supports untic
     await activeSection(page).getByRole("button", { name, exact: true }).click();
   }
   await continueButton(page).click();
-  await page.getByRole("button", { name: "OK", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Refine your selection" });
-  const submit = dialog.getByRole("button", { name: "Submit", exact: true });
+  const submit = dialog.getByRole("button", { name: "Save and continue", exact: true });
   await expect(dialog).toBeVisible();
   expect(await isInViewport(submit)).toBe(true);
   await expect(dialog.getByRole("checkbox")).toHaveCount(8);

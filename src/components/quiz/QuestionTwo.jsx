@@ -1,3 +1,4 @@
+import useSliderFeedback from "../useSliderFeedback";
 import styles from "../../style";
 import QuestionMarkIcon from "../svg/QuestionMarkIcon";
 import SlideTwoChar from "../svg/SlideTwoChar";
@@ -34,6 +35,7 @@ const QuestionTwo = () => {
   const progressBarRef = useRef();
   const handleSize = 72; // Slightly smaller on mobile to keep everything in view
   const handleX = useMotionValue(0);
+  const { rotate, reducedMotion } = useSliderFeedback(handleX, dragging);
   const progress = useTransform(handleX, (v) => v + handleSize / 2);
   const background = useMotionTemplate`linear-gradient(90deg, #C1D42F ${progress}px, #d1d5db 0)`;
 
@@ -64,7 +66,7 @@ const QuestionTwo = () => {
     const newProgress =
       ((closestValue - min) / (max - min)) * progressBarBounds.width; // Adjust for min value
 
-    animate(handleX, newProgress);
+    animate(handleX, newProgress, reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 32 });
   }
 
   // Update handle size based on viewport width
@@ -201,13 +203,13 @@ const QuestionTwo = () => {
                 />
               </div>
               <div className="lg:col-span-2 mx-auto">
-                {!dragging && (
+                {(
                   <motion.div
                     key={displayedValue()}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={reducedMotion ? false : { opacity: 0.65, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    transition={{ duration: reducedMotion ? 0 : 0.18, ease: "easeOut" }}
                     className="message-box   shadow-xl border  border-white bg-white  pb-6 pt-1 px-4 md:px-10 md:text-3xl sm:text-2xl  font-alegreya text-black md:text-black w-fit "
                   >
                     {displayedValue()}
@@ -220,7 +222,8 @@ const QuestionTwo = () => {
                 data-test="slider"
                 className={`relative flex flex-col justify-center ${factToggled2 ? "pointer-events-none" : ""}`}
               >
-                <motion.div
+                <div className="slider-endpoints"><span>New to me</span><span>Know it well</span></div>
+              <motion.div
                   data-test="slider-background"
                   className="absolute w-full h-4 xl:h-5 2xl:h-6 rounded-full pointer-events-none"
                   style={{
@@ -265,12 +268,13 @@ const QuestionTwo = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.2 : 0.8,
+                      scale: reducedMotion ? 0.8 : dragging ? 0.9 : 0.8,
                     }}
                     style={{
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
+                      rotate,
 
                       backgroundSize: "contain",
 
@@ -280,7 +284,8 @@ const QuestionTwo = () => {
                   ></motion.div>
                 </div>
               </div>
-            </div>
+
+              </div>
           </div>
         </div>
       </div>

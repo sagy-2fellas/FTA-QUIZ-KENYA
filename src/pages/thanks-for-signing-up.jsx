@@ -1,51 +1,35 @@
-import styles from "../style";
 import Head from "next/head";
-import React, { useState, useRef, useEffect } from "react";
+import Script from "next/script";
 
-const ThankYou = () => {
-  const [countdown, setCountdown] = useState(3);
+const giveawayUrl = "https://gleam.io/BRBiR/befairrightnow-kenya-2025";
 
-  let interval;
-
-  useEffect(() => {
-    startTimer();
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  function startTimer() {
-    interval = setInterval(() => {
-      if (countdown > 0) {
-        setCountdown(countdown - 1);
-      } else {
-        clearInterval(interval);
-        document.location.href =
-          "https://gleam.io/BRBiR/befairrightnow-kenya-2025";
-      }
-    }, 1000);
-  }
-
+export default function ThankYou() {
   return (
-    <section
-      className={`${styles.boxWidth} flex justify-center items-center flex-col z-0 h-screen`}
-    >
+    <main className="giveaway-page">
       <Head>
-        <title>Thanks for signing up</title>
-        <meta
-          name="viewport"
-          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
+        <title>Your Fairtrade giveaway | Kenya</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="robots" content="noindex" />
       </Head>
-      <h1 className="font-alegreya 2xl:text-7xl sm:text-5xl text-3xl  max-w-3xl  2xl:max-w-4xl text-center mx-auto">
-        Thanks for signing up.
-      </h1>
-      <p className="font-exo text-lg text-center">
-        You will be redirected to the giveaway in {countdown} seconds. Do not
-        close this window.
-      </p>
-    </section>
+      <header className="giveaway-heading">
+        <h1>Thanks for signing up.</h1>
+        <p>Complete your giveaway entry below, then explore the extra ways to enter.</p>
+      </header>
+      <section className="giveaway-embed" aria-label="Kenya Fairtrade giveaway">
+        <a className="e-widget generic-loader no-button" href={giveawayUrl} rel="nofollow">Be Fair Right Now Kenya giveaway</a>
+      </section>
+      <p className="giveaway-fallback">Can’t see the giveaway? <a href={giveawayUrl} target="_blank" rel="noopener noreferrer">Open it on Gleam</a>.</p>
+      <Script src="https://widget.gleamjs.io/e.js" strategy="afterInteractive" />
+      <style jsx>{`
+        .giveaway-page { min-height: 100dvh; padding: 32px 16px 48px; background: #f2f2f2; color: #1e1e1e; }
+        .giveaway-heading { max-width: 680px; margin: 0 auto 28px; text-align: center; }
+        h1 { font-family: Alegreya, sans-serif; font-size: clamp(32px, 5vw, 52px); line-height: 1.05; margin-bottom: 12px; }
+        p { font-family: Exo, sans-serif; font-size: 16px; line-height: 1.5; }
+        .giveaway-embed { max-width: 600px; margin: 0 auto; min-height: 320px; }
+        .giveaway-fallback { max-width: 600px; margin: 24px auto 0; text-align: center; }
+        a { color: #001b6e; text-decoration: underline; text-underline-offset: 3px; }
+        @media (max-width: 400px) { .giveaway-page { padding: 24px 0 32px; } .giveaway-heading, .giveaway-fallback { padding: 0 12px; } }
+      `}</style>
+    </main>
   );
-};
-
-export default ThankYou;
+}

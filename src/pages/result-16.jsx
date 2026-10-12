@@ -1,3 +1,4 @@
+import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
 import MobileFactDialog from "../components/MobileFactDialog";
@@ -34,6 +35,7 @@ const FullpageWrapper = () => {
                   Kenyan market right now are things you don’t like: coffee, tea
                   and wine.
                 </h1>
+                <ResultBasket />
               </div>
             </FullScreenSection>
             <FullScreenSection>

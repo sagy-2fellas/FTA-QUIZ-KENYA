@@ -26,7 +26,7 @@ function Stepper() {
   }, [activeStepIndex]);
   return (
     <section className="z-10 min-w-0">
-      <h3 className="mb-1 lg:mb-4 text-base sm:text-lg lg:text-xl font-alegreya">Quiz Questions</h3>
+      <h3 className="mb-1 lg:mb-4 text-base sm:text-lg lg:text-xl font-alegreya">{currentQuestion < 5 ? "Your everyday choices" : currentQuestion < 8 ? "Over halfway there" : "Your grower is next"}</h3>
 
       <div className="lg:hidden w-full max-w-full" aria-label={`Question ${currentQuestion} of 8`}>
         <p className="font-exo text-sm font-semibold mb-1">Question {currentQuestion} of 8</p>

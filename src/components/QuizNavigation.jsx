@@ -30,14 +30,14 @@ const QuizNavigation = ({ navigateNext, navigatePrev, value }) => {
   const canContinue = value != "";
 
   return (
-    <div className={`z-10 absolute right-0 top-1/2 -translate-y-1/2 space-y-2`}>
+    <div className="desktop-quiz-navigation">
       <button
         type="button"
         onClick={navigatePrev}
         aria-label="Previous question"
         className="bg-ft-dark-green text-white min-h-[44px] min-w-[44px] h-12 w-12 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg"
       >
-        <NavIcon back />
+        <NavIcon back /><span>Previous</span>
       </button>
       <button
         type="button"
@@ -50,7 +50,7 @@ const QuizNavigation = ({ navigateNext, navigatePrev, value }) => {
             : "bg-gray-500 text-white min-h-[44px] min-w-[44px] h-12 w-12 rounded-l-full flex items-center justify-center shadow-lg cursor-not-allowed"
         }
       >
-        <NavIcon />
+        <span>Continue</span><NavIcon />
       </button>
     </div>
   );

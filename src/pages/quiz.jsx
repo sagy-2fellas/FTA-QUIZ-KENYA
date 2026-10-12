@@ -1,3 +1,4 @@
+import { useReducedMotion } from "framer-motion";
 import React, { useEffect, useRef, useState, createContext } from "react";
 import TwitterIcon from "../components/svg/TwitterIcon";
 import FacebookIcon from "../components/svg/FacebookIcon";
@@ -59,6 +60,7 @@ const QuizSection = ({ children }) => {
 };
 
 const FullpageWrapper = () => {
+  const reducedMotion = useReducedMotion();
   // const [answers, dispatch] = useReducer(answersReducer, initialAnswers);
 
   const { currentSlide, SetCurrentSlide, isSmallScreen } =
@@ -159,7 +161,7 @@ const FullpageWrapper = () => {
       licenseKey={"K33GH-CR597-09KK8-01PJK-OJTQP"}
       scrollOverflow={isSmallScreen}
       fitToSection={!isSmallScreen}
-      scrollingSpeed={isSmallScreen ? 300 : 700}
+      scrollingSpeed={reducedMotion ? 0 : 300}
       normalScrollElements={isSmallScreen ? ".section" : null}
       autoScrolling={!isSmallScreen}
       afterRender={enableScrolling}
@@ -191,6 +193,14 @@ const FullpageWrapper = () => {
       }}
       onLeave={(origin, destination, direction) => {
         returnSlide(destination.index);
+        const pane = destination.item?.querySelector("[data-quiz-pane]");
+        if (pane && !reducedMotion) {
+          pane.getAnimations().forEach((animation) => animation.cancel());
+          pane.animate([
+            { opacity: 0.6, transform: `translateY(${direction === "up" ? -10 : 10}px)` },
+            { opacity: 1, transform: "translateY(0)" },
+          ], { duration: 240, easing: "ease-out" });
+        }
       }}
       anchors={[
         "Question-1",
@@ -318,7 +328,7 @@ const Quiz = () => {
               <div className="2xl:col-span-6 sm:col-span-5 lg:col-span-6  z-10">
                 <QuizStepper />
               </div>
-              <div className=" 2xl:col-span-2 sm:col-span-3 lg:col-span-2 hidden sm:block h-full">
+              <div className="quiz-share-links hidden">
                 <ul className=" h-full flex items-center justify-end mt-0 lg:justify-end text-lg">
                   <li className="font-alegreya">SHARE:</li>
                   <li className="font-alegreya mx-2 cursor-pointer">

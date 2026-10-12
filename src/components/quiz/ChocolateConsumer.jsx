@@ -1,3 +1,5 @@
+import SliderMoment from "../SliderMoment";
+import useSliderFeedback from "../useSliderFeedback";
 import styles from "../../style";
 import FactCard from "../FactCard";
 import { useState, useEffect, useRef } from "react";
@@ -26,6 +28,7 @@ const ChocolateConsumer = () => {
   const progressBarRef = useRef();
   const handleSize = 120;
   const handleX = useMotionValue(0);
+  const { rotate, reducedMotion } = useSliderFeedback(handleX, dragging);
   const progress = useTransform(handleX, (v) => v + handleSize / 2);
   const background = useMotionTemplate`linear-gradient(90deg, #C1D42F ${progress}px, #d1d5db 0)`;
 
@@ -59,7 +62,7 @@ const ChocolateConsumer = () => {
     const newProgress =
       ((closestValue - min) / (max - min)) * progressBarBounds.width; // Adjust for min value
 
-    animate(handleX, newProgress);
+    animate(handleX, newProgress, reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 32 });
   }
 
   // Update handle size based on viewport width
@@ -169,13 +172,13 @@ const ChocolateConsumer = () => {
               What best describes your relationship with chocolate?
             </motion.h2>
             <div className="flex justify-center">
-              {!dragging && (
+              {(
                 <motion.div
                   key={displayedValue()}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={reducedMotion ? false : { opacity: 0.65, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  transition={{ duration: reducedMotion ? 0 : 0.18, ease: "easeOut" }}
                   className="message-box   shadow-xl border  border-white bg-white  pb-6 pt-1 px-4 md:px-10 sm:text-3xl text-2xl  font-alegreya text-black md:text-black  "
                 >
                   {displayedValue()}
@@ -187,7 +190,8 @@ const ChocolateConsumer = () => {
                 data-test="slider"
                 className="relative flex flex-col justify-center"
               >
-                <motion.div
+                <div className="slider-endpoints"><span>No chocolate</span><span>Chocolate lover</span></div>
+              <motion.div
                   data-test="slider-background"
                   className="absolute w-full h-4 rounded-full"
                   style={{
@@ -232,21 +236,23 @@ const ChocolateConsumer = () => {
                     onPointerDown={() => setDragging(true)}
                     onPointerUp={() => setDragging(false)}
                     animate={{
-                      scale: dragging ? 1.5 : 1,
+                      scale: reducedMotion ? 1 : dragging ? 1.12 : 1,
                     }}
                     style={{
                       width: handleSize,
                       height: handleSize,
                       x: handleX,
+                      rotate,
                       backgroundImage: `url('/img/choc.png')`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}
-                  ></motion.div>
+                  ><SliderMoment kind="chocolate" value={value} /></motion.div>
                 </div>
               </div>
-            </div>
+
+              </div>
           </div>
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6"></div>
         </div>

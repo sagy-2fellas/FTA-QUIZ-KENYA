@@ -1,3 +1,4 @@
+import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
 import MobileFactDialog from "../components/MobileFactDialog";
@@ -55,6 +56,7 @@ const FullpageWrapper = () => {
                 <h1 className="font-alegreya 2xl:text-6xl sm:text-5xl text-4xl text-white max-w-5xl text-center mt-6 mx-4">
                   You buy some Fairtrade-certified products – hooray!
                 </h1>
+                <ResultBasket />
               </div>
             </FullScreenSection>
             <FullScreenSection>
