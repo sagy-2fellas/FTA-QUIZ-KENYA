@@ -1240,3 +1240,29 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
 .wine-level-bottle { display: block; width: 100%; height: 100%; pointer-events: none; }
 .wine-level-liquid { transition: transform 240ms ease-out; }
 @media (prefers-reduced-motion: reduce) { .wine-level-liquid { transition: none; } }
+
+/* The final question uses ReactSlider, so it needs its own desktop layout. */
+@media (min-width: 1200px) and (min-height: 700px) {
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 48px; height: auto !important; min-height: 0 !important; max-height: none !important; overflow: visible; max-width: 1180px; margin: 24px auto 0; padding-bottom: 96px; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:first-child { display: contents; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:first-child > div:first-child { grid-column: 1; grid-row: 1; width: 100%; padding-top: 0; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:first-child > div:nth-child(2) { display: contents; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:first-child > div:last-child { display: none; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:last-child { grid-column: 2; grid-row: 1; min-width: 0; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:last-child > div { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:last-child > div > div { width: 100%; opacity: 1 !important; transform: none !important; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:last-child > div > div:nth-child(2) { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:last-child > div > div:nth-child(2) > div { width: 100%; }
+ #fullpage [data-anchor="Question-7"] .customSlider { width: 100% !important; height: 100px; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] svg { height: 140px; width: auto; max-width: 100%; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] p { font-size: 16px; line-height: 1.4; }
+}
+
+@media (min-width: 1200px) and (min-height: 700px) {
+ #fullpage [data-anchor="Question-7"] { align-items: flex-start !important; }
+ #fullpage [data-anchor="Question-7"] > div { width: 100%; }
+ #fullpage [data-anchor="Question-7"] .engagement-fact p { font-size: 14px; line-height: 1.4; }
+ #fullpage [data-anchor="Question-7"] [data-quiz-pane] { margin-top: 0; }
+ #fullpage [data-anchor="Question-7"] .customSlider-thumb-2 { width: 44px; height: 44px; top: 20px; }
+ #fullpage [data-anchor="Question-7"] .customSlider-thumb-2::before { width: 120px; height: 120px; top: 50%; }
+}
