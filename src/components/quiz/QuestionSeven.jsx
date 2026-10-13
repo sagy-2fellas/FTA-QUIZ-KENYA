@@ -313,52 +313,52 @@ const QuestionSeven = () => {
 
     switch (calculateRoute()) {
       case 1:
-        router.push("/result-1#home", undefined, { shallow: true });
+        router.push("/result-1", undefined, { scroll: true });
         break;
       case 2:
-        router.push("/result-2#home", undefined, { shallow: true });
+        router.push("/result-2", undefined, { scroll: true });
         break;
       case 3:
-        router.push("/result-3#home", undefined, { shallow: true });
+        router.push("/result-3", undefined, { scroll: true });
         break;
       case 4:
-        router.push("/result-4#home", undefined, { shallow: true });
+        router.push("/result-4", undefined, { scroll: true });
         break;
       case 5:
-        router.push("/result-5#home", undefined, { shallow: true });
+        router.push("/result-5", undefined, { scroll: true });
         break;
       case 6:
-        router.push("/result-6#home", undefined, { shallow: true });
+        router.push("/result-6", undefined, { scroll: true });
         break;
       case 7:
-        router.push("/result-7#home", undefined, { shallow: true });
+        router.push("/result-7", undefined, { scroll: true });
         break;
       case 8:
-        router.push("/result-8#home", undefined, { shallow: true });
+        router.push("/result-8", undefined, { scroll: true });
         break;
       case 9:
-        router.push("/result-9#home", undefined, { shallow: true });
+        router.push("/result-9", undefined, { scroll: true });
         break;
       case 10:
-        router.push("/result-10#home", undefined, { shallow: true });
+        router.push("/result-10", undefined, { scroll: true });
         break;
       case 11:
-        router.push("/result-11#home", undefined, { shallow: true });
+        router.push("/result-11", undefined, { scroll: true });
         break;
       case 12:
-        router.push("/result-12#home", undefined, { shallow: true });
+        router.push("/result-12", undefined, { scroll: true });
         break;
       case 13:
-        router.push("/result-13#home", undefined, { shallow: true });
+        router.push("/result-13", undefined, { scroll: true });
         break;
       case 14:
-        router.push("/result-14#home", undefined, { shallow: true });
+        router.push("/result-14", undefined, { scroll: true });
         break;
       case 15:
-        router.push("/result-15#home", undefined, { shallow: true });
+        router.push("/result-15", undefined, { scroll: true });
         break;
       case 16:
-        router.push("/result-16#home", undefined, { shallow: true });
+        router.push("/result-16", undefined, { scroll: true });
         break;
     }
 

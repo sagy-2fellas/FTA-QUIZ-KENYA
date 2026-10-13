@@ -28,3 +28,13 @@ test("results signup completes with a mocked subscription", async ({ page }) => 
   await page.locator('.results-signup button[type="submit"]').click();
   await expect(page).toHaveURL(/thanks-for-signing-up/);
 });
+
+ test("finishing the quiz opens the first result, not the signup form", async ({ page }) => {
+  await page.goto("/quiz#Question-7");
+  await page.getByRole("button", { name: "View your results", exact: true }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "View your results", exact: true }).click();
+  await expect(page).toHaveURL(/result-\d+$/);
+  await expect.poll(async () => (await page.locator(".result-section").first().boundingBox())?.y).toBe(0);
+  await page.waitForTimeout(700);
+  expect((await page.locator(".result-section").first().boundingBox()).y).toBe(0);
+});

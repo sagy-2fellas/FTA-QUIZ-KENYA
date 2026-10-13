@@ -1,10 +1,19 @@
 import useGrowerReveal from "./useGrowerReveal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 export default function ResultsFullpage({ children, anchors, ...props }) {
-  const revealRoot = useGrowerReveal();
-  const [compact, setCompact] = useState(true);
+  const [compact, setCompact] = useState(null);
+  const revealRoot = useGrowerReveal(compact !== null);
+  const openedAtTop = useRef(false);
+  const openFirstResult = () => {
+    if (openedAtTop.current) return;
+    openedAtTop.current = true;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      window.fullpage_api?.silentMoveTo(1);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }));
+  };
   useEffect(() => {
     const query = window.matchMedia("(max-width: 1199px), (max-height: 699px)");
     const update = () => setCompact(query.matches);
@@ -34,9 +43,10 @@ export default function ResultsFullpage({ children, anchors, ...props }) {
   }, []);
   return (
     <div ref={revealRoot} className={`results-page ${compact ? "results-compact" : ""}`}>
-      <ReactFullpage {...props} anchors={[]} recordHistory={false}
+      {compact !== null && <ReactFullpage {...props} anchors={[]} recordHistory={false}
+        afterRender={openFirstResult}
         autoScrolling={!compact} navigation={!compact} scrollOverflow={!compact}
-        normalScrollElements=".quiz-dialog-backdrop, .results-signup" />
+        normalScrollElements=".quiz-dialog-backdrop, .results-signup" />}
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 
-export default function useGrowerReveal() {
+export default function useGrowerReveal(ready = true) {
   const root = useRef(null);
   useEffect(() => {
+    if (!ready) return;
     const targets = [];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -31,6 +32,6 @@ export default function useGrowerReveal() {
       observer.disconnect();
       targets.forEach(target => target.classList.remove("grower-revealed", "grower-portrait-reveal", "grower-name-reveal"));
     };
-  }, []);
+  }, [ready]);
   return root;
 }
