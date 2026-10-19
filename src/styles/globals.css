@@ -1186,6 +1186,61 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
 }
 .question-one-map { min-width: 0; width: 100%; }
 .kenya-map-picker { max-width: 400px; }
+.kenya-region-control { width: min(100%, 280px); margin-inline: auto; }
+.kenya-region-native { display: none; }
+.kenya-region-custom { display: block; }
+.kenya-region-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+  background: #fff;
+  color: #1e1e1e;
+  text-align: left;
+  font: 500 16px/1.25 Exo, sans-serif;
+}
+.kenya-region-chevron {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+}
+.kenya-region-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  max-height: 232px;
+  overflow-y: auto;
+  border: 1px solid #858b80;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .16);
+}
+.kenya-region-option {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 0;
+  background: #fff;
+  color: #1e1e1e;
+  text-align: left;
+  font: 500 16px/1.25 Exo, sans-serif;
+}
+.kenya-region-option:hover,
+.kenya-region-option:focus-visible { background: #e9f9ff; }
+.kenya-region-option[aria-selected="true"] { background: #d4ff47; }
+.kenya-region-trigger:focus-visible,
+.kenya-region-option:focus-visible { outline: 3px solid #00b2e2; outline-offset: 2px; }
 .question-one-aside {
   display: flex;
   flex-direction: column;
@@ -1209,6 +1264,9 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
 }
 .quiz-mobile .question-one-aside { display: none; }
 .quiz-mobile .kenya-map-picker { max-width: 340px; }
+.quiz-mobile .kenya-region-control { width: 100%; }
+.quiz-mobile .kenya-region-native { display: block; }
+.quiz-mobile .kenya-region-custom { display: none; }
 @media (min-width: 700px) {
   .quiz-mobile .kenya-map-picker { max-width: 400px; }
 }

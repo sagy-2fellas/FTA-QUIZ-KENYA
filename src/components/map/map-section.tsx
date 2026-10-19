@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -58,6 +58,11 @@ export const MapSection = ({
   const [status, setStatus] = useState<Status>("loading");
   const [attempt, setAttempt] = useState(0);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -88,6 +93,75 @@ export const MapSection = ({
     },
     [handleSelection]
   );
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
+  }, [menuOpen]);
+
+  const openMenu = () => {
+    const index = Math.max(0, REGIONS.findIndex((region) => region === selectedId));
+    setFocusedIndex(index);
+    setMenuOpen(true);
+    requestAnimationFrame(() => optionRefs.current[index]?.focus());
+  };
+
+  const chooseRegion = (region: string) => {
+    select(region);
+    setMenuOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const handleMenuKeyDown = (event: KeyboardEvent) => {
+    const target = event.target as Node;
+    if (!menuRef.current?.contains(target)) return;
+    if (target === triggerRef.current) {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        event.stopPropagation();
+        openMenu();
+      } else if (event.key === "Enter" || event.key === " ") {
+        event.stopPropagation();
+      }
+      return;
+    }
+    if (!menuOpen) return;
+    event.stopPropagation();
+    let nextIndex = focusedIndex;
+    if (event.key === "ArrowDown") nextIndex = (focusedIndex + 1) % REGIONS.length;
+    else if (event.key === "ArrowUp") nextIndex = (focusedIndex - 1 + REGIONS.length) % REGIONS.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = REGIONS.length - 1;
+    else if (event.key === "Escape") {
+      event.preventDefault();
+      setMenuOpen(false);
+      triggerRef.current?.focus();
+      return;
+    } else if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      chooseRegion(REGIONS[focusedIndex]);
+      return;
+    } else if (event.key === "Tab") {
+      setMenuOpen(false);
+      return;
+    } else return;
+    event.preventDefault();
+    setFocusedIndex(nextIndex);
+    optionRefs.current[nextIndex]?.focus();
+  };
+
+  // fullpage.js listens above this control and otherwise uses these keys to
+  // change questions. Handle them on the control before they reach that wrapper.
+  useEffect(() => {
+    const node = menuRef.current;
+    if (!node) return;
+    node.addEventListener("keydown", handleMenuKeyDown);
+    return () => node.removeEventListener("keydown", handleMenuKeyDown);
+  }, [menuOpen, focusedIndex, selectedId]);
 
   // fitSize derives scale and centre from the data, so the map always fills the
   // viewBox regardless of viewport width. No per-breakpoint magic numbers.
@@ -202,21 +276,22 @@ export const MapSection = ({
 
       {/* Always present: the map alone is not operable by keyboard or TalkBack,
           and this is also the fallback when the GeoJSON fails to load. */}
-      <div className="order-1 mb-3 px-2">
-        <label
-          htmlFor="kenya-region"
+      <div className="kenya-region-control order-1 mb-3 px-2">
+        <span
+          id="kenya-region-label"
           className="block font-exo text-sm mb-1 text-black"
         >
           Where do you live?
-        </label>
+        </span>
         <select
           id="kenya-region"
           name="kenya-region"
+          aria-labelledby="kenya-region-label"
           value={selectedId ?? ""}
           onChange={(event) => {
             if (event.target.value) select(event.target.value);
           }}
-          className="w-full min-h-[44px] rounded-md border border-black bg-white px-3 font-exo text-base text-gray-900 touch-manipulation"
+          className="kenya-region-native w-full min-h-[44px] rounded-md border border-black bg-white px-3 font-exo text-base text-gray-900 touch-manipulation"
         >
           <option value="" disabled>
             Choose your region…
@@ -227,6 +302,46 @@ export const MapSection = ({
             </option>
           ))}
         </select>
+        <div ref={menuRef} className="kenya-region-custom relative">
+          <button
+            ref={triggerRef}
+            id="kenya-region-trigger"
+            type="button"
+            aria-labelledby="kenya-region-label kenya-region-trigger"
+            aria-haspopup="listbox"
+            aria-expanded={menuOpen}
+            aria-controls="kenya-region-options"
+            onClick={() => (menuOpen ? setMenuOpen(false) : openMenu())}
+            className="kenya-region-trigger"
+          >
+            <span>{selectedId ?? "Choose your region…"}</span>
+            <span aria-hidden="true" className="kenya-region-chevron" />
+          </button>
+          {menuOpen && (
+            <div
+              id="kenya-region-options"
+              role="listbox"
+              aria-labelledby="kenya-region-label"
+              className="kenya-region-options"
+            >
+              {REGIONS.map((region, index) => (
+                <button
+                  key={region}
+                  ref={(node) => { optionRefs.current[index] = node; }}
+                  type="button"
+                  role="option"
+                  aria-selected={selectedId === region}
+                  tabIndex={focusedIndex === index ? 0 : -1}
+                  onFocus={() => setFocusedIndex(index)}
+                  onClick={() => chooseRegion(region)}
+                  className="kenya-region-option"
+                >
+                  {region}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
