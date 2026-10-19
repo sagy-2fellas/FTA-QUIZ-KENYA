@@ -112,7 +112,7 @@ export const MapSection = ({
           d={d}
           stroke="#f2f2f2"
           strokeWidth={isSmallRegion ? 8 : 2}
-          fill={isSelected ? "#00B2E2" : "black"}
+          fill={isSelected ? "#D4FF47" : "#5BC9E8"}
           onClick={() => select(shape.name)}
           className="cursor-pointer"
           style={
@@ -149,7 +149,7 @@ export const MapSection = ({
   }, [geo, selectedId]);
 
   return (
-    <div className="w-full max-w-[500px] mx-auto flex flex-col">
+    <div className="kenya-map-picker w-full mx-auto flex flex-col">
       <div
         className="relative w-full order-2"
         style={{ aspectRatio: VIEWBOX_WIDTH + " / " + VIEWBOX_HEIGHT }}

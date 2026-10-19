@@ -1,6 +1,5 @@
 import styles from "../../style";
 import Map from "../svg/Map";
-import SlideOneChar from "../svg/SlideOneChar";
 import FactCard from "../FactCard";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,7 +59,7 @@ const QuestionOne = ({}) => {
       {/* END NAVIGATION FACT */}
 
       {/* CONTENT */}
-      <div className="h-full w-full flex flex-col md:flex-row">
+      <div className="question-one-layout">
         <div className="flex items-center justify-center md:justify-start h-full md:flex-initial md:w-1/4">
           <motion.h2
             data-quiz-heading
@@ -91,14 +90,14 @@ const QuestionOne = ({}) => {
         </AnimatePresence>
         
 
-        <div className="md:flex items-center flex-1 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 lg:px-8 xl:px-12 desktop:px-16 fhd:px-20">
+        <div className="question-one-map">
           <MapSection
             width={500}
             height={500}
             handleSelection={handleSelection}
           />
         </div>
-        <div className="md:flex justify-start gap-4 pr-20 xl:pr-24 flex-col items-end pt-16 lg:pt-20 flex-1 hidden">
+        <div className="question-one-aside">
           <div className="question-one-nav hidden lg:block">
             <QuizNavigation navigateNext={navigateNext} value={value} />
           </div>
@@ -114,9 +113,6 @@ const QuestionOne = ({}) => {
                 Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025. Copenhagen: The Danish Trade Union Council for International Development Cooperation (DTUC).
               </p>
             </FactCard>
-          </div>
-          <div className="lg:h-56 w-auto 2xl:h-auto h-28 sm:h-40">
-            <SlideOneChar />
           </div>
         </div>
       </div>
