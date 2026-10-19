@@ -31,14 +31,16 @@ const QuizNavigation = ({ navigateNext, navigatePrev, value }) => {
 
   return (
     <div className="desktop-quiz-navigation">
-      <button
-        type="button"
-        onClick={navigatePrev}
-        aria-label="Previous question"
-        className="bg-ft-dark-green text-white min-h-[44px] min-w-[44px] h-12 w-12 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg"
-      >
-        <NavIcon back /><span>Previous</span>
-      </button>
+      {navigatePrev && (
+        <button
+          type="button"
+          onClick={navigatePrev}
+          aria-label="Previous question"
+          className="bg-ft-dark-green text-white min-h-[44px] min-w-[44px] h-12 w-12 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg"
+        >
+          <NavIcon back /><span>Previous</span>
+        </button>
+      )}
       <button
         type="button"
         onClick={navigateNext}

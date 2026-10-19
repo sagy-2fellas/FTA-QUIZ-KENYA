@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapSection } from "../map/map-section";
 import MobileFactDialog from "../MobileFactDialog";
 import MobileQuizNav from "../MobileQuizNav";
+import QuizNavigation from "../QuizNavigation";
 
 const QuestionOne = ({}) => {
   const [value, setValue] = useState("");
@@ -32,91 +33,9 @@ const QuestionOne = ({}) => {
   const [factToggled1, setFactToggled1] = useState(false);
   return (
     <div className={`${styles.boxWidth}  mx-auto z-0 h-full relative`}>
-      {/* NAVIGATION */}
-
-      <div
-        className={`z-10 absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 md:-translate-y-[15%] desktop:hidden hidden lg:block`}
-      >
-        <div className="relative">
-          <div className="absolute right-0 -top-52 buttonNotice-mobile  buttonNotice">
-            <h2 className="font-alegreya 2xl:text-xl lg:text-sm hidden xs:block  xs:text-sm sm:text-base rotate-90  lg:-translate-x-1 text-ft-blue whitespace-nowrap w-10 md:w-8 ">
-              Click here to go to the next question
-            </h2>
-          </div>
-          <div
-            className={
-              value === ""
-                ? "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center shadow-lg relative md:hidden touch-manipulation min-h-[44px] min-w-[44px]"
-                : "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full flex items-center justify-center cursor-pointer shadow-lg md:hidden touch-manipulation min-h-[44px] min-w-[44px]"
-            }
-            onClick={() => {
-              if (value !== "") {
-                setFactToggled1(!factToggled1);
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Show fact"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                if (value !== "") {
-                  setFactToggled1(!factToggled1);
-                }
-              }
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-6 h-6 sm:w-7 sm:h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-          <div
-            className={
-              value === ""
-                ? "bg-gray-500 h-14 w-14 sm:h-16 sm:w-16 rounded-l-full md:flex items-center justify-center shadow-lg relative hidden touch-manipulation min-h-[44px] min-w-[44px]"
-                : "bg-ft-dark-green h-14 w-14 sm:h-16 sm:w-16 rounded-l-full md:flex items-center justify-center cursor-pointer shadow-lg hidden touch-manipulation min-h-[44px] min-w-[44px]"
-            }
-            onClick={navigateNext}
-            role="button"
-            tabIndex={0}
-            aria-label="Next question"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                navigateNext();
-              }
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={3}
-              stroke="white"
-              className="w-6 h-6 sm:w-7 sm:h-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
-              />
-            </svg>
-          </div>
-        </div>
+      <div className="hidden lg:block">
+        <QuizNavigation navigateNext={navigateNext} value={value} />
       </div>
-
-      {/* END NAVIGATION */}
 
       {/* NAVIGATION FACT */}
       <MobileFactDialog

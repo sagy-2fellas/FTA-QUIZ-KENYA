@@ -1171,7 +1171,7 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
 .slider-endpoints span:last-child { text-align: right; }
 .desktop-quiz-navigation { position: absolute; right: 12%; bottom: 24px; display: flex; gap: 12px; z-index: 20; }
 .desktop-quiz-navigation button { width: auto; min-width: 148px; height: 48px; padding: 0 20px; border-radius: 10px; gap: 12px; font: 700 16px/1 Exo,sans-serif; box-shadow: none; color: #1e1e1e; }
-.desktop-quiz-navigation button:first-child { background: white; border: 1px solid #858b80; }
+.desktop-quiz-navigation button[aria-label="Previous question"] { background: white; border: 1px solid #858b80; }
 .desktop-quiz-navigation button:disabled { background: #dadada; color: #51564c; }
 .engagement-fact { background: #e9f9ff; border: 0; border-radius: 16px; padding: 24px; }
 .engagement-fact h3 { font-size: 24px; line-height: 1.2; }
