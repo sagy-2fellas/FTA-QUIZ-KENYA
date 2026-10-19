@@ -18,24 +18,8 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en-KE">
         <Head>
-          <meta property="og:url" content="https://www.befairrightnow.net" />
-          <meta property="og:title" content="Fairtrade Africa Quiz" />
-          <meta
-            property="og:description"
-            content="Meet the human who grows your favourite drink."
-          />
-          <meta
-            property="og:image"
-            content="https://www.befairrightnow.net/img/home-hero.jpg"
-          />
-          <meta property="og:site_name" content="FairTrade Africa Quiz" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta
-            name="twitter:image"
-            content="https://www.befairrightnow.net/img/home-hero.jpg"
-          />
           {ANALYTICS_ENABLED ? (
             <>
             <Script

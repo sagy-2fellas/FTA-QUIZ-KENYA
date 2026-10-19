@@ -18,6 +18,7 @@ import QuestionSix from "../components/quiz/QuestionSix";
 import QuestionSeven from "../components/quiz/QuestionSeven";
 import QuestionEight from "../components/quiz/QuestionEight";
 import Head from "next/head";
+import SeoHead from "../components/SeoHead";
 import { useRouter } from "next/router";
 import ChocolateConsumer from "../components/quiz/ChocolateConsumer";
 
@@ -311,8 +312,12 @@ const Quiz = () => {
 
   return (
     <div className="h-full">
+      <SeoHead
+        title="Take the Fairtrade Kenya Quiz | Be Fair Right Now"
+        description="Answer eight questions about everyday choices and discover the people behind coffee, tea and wine in Kenya."
+        path="/quiz"
+      />
       <Head>
-        <title>Quiz Questions</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
