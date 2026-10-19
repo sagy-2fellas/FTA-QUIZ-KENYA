@@ -151,7 +151,7 @@ export const MapSection = ({
   return (
     <div className="w-full max-w-[500px] mx-auto flex flex-col">
       <div
-        className="relative w-full order-2 md:order-1"
+        className="relative w-full order-2"
         style={{ aspectRatio: VIEWBOX_WIDTH + " / " + VIEWBOX_HEIGHT }}
       >
         {status === "loading" && (
@@ -171,7 +171,7 @@ export const MapSection = ({
           >
             <p className="font-exo text-base">
               The map could not be loaded. You can still choose your region
-              below.
+              above.
             </p>
             <button
               type="button"
@@ -202,7 +202,7 @@ export const MapSection = ({
 
       {/* Always present: the map alone is not operable by keyboard or TalkBack,
           and this is also the fallback when the GeoJSON fails to load. */}
-      <div className="order-1 md:order-2 mb-3 md:mb-0 md:mt-3 px-2">
+      <div className="order-1 mb-3 px-2">
         <label
           htmlFor="kenya-region"
           className="block font-exo text-sm mb-1 text-black"
