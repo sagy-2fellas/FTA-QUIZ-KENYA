@@ -63,6 +63,9 @@ const QuizSection = ({ children }) => {
 const FullpageWrapper = () => {
   const reducedMotion = useReducedMotion();
   // const [answers, dispatch] = useReducer(answersReducer, initialAnswers);
+  const currentQuestionRef = useRef(0);
+  const permittedDestinationRef = useRef(null);
+  const movingByButtonRef = useRef(false);
 
   const { currentSlide, SetCurrentSlide, isSmallScreen } =
     useBetween(useShareableState);
@@ -136,7 +139,51 @@ const FullpageWrapper = () => {
       return false;
     };
 
+    const scrollCurrentQuestion = (event) => {
+      const target = event.target;
+      if (!target || typeof target.closest !== "function") return false;
+      if (target.closest(OWNS_ITS_KEYS) || target.closest("button,[role=button]")) return false;
+      const section = target.closest(".section.active");
+      if (!section) return false;
+
+      const key = event.key;
+      const pageStep = Math.round(window.innerHeight * 0.8);
+      const delta = key === "PageDown" || (key === " " && !event.shiftKey)
+        ? pageStep
+        : key === "PageUp" || (key === " " && event.shiftKey)
+          ? -pageStep
+          : key === "ArrowDown"
+            ? 60
+            : key === "ArrowUp"
+              ? -60
+              : null;
+      if (delta === null && key !== "Home" && key !== "End") return false;
+
+      const sections = [...document.querySelectorAll("#fullpage > .section")];
+      const current = sections[currentQuestionRef.current];
+      if (!current) return false;
+      const top = (node) => node.getBoundingClientRect().top + window.scrollY;
+      const firstPosition = top(current);
+      const next = sections[currentQuestionRef.current + 1];
+      const lastPosition = next
+        ? Math.max(firstPosition, top(next) - window.innerHeight)
+        : Number.POSITIVE_INFINITY;
+      const requested = key === "Home"
+        ? firstPosition
+        : key === "End"
+          ? lastPosition
+          : window.scrollY + delta;
+      event.preventDefault();
+      event.stopPropagation();
+      window.scrollTo({
+        top: Math.max(firstPosition, Math.min(requested, lastPosition)),
+        behavior: "instant",
+      });
+      return true;
+    };
+
     const shieldKeys = (event) => {
+      if (scrollCurrentQuestion(event)) return;
       if (shouldShieldFromFullpage(event)) event.stopPropagation();
     };
 
@@ -147,11 +194,64 @@ const FullpageWrapper = () => {
   const enableScrolling = () => {
     const api = typeof window !== "undefined" ? window.fullpage_api : undefined;
     if (!api) return;
-    api.setAllowScrolling(true);
-    api.setKeyboardScrolling(true);
+    if (!api.__quizNavigationGuarded) {
+      const moveDown = api.moveSectionDown.bind(api);
+      const moveUp = api.moveSectionUp.bind(api);
+      const moveWithPermission = (move, offset, args) => {
+        const count = document.querySelectorAll("#fullpage > .section").length;
+        const target = currentQuestionRef.current + offset;
+        if (target < 0 || target >= count) return;
+        permittedDestinationRef.current = target;
+        try {
+          return move(...args);
+        } finally {
+          // fullpage calls onLeave synchronously. A failed move must not leave
+          // a permit that a later wheel or key event can use.
+          permittedDestinationRef.current = null;
+        }
+      };
+      api.moveSectionDown = (...args) => moveWithPermission(moveDown, 1, args);
+      api.moveSectionUp = (...args) => moveWithPermission(moveUp, -1, args);
+      api.__quizNavigationGuarded = true;
+    }
+    // Desktop uses fullpage for section movement. On small screens, native
+    // scrolling remains available within the current question.
+    api.setAllowScrolling(isSmallScreen);
+    api.setKeyboardScrolling(false);
   };
 
   useEffect(enableScrolling, [isSmallScreen]);
+
+  useEffect(() => {
+    if (!isSmallScreen) return undefined;
+    let frame = null;
+    const keepScrollWithinQuestion = () => {
+      frame = null;
+      if (movingByButtonRef.current) return;
+      const sections = [...document.querySelectorAll("#fullpage > .section")];
+      const current = sections[currentQuestionRef.current];
+      if (!current) return;
+      const top = (section) => section.getBoundingClientRect().top + window.scrollY;
+      const firstPosition = top(current);
+      const next = sections[currentQuestionRef.current + 1];
+      const lastPosition = next
+        ? Math.max(firstPosition, top(next) - window.innerHeight)
+        : Number.POSITIVE_INFINITY;
+      const position = Math.max(firstPosition, Math.min(window.scrollY, lastPosition));
+      if (Math.abs(window.scrollY - position) > 1) {
+        window.scrollTo({ top: position, behavior: "instant" });
+      }
+    };
+    const onScroll = () => {
+      if (frame === null) frame = requestAnimationFrame(keepScrollWithinQuestion);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [isSmallScreen]);
 
   // useEffect(() => {
   //   router.push("/?counter=10", undefined, { shallow: true });
@@ -167,6 +267,7 @@ const FullpageWrapper = () => {
       autoScrolling={!isSmallScreen}
       afterRender={enableScrolling}
       afterLoad={(origin) => {
+        movingByButtonRef.current = false;
         // Resolve the active section from the DOM: fullpage's React wrapper
         // does not reliably hand us the section node, and trusting it marked
         // the *active* section inert.
@@ -193,6 +294,9 @@ const FullpageWrapper = () => {
         });
       }}
       onLeave={(origin, destination, direction) => {
+        if (destination.index !== permittedDestinationRef.current) return false;
+        currentQuestionRef.current = destination.index;
+        movingByButtonRef.current = true;
         returnSlide(destination.index);
         const pane = destination.item?.querySelector("[data-quiz-pane]");
         if (pane && !reducedMotion) {
