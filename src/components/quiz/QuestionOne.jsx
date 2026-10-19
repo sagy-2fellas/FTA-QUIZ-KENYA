@@ -1,5 +1,6 @@
 import styles from "../../style";
 import Map from "../svg/Map";
+import SlideOneChar from "../svg/SlideOneChar";
 import FactCard from "../FactCard";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -96,6 +97,9 @@ const QuestionOne = ({}) => {
             height={500}
             handleSelection={handleSelection}
           />
+          <div className="question-one-illustration" aria-hidden="true">
+            <SlideOneChar />
+          </div>
         </div>
         <div className="question-one-aside">
           <div className="question-one-nav hidden lg:block">
