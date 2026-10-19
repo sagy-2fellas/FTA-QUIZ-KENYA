@@ -34,7 +34,7 @@ const QuestionFive = () => {
   const handleSize = 120;
   const handleX = useMotionValue(0);
   const { rotate, reducedMotion } = useSliderFeedback(handleX, dragging);
-  const progress = useTransform(handleX, (v) => v + handleSize / 2);
+  const progress = useTransform(handleX, (v) => v);
   const background = useMotionTemplate`linear-gradient(90deg, #C1D42F ${progress}px, #d1d5db 0)`;
 
   function handleDrag() {
@@ -183,18 +183,21 @@ const QuestionFive = () => {
               data-test="slider"
               className="relative flex flex-col justify-center"
             >
-              <div className="slider-endpoints"><span>No wine</span><span>Wine lover</span></div>
+              <div className="slider-endpoints" style={{ left: handleSize / 2, right: handleSize / 2 }}><span>No wine</span><span>Wine lover</span></div>
               <motion.div
                 data-test="slider-background"
-                className="absolute w-full h-4 rounded-full"
+                className="absolute h-4 rounded-full"
                 style={{
+                  left: handleSize / 2,
+                  right: handleSize / 2,
                   background,
                 }}
               />
 
                               {/* Indicators with values */}
-                <div className="absolute w-full px-4 lg:px-10 xl:px-12 2xl:px-16">
-                  <div className="flex justify-between">
+                <div className="wine-slider-marks absolute flex justify-between"
+                style={{ left: handleSize / 2, right: handleSize / 2 }}>
+                  <div className="flex w-full justify-between">
                     <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
                     <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
                     <span className="h-12 lg:h-10 xl:h-12 2xl:h-14 w-4 xl:w-5 2xl:w-6 bg-black rounded-full"></span>
@@ -250,7 +253,7 @@ const QuestionFive = () => {
                     progressBarRef.current.getBoundingClientRect();
                   let position = event.pageX - left;
                   let newProgress = clamp(position / width, 0, 1);
-                  let newValue = newProgress * (max - min);
+                  let newValue = min + newProgress * (max - min);
                   snapToClosestValue(newValue); // Snap to the closest value
                 }}
               />

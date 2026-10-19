@@ -19,59 +19,21 @@ const WhoMe = () => {
                 </h1>
                 <div className="sm:pl-6 pl-2 space-y-2">
                   <p className="font-exo 2xl:text-2xl sm:text-lg text-gray-700">
-                    Yes, <span className="underline">you.</span>
+                    Yes, <strong className="underline">you.</strong>
                   </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    Listen, figuring out how ‘fair’ you are to others (and the
-                    earth) through a quiz like this is a big guessing game. We
-                    know.
+                  <p className="font-exo 2xl:text-base text-sm text-gray-700">
+                    This quiz uses everyday shopping choices to introduce you to
+                    the people behind the products you love. It’s a story, not a score.
                   </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    So this isn’t science – it’s story. Based on averages and
-                    reports. We take you through a short, easy quiz and ask you
-                    to pretend to shop your faves. Then we introduce you to
-                    someone at the end.{" "}
-                    <span className="underline">
-                      Not to make you feel guilty.
-                    </span>{" "}
-                    To help you understand your power.
+                  <p className="font-exo 2xl:text-base text-sm text-gray-700">
+                    What you buy helps shape how growers and farm workers are treated.
+                    Fairtrade makes it easier to choose products that support fairer
+                    pay and sustainable farming.
                   </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    And you should know up front: this isn’t about farmers vs
-                    farm workers. It’s about{" "}
-                    <span className="underline">you.</span> Farming needs to
-                    remain sustainable for everyone involved. If it doesn’t,
-                    your favourite products might not be around for long.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    So it comes down to you (no pressure!). Because the
-                    decision-makers look at what you (as a consumer) choose.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    <span className="underline">
-                      But here’s the thing about you:
-                    </span>{" "}
-                    you’re just doing the best you can.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    You wish there was an app to tell you if your purchase
-                    decisions are ethical. Or a sticker with an arrow that said
-                    “This is the one that’s kind to the farmer and farm worker
-                    and earth”.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    We don’t mean to alarm you, but the sticker exists. It’s
-                    called the Fairtrade logo.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    Do the quiz (which is also your entry to an amazing
-                    giveaway) and let’s take it from there. No guilt trips, just
-                    solutions.
-                  </p>
-                  <p className="font-exo 2xl:text-base text-sm  text-gray-700">
-                    The best time to think about fairness was years ago. The
-                    next best time is{" "}
-                    <span className="underline">right now.</span>
+                  <p className="font-exo 2xl:text-base text-sm text-gray-700">
+                    <strong className="underline">No guilt trips.</strong> Look for the
+                    Fairtrade logo, meet someone behind your choices, and see what
+                    you can do <strong className="underline">right now.</strong>
                   </p>
                   <div className="pt-2">
                     <Link href="/quiz">
