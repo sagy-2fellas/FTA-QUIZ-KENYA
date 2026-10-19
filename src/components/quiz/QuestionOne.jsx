@@ -33,10 +33,6 @@ const QuestionOne = ({}) => {
   const [factToggled1, setFactToggled1] = useState(false);
   return (
     <div className={`${styles.boxWidth}  mx-auto z-0 h-full relative`}>
-      <div className="hidden lg:block">
-        <QuizNavigation navigateNext={navigateNext} value={value} />
-      </div>
-
       {/* NAVIGATION FACT */}
       <MobileFactDialog
         open={factToggled1}
@@ -102,7 +98,10 @@ const QuestionOne = ({}) => {
             handleSelection={handleSelection}
           />
         </div>
-        <div className=" md:flex justify-between pr-20 xl:pr-24 flex-col items-end pt-28 lg:pt-32 xl:pt-40 flex-1 hidden">
+        <div className="md:flex justify-start gap-4 pr-20 xl:pr-24 flex-col items-end pt-16 lg:pt-20 flex-1 hidden">
+          <div className="question-one-nav hidden lg:block">
+            <QuizNavigation navigateNext={navigateNext} value={value} />
+          </div>
           <div>
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl text-base border-l-2 border-ft-blue pl-2 mb-4">

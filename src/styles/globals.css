@@ -1170,6 +1170,7 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
 .slider-endpoints { position: absolute; top: 100%; left: 0; right: 0; display: flex; justify-content: space-between; gap: 20px; margin-top: 10px; color: #41463e; font: 500 14px/1.3 Exo,sans-serif; pointer-events: none; }
 .slider-endpoints span:last-child { text-align: right; }
 .desktop-quiz-navigation { position: absolute; right: 12%; bottom: 24px; display: flex; gap: 12px; z-index: 20; }
+.question-one-nav .desktop-quiz-navigation { position: static; right: auto; bottom: auto; }
 .desktop-quiz-navigation button { width: auto; min-width: 148px; height: 48px; padding: 0 20px; border-radius: 10px; gap: 12px; font: 700 16px/1 Exo,sans-serif; box-shadow: none; color: #1e1e1e; }
 .desktop-quiz-navigation button[aria-label="Previous question"] { background: white; border: 1px solid #858b80; }
 .desktop-quiz-navigation button:disabled { background: #dadada; color: #51564c; }
