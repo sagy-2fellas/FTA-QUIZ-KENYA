@@ -276,6 +276,29 @@ test.describe("mobile quiz completion", () => {
       await dialog.getByRole("button", { name: /View your results/ }).click();
     }
     await expect(page).toHaveURL(/\/result-\d+/);
+    const savedAnswers = await page.evaluate(() => {
+      const saved = sessionStorage.getItem("bfa-completed-quiz-v1");
+      return saved ? JSON.parse(saved).answers : null;
+    });
+    expect(savedAnswers?.question_1).toBeTruthy();
+    expect(savedAnswers?.question_7).toBe(3);
+
+    // A result-page reload must keep the real quiz answers in the signup payload.
+    await page.reload({ waitUntil: "domcontentloaded" });
+    let submitted = null;
+    page.on("request", (request) => {
+      if (request.url().includes("/api/subscribe")) {
+        submitted = request.postDataJSON();
+      }
+    });
+    const form = page.locator(".results-signup form");
+    await form.locator('input[name="firstName"]').fill("Test");
+    await form.locator('input[name="lastName"]').fill("Person");
+    await form.locator('input[name="email"]').fill("not-real@example.invalid");
+    await form.getByRole("button", { name: /giveaway/i }).click();
+    await expect.poll(() => submitted).not.toBeNull();
+    expect(submitted.customFields.question_1).toEqual(savedAnswers.question_1);
+    expect(submitted.customFields.question_7).toEqual(savedAnswers.question_7);
   });
 
   test("fact dialog traps focus, closes on Escape and restores focus", async ({

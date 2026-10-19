@@ -8,8 +8,9 @@ import SliderLeft from "../svg/SliderLeftIcon";
 import Slider from "../SliderTwo";
 import SliderMob from "../SliderTwoMobile";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { addDecide } from "../../slices/QSevenSlice";
+import { saveCompletedQuiz } from "../../utils/quizAnswers";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -34,6 +35,7 @@ const QuestionSeven = () => {
   let allFT = false;
 
   const dispatch = useDispatch();
+  const store = useStore();
 
   //help me console log all values stored in the state coming from react-redux
   // const state = useSelector((state) => state);
@@ -310,6 +312,8 @@ const QuestionSeven = () => {
 
   const navigateNext = () => {
     setDrinksStates();
+    dispatch(addDecide(currentValue));
+    saveCompletedQuiz(store.getState());
 
     switch (calculateRoute()) {
       case 1:
@@ -361,8 +365,6 @@ const QuestionSeven = () => {
         router.push("/result-16", undefined, { scroll: true });
         break;
     }
-
-    dispatch(addDecide(currentValue));
   };
   const navigatePrev = () => {
     window.fullpage_api.moveSectionUp();

@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import handler from "../src/pages/api/subscribe.js";
+import { saveCompletedQuiz, getCompletedQuiz } from "../src/utils/quizAnswers.js";
 
 function response() {
   return {
@@ -24,7 +25,7 @@ test("Kenya signup creates a Mailchimp contact and saves quiz answers", async ()
     const res = response();
     await handler({ method: "POST", body: {
       email: " Person@Example.com ", firstName: "Pat", lastName: "Lee",
-      customFields: { question_1: "answer" },
+      customFields: { question_1: "answer", question_7: 3 },
     } }, res);
     assert.equal(res.code, 200);
     assert.equal(calls.length, 2);
@@ -61,7 +62,7 @@ test("existing unsubscribed contact is not treated as a successful signup", asyn
   };
   try {
     const res = response();
-    await handler({ method: "POST", body: { email: "person@example.com" } }, res);
+    await handler({ method: "POST", body: { email: "person@example.com", customFields: { question_1: "answer", question_7: 3 } } }, res);
     assert.equal(res.code, 409);
     assert.equal(calls, 1);
   } finally {
@@ -69,3 +70,55 @@ test("existing unsubscribed contact is not treated as a successful signup", asyn
   }
 });
 
+
+test("missing completed quiz answers never reaches Mailchimp", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = () => { throw new Error("unexpected fetch"); };
+  try {
+    const res = response();
+    await handler({ method: "POST", body: {
+      email: "person@example.com",
+      customFields: { question_1: "answer" },
+    } }, res);
+    assert.equal(res.code, 400);
+    assert.match(res.body.error, /Complete the quiz/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("completed quiz answers survive a result-page reload", () => {
+  const originalWindow = globalThis.window;
+  const values = new Map();
+  globalThis.window = {
+    sessionStorage: {
+      setItem(key, value) { values.set(key, value); },
+      getItem(key) { return values.get(key) ?? null; },
+    },
+  };
+  const blank = {
+    QuestionOne: { value: "" }, QuestionTwo: { value: "" },
+    QuestionThree: { value: "" }, QuestionFour: { value: "" },
+    QuestionFive: { value: "" }, ChocolateConsumer: { value: "" },
+    QuestionSix: { shoppingList: [] },
+    QuestionSixFT: { shoppingListRefined: [] },
+    QuestionSeven: { value: "" },
+  };
+  try {
+    const completed = {
+      ...blank,
+      QuestionOne: { value: "Nairobi" },
+      QuestionFive: { value: 4 },
+      QuestionSix: { shoppingList: ["Coffee"] },
+      QuestionSeven: { value: 3 },
+    };
+    saveCompletedQuiz(completed);
+    const restored = getCompletedQuiz(blank);
+    assert.equal(restored.question_1, "Nairobi");
+    assert.equal(restored.question_5, 4);
+    assert.deepEqual(restored.shopping_cart, ["Coffee"]);
+    assert.equal(restored.question_7, 3);
+  } finally {
+    globalThis.window = originalWindow;
+  }
+});

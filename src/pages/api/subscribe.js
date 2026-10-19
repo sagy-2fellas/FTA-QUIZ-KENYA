@@ -46,6 +46,14 @@ export default async function handler(req, res) {
   const memberPath = `/lists/${encodeURIComponent(config.audienceId)}/members/${subscriberHash}`;
   const answers = customFields && typeof customFields === "object" && !Array.isArray(customFields)
     ? customFields : {};
+  if (
+    (typeof answers.question_1 !== "number" &&
+      (typeof answers.question_1 !== "string" || !answers.question_1.trim())) ||
+    (typeof answers.question_7 !== "number" &&
+      (typeof answers.question_7 !== "string" || !answers.question_7.trim()))
+  ) {
+    return res.status(400).json({ error: "Complete the quiz before signing up so your answers can be saved." });
+  }
   const note = JSON.stringify({ source: "BFA Quiz", country: COUNTRY, answers });
   if (note.length > 5000) {
     return res.status(400).json({ error: "Quiz answers are too long to save" });

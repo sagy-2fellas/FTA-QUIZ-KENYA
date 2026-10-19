@@ -16,7 +16,25 @@ const FAKE = {
 
 let submitted = [];
 
-const setup = async (page) => {
+const setup = async (page, completedQuiz = true) => {
+  if (completedQuiz) {
+    await page.addInitScript(() => {
+      sessionStorage.setItem("bfa-completed-quiz-v1", JSON.stringify({
+        savedAt: Date.now(),
+        answers: {
+          question_1: "Test region",
+          question_2: 2,
+          question_3: 3,
+          question_4: 4,
+          question_5: 2,
+          chocolate_consumer: 1,
+          shopping_cart: ["Coffee"],
+          ft_shopping_cart: ["Fairtrade Coffee"],
+          question_7: 3,
+        },
+      }));
+    });
+  }
   submitted = [];
   await page.route(/googletagmanager|google-analytics|facebook\.(net|com)|clarity\.ms|luckyorange/, (r) =>
     r.abort()
@@ -127,7 +145,21 @@ test.describe("signup screen", () => {
 
     await expect.poll(() => submitted.length).toBeGreaterThan(0);
     expect(submitted[0].email).toBe(FAKE.email);
+    expect(submitted[0].customFields.question_1).toBe("Test region");
+    expect(submitted[0].customFields.question_7).toBe(3);
+    expect(submitted[0].customFields.result_page).toBe("/result-1");
     expect(FAKE.email).toContain(".invalid");
+  });
+
+  test("missing quiz answers stop signup before Mailchimp", async ({ page }) => {
+    await setup(page, false);
+    const form = page.locator("form").first();
+    await form.locator('input[name="firstName"]').fill(FAKE.firstName);
+    await form.locator('input[name="lastName"]').fill(FAKE.lastName);
+    await form.locator('input[name="email"]').fill(FAKE.email);
+    await form.getByRole("button", { name: /giveaway/i }).click();
+    await expect(form.getByRole("alert")).toContainText("Complete the quiz first");
+    expect(submitted).toHaveLength(0);
   });
 
   test("form inputs receive normal keyboard events", async ({ page }) => {

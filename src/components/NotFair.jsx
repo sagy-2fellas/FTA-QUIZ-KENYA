@@ -1,19 +1,10 @@
-import { useSelector } from "react-redux";
+import { useStore } from "react-redux";
+import { getCompletedQuiz, hasAnswer } from "../utils/quizAnswers";
 import { useState, useEffect, useRef } from "react";
 import styles from "../style";
 
 const NotFair = () => {
-  const qOne = useSelector((state) => state.QuestionOne.value);
-  const qTwo = useSelector((state) => state.QuestionTwo.value);
-  const qThree = useSelector((state) => state.QuestionThree.value);
-  const qFour = useSelector((state) => state.QuestionFour.value);
-  const qFive = useSelector((state) => state.QuestionFive.value);
-  const chocolateConsumer = useSelector(
-    (state) => state.ChocolateConsumer.value
-  );
-  const qSix = useSelector((state) => state.QuestionSix.shoppingList);
-  const qSixR = useSelector((state) => state.QuestionSixFT.shoppingListRefined);
-  const qSeven = useSelector((state) => state.QuestionSeven.value);
+  const store = useStore();
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -31,6 +22,10 @@ const NotFair = () => {
     setError(null);
     setSuccess(false);
     try {
+      const answers = getCompletedQuiz(store.getState());
+      if (!hasAnswer(answers.question_1) || !hasAnswer(answers.question_7)) {
+        throw new Error("Complete the quiz first so your answers can be saved.");
+      }
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: {
@@ -43,15 +38,8 @@ const NotFair = () => {
           customFields: {
             interested_in: formData.iAm,
             would_buy_more: formData.wouldBuy,
-            question_1: qOne,
-            question_2: qTwo,
-            question_3: qThree,
-            question_4: qFour,
-            question_5: qFive,
-            chocolate_consumer: chocolateConsumer,
-            shopping_cart: qSix,
-            ft_shopping_cart: qSixR,
-            question_7: qSeven,
+            result_page: window.location.pathname,
+            ...answers,
           },
         }),
       });
