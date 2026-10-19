@@ -337,17 +337,17 @@ const Quiz = () => {
                 <ul className=" h-full flex items-center justify-end mt-0 lg:justify-end text-lg">
                   <li className="font-alegreya">SHARE:</li>
                   <li className="font-alegreya mx-2 cursor-pointer">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://befairrightnow.net/">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.befairrightnow-kenya.org/">
                       <FacebookIcon />
                     </a>
                   </li>
                   <li className="font-alegreya mx-2 cursor-pointer">
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://befairrightnow.net/">
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.befairrightnow-kenya.org/">
                       <LinkedinIcon />
                     </a>
                   </li>
                   <li className="font-alegreya mx-2 cursor-pointer">
-                    <a href="https://twitter.com/intent/tweet?url=https://befairrightnow.net/&text=">
+                    <a href="https://twitter.com/intent/tweet?url=https://www.befairrightnow-kenya.org/&text=">
                       <TwitterIcon />
                     </a>
                   </li>
@@ -355,7 +355,7 @@ const Quiz = () => {
                     <a
                       onClick={() => {
                         window.open(
-                          "whatsapp://send?text=Meet the human who grows your favourite drink: https://befairrightnow.net"
+                          "whatsapp://send?text=Meet the human who grows your favourite drink: https://www.befairrightnow-kenya.org"
                         );
                       }}
                     >

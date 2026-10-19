@@ -1,7 +1,7 @@
 import Head from "next/head";
 
-const SITE_URL = "https://fta-quiz-kenya.vercel.app";
-const OTHER_SITE_URL = "https://fta-test.vercel.app";
+const SITE_URL = "https://www.befairrightnow-kenya.org";
+const OTHER_SITE_URL = "https://www.befairrightnow-sa.org";
 const LOCALE = "en_KE";
 const HREF_LANG = "en-KE";
 const OTHER_HREF_LANG = "en-ZA";

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fta-quiz-kenya.vercel.app/sitemap.xml
+Sitemap: https://www.befairrightnow-kenya.org/sitemap.xml
