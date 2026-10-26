@@ -14,6 +14,7 @@ const QuestionSix = () => {
   const [shopArray, updateShopArray] = useState([]);
   const [refinedCart, updateRefinedCart] = useState([]);
   const [refineToggled, setRefineToggled] = useState(false);
+  const [shoppingFactToggled, setShoppingFactToggled] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
 
   const [isHerbal, setIsHerbal] = useState(false);
@@ -78,6 +79,11 @@ const QuestionSix = () => {
     dispatch(goShopping(shopArray));
     dispatch(goFTShopping(refinedCart.filter((item) => shopArray.includes(item))));
     setRefineToggled(false);
+    setShoppingFactToggled(true);
+  };
+
+  const continueAfterShoppingFact = () => {
+    setShoppingFactToggled(false);
     window.fullpage_api.moveSectionDown();
   };
 
@@ -192,6 +198,20 @@ const QuestionSix = () => {
         </div>
       </MobileFactDialog>
 
+      <MobileFactDialog
+        open={shoppingFactToggled}
+        onClose={() => setShoppingFactToggled(false)}
+        title="The label is small. The checks behind it aren’t."
+        onContinue={continueAfterShoppingFact}
+      >
+        <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
+          A product’s ethical-sounding packaging tells you little about the terms behind it. The Fairtrade Mark identifies a product whose relevant supply chain is checked against Fairtrade standards, including applicable Minimum Price and Premium requirements. Look for the Mark on the specific item you are buying.
+        </p>
+        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
+          Fairtrade International, How Fairtrade Certification Works.
+        </p>
+      </MobileFactDialog>
+
       {/*END CART */}
       {/* NAVIGATION */}
       <div className="hidden lg:block">
@@ -276,7 +296,19 @@ const QuestionSix = () => {
             />
           </motion.div>
         </div>
-        <div className="flex-initial w-1/5"></div>
+        <div className="hidden lg:flex flex-initial w-1/5 items-end">
+          <FactCard link="#">
+            <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
+              The label is small. The checks behind it aren’t.
+            </h3>
+            <p className="font-exo text-sm mb-2">
+              A product’s ethical-sounding packaging tells you little about the terms behind it. The Fairtrade Mark identifies a product whose relevant supply chain is checked against Fairtrade standards, including applicable Minimum Price and Premium requirements. Look for the Mark on the specific item you are buying.
+            </p>
+            <p className="font-exo text-xs italic text-gray-600">
+              Fairtrade International, How Fairtrade Certification Works.
+            </p>
+          </FactCard>
+        </div>
       </div>
 
       {/*END DESKTOP VERSION */}

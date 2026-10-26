@@ -242,7 +242,7 @@ test.describe("mobile quiz completion", () => {
       await next.click();
       if (i === 6) await clearRefinePrompt(page);
 
-      // Sections 1-6 route onward through the fact dialog.
+      // Each question now routes onward through a fact dialog.
       const dialog = page.getByRole("dialog");
       if (await dialog.isVisible().catch(() => false)) {
         const close = dialog.getByRole("button", { name: "Close" });
@@ -557,7 +557,14 @@ test.describe("mobile quiz completion", () => {
 
 test("refinement keeps Submit visible with all eight products and supports unticking", async ({ page }) => {
   await gotoQuiz(page);
-  await page.evaluate(() => window.fullpage_api.moveTo("Question-6"));
+  for (let i = 0; i < 6; i += 1) {
+    if (REQUIRES_ANSWER.has(i)) await answerActiveSection(page, i);
+    await continueButton(page).click();
+    const fact = page.getByRole("dialog");
+    await expect(fact).toBeVisible();
+    await fact.getByRole("button", { name: "Go to Next Question" }).click();
+    await expectActiveSection(page, i + 1);
+  }
   await expectActiveSection(page, 6);
   for (const name of ["White Wine", "Red Wine", "Rosé", "Coffee Beans", "Ground Coffee", "Black Tea", "Rooibos Tea", "Herbal Tea"]) {
     await activeSection(page).getByRole("button", { name, exact: true }).click();
@@ -575,6 +582,10 @@ test("refinement keeps Submit visible with all eight products and supports untic
   await expect(last).not.toBeChecked();
   expect(await isInViewport(submit)).toBe(true);
   await submit.click();
+  const fact = page.getByRole("dialog", { name: "The label is small. The checks behind it aren’t." });
+  await expect(fact).toBeVisible();
+  await expect(fact).toContainText("Fairtrade Mark identifies a product");
+  await fact.getByRole("button", { name: "Go to Next Question" }).click();
   await expectActiveSection(page, 7);
   await expect(dialog).toHaveCount(0);
 });

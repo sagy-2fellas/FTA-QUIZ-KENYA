@@ -120,7 +120,7 @@ const QuestionThree = () => {
       <MobileFactDialog
         open={factToggled3}
         onClose={() => setFactToggled3(false)}
-        title="Six-year-olds help keep your coffee cheap."
+        title="That morning boost comes from farmers facing a climate squeeze."
         onContinue={() => {
           setFactToggled3(false);
           dispatch(addCoffee(value));
@@ -128,13 +128,10 @@ const QuestionThree = () => {
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
+          Warming is projected to reduce suitable coffee-growing areas in East Africa. Kenyan growers must adapt while protecting their income. Fairtrade’s Kenya Climate Academy has worked with coffee cooperatives on farming practices, climate resilience and additional sources of income.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
-        </p>
-        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
+          IPCC, Sixth Assessment Report, Working Group II, Chapter 9; Fairtrade Impact Platform, Kenya Climate Academy.
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -144,16 +141,13 @@ const QuestionThree = () => {
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya text-lg xl:text-xl 2xl:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                Six-year-olds help keep your coffee cheap.
+                That morning boost comes from farmers facing a climate squeeze.
               </h3>
               <p className="font-exo text-sm xl:text-base 2xl:text-lg mb-2">
-                In some coffee-producing regions, children under age 7 are involved in farm work - often working long hours in difficult conditions. They might spend 8 to 10 hours a day picking, weeding, or carrying loads, missing school and childhood in the process.
+                Warming is projected to reduce suitable coffee-growing areas in East Africa. Kenyan growers must adapt while protecting their income. Fairtrade’s Kenya Climate Academy has worked with coffee cooperatives on farming practices, climate resilience and additional sources of income.
               </p>
               <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600">
-                International Labour Organization (ILO). (2021). Child Labour in Agriculture. Geneva:
-              </p>
-              <p className="font-exo text-xs xl:text-sm 2xl:text-base italic text-gray-600 mt-1">
-                International Coffee Organization (ICO). (2020). Child and Youth Labour in Coffee Supply Chains: Policy Paper.
+                IPCC, Sixth Assessment Report, Working Group II, Chapter 9; Fairtrade Impact Platform, Kenya Climate Academy.
               </p>
             </FactCard>
           </div>

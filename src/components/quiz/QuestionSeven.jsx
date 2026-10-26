@@ -391,7 +391,7 @@ ensure I’m buying ethically`,
         <MobileFactDialog
           open={factToggled7}
           onClose={() => setFactToggled7(false)}
-          title="Farms are disappearing."
+          title="Tea can move uphill. Farmers can’t move a mountain overnight."
           continueLabel="View your results"
           onContinue={() => {
             setFactToggled7(false);
@@ -399,14 +399,10 @@ ensure I’m buying ethically`,
           }}
         >
           <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-            Kenya's vital ecosystems are under threat, endangering countless
-            species and the essential services they provide to farms. Simply
-            put, your favorite cup of Kenyan tea might not be around forever if
-            things don't change.
+            The IPCC projects that warming could shrink Kenya’s optimal tea-growing area and reduce yields. Fairtrade supports environmental improvements and adaptation projects, while the Premium gives producer groups resources to invest in their priorities. It does not erase the climate threat.
           </p>
           <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-            World Wildlife Fund (WWF) (2010): Agriculture: Facts & Trends South
-            Africa, South Africa.
+            IPCC, Sixth Assessment Report, Working Group II, Chapter 9; Fairtrade International, Objectives of the Standards.
           </p>
         </MobileFactDialog>
 
@@ -417,17 +413,13 @@ ensure I’m buying ethically`,
             <div className="hidden lg:flex flex-initial w-1/5 pt-20 lg:pt-40 xl:pt-56">
               <FactCard link="#">
                 <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                  Farms are disappearing.
+                  Tea can move uphill. Farmers can’t move a mountain overnight.
                 </h3>
                 <p className="font-exo text-sm">
-                  Kenya's vital ecosystems are under threat, endangering
-                  countless species and the essential services they provide to
-                  farms. Simply put, your favorite cup of Kenyan tea might not
-                  be around forever if things don't change.
+                  The IPCC projects that warming could shrink Kenya’s optimal tea-growing area and reduce yields. Fairtrade supports environmental improvements and adaptation projects, while the Premium gives producer groups resources to invest in their priorities. It does not erase the climate threat.
                 </p>
                 <p className="font-exo sm:text-xs text-xs mt-2">
-                  World Wildlife Fund (WWF) (2010): Agriculture: Facts & Trends
-                  South Africa, South Africa.
+                  IPCC, Sixth Assessment Report, Working Group II, Chapter 9; Fairtrade International, Objectives of the Standards.
                 </p>
               </FactCard>
             </div>

@@ -8,13 +8,13 @@ export const questionFiveSlice = createSlice({
   name: "questionFive",
   initialState,
   reducers: {
-    addWine: (state, action) => {
+    addFlower: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addWine } = questionFiveSlice.actions;
+export const { addFlower } = questionFiveSlice.actions;
 
 export default questionFiveSlice.reducer;

@@ -122,7 +122,7 @@ const ChocolateConsumer = () => {
       <MobileFactDialog
         open={factToggled3}
         onClose={() => setFactToggled3(false)}
-        title="Like taking chocolate from a baby - literally."
+        title="Sweet for us. Dangerous work for some children."
         onContinue={() => {
           setFactToggled3(false);
           dispatch(addChocolate(value));
@@ -130,13 +130,10 @@ const ChocolateConsumer = () => {
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
+          Child labour in cocoa production remains documented in Ghana and Côte d’Ivoire. Fairtrade prohibits child labour on certified farms and works to detect and address cases when found. Certification cannot guarantee that every bar is free of the risk.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC.
-        </p>
-        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB).
+          U.S. Department of Labor, Child Labor in Côte d’Ivoire; Fairtrade International, Child Labor.
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -146,16 +143,13 @@ const ChocolateConsumer = () => {
           <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-                Like taking chocolate from a baby - literally.
+                Sweet for us. Dangerous work for some children.
               </h3>
               <p className="font-exo sm:text-sm text-xs mb-2">
-                You love chocolate -  but do you love the fact that in Ghana and Côte d'Ivoire alone, about 1.56 million children are involved in cocoa farming? Many of them are doing hazardous work: using machetes, carrying heavy loads, applying pesticides. That leaves a bitter aftertaste, doesn't it?
+                Child labour in cocoa production remains documented in Ghana and Côte d’Ivoire. Fairtrade prohibits child labour on certified farms and works to detect and address cases when found. Certification cannot guarantee that every bar is free of the risk.
               </p>
               <p className="font-exo sm:text-xs text-xs italic text-gray-600">
-                NORC at the University of Chicago (2020). Assessing Progress in Reducing Child Labor in Cocoa Production in Cocoa-Growing Areas of Côte d'Ivoire and Ghana. Chicago: NORC.
-              </p>
-              <p className="font-exo sm:text-xs text-xs italic text-gray-600 mt-1">
-                U.S. Department of Labor (2022). Child Labor in Cocoa Production in West Africa. Washington, DC: Bureau of International Labor Affairs (ILAB).
+                U.S. Department of Labor, Child Labor in Côte d’Ivoire; Fairtrade International, Child Labor.
               </p>
             </FactCard>
           </div>

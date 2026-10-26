@@ -133,7 +133,7 @@ const QuestionTwo = () => {
       <MobileFactDialog
         open={factToggled2}
         onClose={() => setFactToggled2(false)}
-        title="Do you know what a farm worker earns per month in Kenya?"
+        title="The legal minimum is doing the bare minimum."
         onContinue={() => {
           setFactToggled2(false);
           dispatch(addFamiliar(value));
@@ -141,10 +141,10 @@ const QuestionTwo = () => {
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
+          Kenya’s 2026 agricultural wage order sets KSh 9,196.93 a month as the minimum consolidated wage for an unskilled employee. That is a legal floor, not a living-wage calculation. Fairtrade is raising the required wage floor on certified flower farms in stages and requires a worker-controlled Premium on Fairtrade sales.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          (Source: Kenya Labour Market Profile 2024/2025)
+          Kenya Gazette, Agricultural Industry Wage Order (2026); Fairtrade International, Flower Worker Wage Increases.
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -168,13 +168,13 @@ const QuestionTwo = () => {
         <div className="hidden lg:flex flex-col justify-end h-full gap-y-4 xl:gap-y-20">
           <FactCard link="#">
             <h3 className="font-alegreya sm:text-2xl text-base border-l-2  border-ft-blue pl-2 mb-4">
-              Do you know what a farm worker earns per month in Kenya?
+              The legal minimum is doing the bare minimum.
             </h3>
             <p className="font-exo sm:text-sm text-xs mb-2">
-              There are estimated to be over 3 million farmers and farm workers in Kenya. By law, unskilled agricultural workers should receive at least KES 7,545.65 per month. More skilled roles - like farm foremen or clerks - legally reach up to KES 14,6427. Yet many workers still receive less than these rates.
+              Kenya’s 2026 agricultural wage order sets KSh 9,196.93 a month as the minimum consolidated wage for an unskilled employee. That is a legal floor, not a living-wage calculation. Fairtrade is raising the required wage floor on certified flower farms in stages and requires a worker-controlled Premium on Fairtrade sales.
             </p>
             <p className="font-exo sm:text-xs text-xs mt-2 italic text-gray-600">
-              (Source: Kenya Labour Market Profile 2024/2025)
+              Kenya Gazette, Agricultural Industry Wage Order (2026); Fairtrade International, Flower Worker Wage Increases.
             </p>
           </FactCard>
           <SlideTwoChar value={value} />

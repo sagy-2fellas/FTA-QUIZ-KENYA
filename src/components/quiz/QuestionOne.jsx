@@ -37,7 +37,7 @@ const QuestionOne = ({}) => {
       <MobileFactDialog
         open={factToggled1}
         onClose={() => setFactToggled1(false)}
-        title="This isn't about farmers vs farm workers."
+        title="Growing the food doesn’t mean owning the land."
         onContinue={() => {
           setFactToggled1(false);
           dispatch(addProvince(value));
@@ -45,16 +45,10 @@ const QuestionOne = ({}) => {
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          It's about you. Everyone in the supply chain deserves fairness - from
-          the people growing the crop to those harvesting it. When you choose
-          products with the Fairtrade Mark, you back sustainable farming, decent
-          work, and fair relationships across the chain - farmers, farm workers,
-          and buyers alike.
+          Kenya’s current agroecology strategy cites survey data showing that 75.2% of women had no agricultural land, compared with 66.4% of men. Fairtrade programmes support women’s leadership and decision-making in producer groups. Changing land ownership also needs action beyond certification.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025.
-          Copenhagen: The Danish Trade Union Council for International
-          Development Cooperation (DTUC).
+          Kenya Ministry of Agriculture, National Agroecology Strategy 2024–2033; Fairtrade International, International Year of the Woman Farmer.
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -108,13 +102,13 @@ const QuestionOne = ({}) => {
           <div>
             <FactCard link="#">
               <h3 className="font-alegreya sm:text-2xl text-base border-l-2 border-ft-blue pl-2 mb-4">
-                This isn't about farmers vs farm workers.
+                Growing the food doesn’t mean owning the land.
               </h3>
               <p className="font-exo sm:text-sm text-xs mb-3">
-                It's about you. Everyone in the supply chain deserves fairness - from the people growing the crop to those harvesting it. When you choose products with the Fairtrade Mark, you back sustainable farming, decent work, and fair relationships across the chain - farmers, farm workers, and buyers alike.
+                Kenya’s current agroecology strategy cites survey data showing that 75.2% of women had no agricultural land, compared with 66.4% of men. Fairtrade programmes support women’s leadership and decision-making in producer groups. Changing land ownership also needs action beyond certification.
               </p>
               <p className="font-exo text-xs text-gray-600 italic">
-                Ulandssekretariatet (2024). Kenya Labour Market Profile 2024/2025. Copenhagen: The Danish Trade Union Council for International Development Cooperation (DTUC).
+                Kenya Ministry of Agriculture, National Agroecology Strategy 2024–2033; Fairtrade International, International Year of the Woman Farmer.
               </p>
             </FactCard>
           </div>

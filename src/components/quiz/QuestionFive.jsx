@@ -1,5 +1,3 @@
-import WineBottle from "../WineBottle";
-import SliderMoment from "../SliderMoment";
 import useSliderFeedback from "../useSliderFeedback";
 import styles from "../../style";
 import FactCard from "../FactCard";
@@ -12,15 +10,11 @@ import {
   useTransform,
 } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { addWine } from "../../slices/QFiveSlice";
+import { addFlower } from "../../slices/QFiveSlice";
 import QuizNavigation from "../QuizNavigation";
 import MobileFactDialog from "../MobileFactDialog";
 import MobileQuizNav from "../MobileQuizNav";
-import WineOneIcon from "../svg/WineOneIcon";
-import WineTwoIcon from "../svg/WineTwoIcon";
-import WineThreeIcon from "../svg/WineThreeIcon";
 import Link from "next/link";
-//deploy
 const QuestionFive = () => {
   const dispatch = useDispatch();
   const min = 1;
@@ -80,11 +74,11 @@ const QuestionFive = () => {
   }, [handleX, min, max, value]);
 
   const displayedValue = () => {
-    if (value === 1) return "None for me, thanks";
-    if (value === 2) return "A glass every now and then";
-    if (value === 3) return "I enjoy a glass to relax";
-    if (value === 4) return "Weekends are for wine";
-    if (value === 5) return "Pass me the whole bottle!";
+    if (value === 1) return "Never bought flowers";
+    if (value === 2) return "More than a year ago";
+    if (value === 3) return "In the past year";
+    if (value === 4) return "In the past month";
+    if (value === 5) return "This week!";
     return Math.floor(value); // Default case (if needed)
   };
 
@@ -95,7 +89,7 @@ const QuestionFive = () => {
     if (value != "") {
       window.fullpage_api.moveSectionDown();
       // onAddAnswer(value, "slide1");
-      dispatch(addWine(value));
+      dispatch(addFlower(value));
     }
   };
   const [factToggled5, setFactToggled5] = useState(false);
@@ -115,21 +109,18 @@ const QuestionFive = () => {
       <MobileFactDialog
         open={factToggled5}
         onClose={() => setFactToggled5(false)}
-        title="It shouldn't matter that your favourite drink comes from a woman. But it does."
+        title="Roses are red. Low wages aren’t romantic."
         onContinue={() => {
           setFactToggled5(false);
-          dispatch(addWine(value));
+          dispatch(addFlower(value));
           window.fullpage_api.moveSectionDown();
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
+          Kenyan flower workers face low pay and difficult working conditions. On certified farms, Fairtrade sets workplace requirements and a wage floor. Workers also decide how to invest the Fairtrade Premium; Kenyan flower workers have used it for education, healthcare and housing support.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
-        </p>
-        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
+          Fairtrade Foundation, Premium Benefits for Flower Workers; Fairtrade International, Flower Worker Wage Increases.
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -139,16 +130,13 @@ const QuestionFive = () => {
         <div className="hidden lg:flex flex-initial w-1/5 2xl:w-1/6 items-end">
           <FactCard link="#">
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-              It shouldn't matter that your favourite drink comes from a woman. But it does.
+              Roses are red. Low wages aren’t romantic.
             </h3>
             <p className="font-exo text-sm mb-2">
-              Women perform between 42 % and 65 % of Kenya's agricultural labour - yet they often earn less, own less, and have fewer resources than men. Haki iko wapi? Fairtrade supports women through access to resources, leadership training, and fair pay.
-            </p>
-            <p className="font-exo text-xs italic text-gray-600">
-              PreventionWeb (2024). Protecting Women Farmers from Climate Risk in Rural Kenya.
+              Kenyan flower workers face low pay and difficult working conditions. On certified farms, Fairtrade sets workplace requirements and a wage floor. Workers also decide how to invest the Fairtrade Premium; Kenyan flower workers have used it for education, healthcare and housing support.
             </p>
             <p className="font-exo text-xs italic text-gray-600 mt-1">
-              FAO (2022). Gender Equality and Food Security: Kenya Country Report. Rome: Food and Agriculture Organization.
+              Fairtrade Foundation, Premium Benefits for Flower Workers; Fairtrade International, Flower Worker Wage Increases.
             </p>
           </FactCard>
         </div>
@@ -162,7 +150,7 @@ const QuestionFive = () => {
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
             className="font-alegreya text-4xl xs:text-6xl sm:text-7xl lg:text-7xl 2xl:text-9xl pt-8 xs:pt-12 lg:pt-16 2xl:pt-20 text-center"
           >
-            Between us friends, how much wine do you actually drink?
+            When did you last buy flowers?
           </motion.h2>
           <div className="flex justify-center">
             {(
@@ -183,7 +171,7 @@ const QuestionFive = () => {
               data-test="slider"
               className="relative flex flex-col justify-center"
             >
-              <div className="slider-endpoints" style={{ left: handleSize / 2, right: handleSize / 2 }}><span>No wine</span><span>Wine lover</span></div>
+              <div className="slider-endpoints" style={{ left: handleSize / 2, right: handleSize / 2 }}><span>Never</span><span>This week</span></div>
               <motion.div
                 data-test="slider-background"
                 className="absolute h-4 rounded-full"
@@ -243,7 +231,7 @@ const QuestionFive = () => {
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                   }}
-                ><WineBottle value={value} /><SliderMoment kind="wine" value={value} /></motion.div>
+                ><span aria-hidden="true" className="block text-5xl leading-[72px] text-center">💐</span></motion.div>
               </div>
               <div
                 data-test="slider-clickable-area"

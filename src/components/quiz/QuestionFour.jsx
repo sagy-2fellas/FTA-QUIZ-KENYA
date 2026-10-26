@@ -117,7 +117,7 @@ const QuestionFour = () => {
       <MobileFactDialog
         open={factToggled4}
         onClose={() => setFactToggled4(false)}
-        title="It's okay, your kids will pay the price."
+        title="One in five. Let that steep."
         onContinue={() => {
           setFactToggled4(false);
           dispatch(addTea(value));
@@ -125,16 +125,10 @@ const QuestionFour = () => {
         }}
       >
         <p className="font-exo text-sm sm:text-base leading-relaxed mb-3">
-          Water scarcity, soil erosion, shrinking forests, and climate change don't just affect the land now - they disproportionately burden future generations. If ecosystems collapse, crops like Kenyan tea and coffee could become far more expensive or rare. Fairtrade supports farmers to adopt sustainable practices so future generations can still enjoy what Kenya produces best.
+          In a 2025 survey of more than 260 Kenyan tea growers and pickers, only one in five said their monthly income covered their family’s essentials. Fairtrade sales provide a Premium that producer groups can put toward priorities such as education, healthcare and other ways to earn. This figure describes those surveyed, not every Kenyan tea worker.
         </p>
         <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          WWF (2010). Agriculture: Facts & Trends South Africa.
-        </p>
-        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025
-        </p>
-        <p className="font-exo text-xs sm:text-sm text-gray-600 italic">
-          Kenya Forest Service (2023). Annual Forest Resources Report.
+          Fairtrade Foundation, Brew It Fair report (2025).
         </p>
       </MobileFactDialog>
       {/* END NAVIGATION FACT */}
@@ -144,19 +138,13 @@ const QuestionFour = () => {
         <div className="hidden lg:flex ml-10 flex-initial w-1/5 2xl:w-1/6 items-end">
           <FactCard link="#">
             <h3 className="font-alegreya text-2xl border-l-2 border-ft-blue pl-2 mb-4">
-              It's okay, your kids will pay the price.
+              One in five. Let that steep.
             </h3>
             <p className="font-exo text-sm mb-2">
-              Water scarcity, soil erosion, shrinking forests, and climate change don't just affect the land now - they disproportionately burden future generations. If ecosystems collapse, crops like Kenyan tea and coffee could become far more expensive or rare. Fairtrade supports farmers to adopt sustainable practices so future generations can still enjoy what Kenya produces best.
+              In a 2025 survey of more than 260 Kenyan tea growers and pickers, only one in five said their monthly income covered their family’s essentials. Fairtrade sales provide a Premium that producer groups can put toward priorities such as education, healthcare and other ways to earn. This figure describes those surveyed, not every Kenyan tea worker.
             </p>
             <p className="font-exo text-xs italic text-gray-600">
-              WWF (2010). Agriculture: Facts & Trends South Africa.
-            </p>
-            <p className="font-exo text-xs italic text-gray-600 mt-1">
-              Wikipedia (2024). Deforestation in Kenya. Retrieved October 2025
-            </p>
-            <p className="font-exo text-xs italic text-gray-600 mt-1">
-              Kenya Forest Service (2023). Annual Forest Resources Report.
+              Fairtrade Foundation, Brew It Fair report (2025).
             </p>
           </FactCard>
         </div>
