@@ -1,5 +1,5 @@
 import { useStore } from "react-redux";
-import { getCompletedQuiz, hasAnswer } from "../utils/quizAnswers";
+import { getCompletedQuiz, hasCompletedQuizAnswers } from "../utils/quizAnswers";
 import { useState, useEffect, useRef } from "react";
 import styles from "../style";
 
@@ -23,7 +23,7 @@ const NotFair = () => {
     setSuccess(false);
     try {
       const answers = getCompletedQuiz(store.getState());
-      if (!hasAnswer(answers.question_1) || !hasAnswer(answers.question_7)) {
+      if (!hasCompletedQuizAnswers(answers)) {
         throw new Error("Complete the quiz first so your answers can be saved.");
       }
       const response = await fetch("/api/subscribe", {

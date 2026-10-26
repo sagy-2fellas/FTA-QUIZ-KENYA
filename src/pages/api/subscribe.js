@@ -1,4 +1,6 @@
 import { createHash } from "crypto";
+import { hasCompletedQuizAnswers } from "../../utils/quizAnswers.js";
+import { buildQuizMergeFields, mergeFieldsFitMailchimp } from "../../utils/mailchimpQuizFields.js";
 
 const COUNTRY = "Kenya";
 const AUDIENCE_ENV = "MAILCHIMP_AUDIENCE_ID_KE";
@@ -46,13 +48,12 @@ export default async function handler(req, res) {
   const memberPath = `/lists/${encodeURIComponent(config.audienceId)}/members/${subscriberHash}`;
   const answers = customFields && typeof customFields === "object" && !Array.isArray(customFields)
     ? customFields : {};
-  if (
-    (typeof answers.question_1 !== "number" &&
-      (typeof answers.question_1 !== "string" || !answers.question_1.trim())) ||
-    (typeof answers.question_7 !== "number" &&
-      (typeof answers.question_7 !== "string" || !answers.question_7.trim()))
-  ) {
+  if (!hasCompletedQuizAnswers(answers)) {
     return res.status(400).json({ error: "Complete the quiz before signing up so your answers can be saved." });
+  }
+  const quizFields = buildQuizMergeFields(COUNTRY, answers);
+  if (!mergeFieldsFitMailchimp(quizFields)) {
+    return res.status(400).json({ error: "A quiz answer is too long to save. Please shorten your answer." });
   }
   const note = JSON.stringify({ source: "BFA Quiz", country: COUNTRY, answers });
   if (note.length > 5000) {
@@ -67,6 +68,7 @@ export default async function handler(req, res) {
       merge_fields: {
         FNAME: typeof firstName === "string" ? firstName.trim() : "",
         LNAME: typeof lastName === "string" ? lastName.trim() : "",
+        ...quizFields,
       },
       tags: ["BFA Quiz", COUNTRY],
     });
@@ -76,12 +78,17 @@ export default async function handler(req, res) {
       });
     }
 
-    // Notes retain all quiz answers without relying on region-specific merge fields.
+    // Notes retain a full snapshot, including the original numeric answers.
     const chunks = note.match(/[\s\S]{1,900}/g) || [];
-    for (const [index, chunk] of chunks.entries()) {
-      await request(config, `${memberPath}/notes`, "POST", {
-        note: `Quiz answers ${index + 1}/${chunks.length}: ${chunk}`,
-      });
+    try {
+      for (const [index, chunk] of chunks.entries()) {
+        await request(config, `${memberPath}/notes`, "POST", {
+          note: `Quiz answers ${index + 1}/${chunks.length}: ${chunk}`,
+        });
+      }
+    } catch (error) {
+      // The contact and visible answer fields have already been saved.
+      console.error("[Mailchimp] Quiz note could not be saved", error.message);
     }
     return res.status(200).json({ success: true });
   } catch (error) {

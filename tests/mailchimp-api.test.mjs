@@ -3,6 +3,14 @@ import assert from "node:assert/strict";
 import handler from "../src/pages/api/subscribe.js";
 import { saveCompletedQuiz, getCompletedQuiz } from "../src/utils/quizAnswers.js";
 
+const completedAnswers = {
+  question_1: "Nairobi", question_2: 2, question_3: 3,
+  question_4: 4, question_5: 2, chocolate_consumer: 1,
+  shopping_cart: ["Coffee", "Tea"], ft_shopping_cart: ["Coffee"],
+  question_7: 3, result_page: "/result-1", interested_in: "Coffee",
+  would_buy_more: true,
+};
+
 function response() {
   return {
     setHeader() {},
@@ -25,13 +33,22 @@ test("Kenya signup creates a Mailchimp contact and saves quiz answers", async ()
     const res = response();
     await handler({ method: "POST", body: {
       email: " Person@Example.com ", firstName: "Pat", lastName: "Lee",
-      customFields: { question_1: "answer", question_7: 3 },
+      customFields: completedAnswers,
     } }, res);
     assert.equal(res.code, 200);
     assert.equal(calls.length, 2);
     assert.match(calls[0].url, /us20\.api\.mailchimp\.com/);
     assert.equal(JSON.parse(calls[0].options.body).email_address, "person@example.com");
     assert.equal(JSON.parse(calls[0].options.body).status_if_new, "subscribed");
+    const fields = JSON.parse(calls[0].options.body).merge_fields;
+    assert.equal(fields.BFACTRY, "Kenya");
+    assert.equal(fields.BFAQ1, "Nairobi");
+    assert.equal(fields.BFAQ5, "2/5: More than a year ago");
+    assert.equal(fields.BFAQ7, "Coffee, Tea");
+    assert.equal(fields.BFAQ8, "3/5 on the label-checking scale");
+    assert.equal(fields.BFARESULT, "/result-1");
+    assert.equal(fields.BFAINTER, "Coffee");
+    assert.equal(fields.BFAWBUY, "Yes");
     assert.match(JSON.parse(calls[1].options.body).note, /Kenya/);
     assert.match(JSON.parse(calls[1].options.body).note, /question_1/);
   } finally {
@@ -62,7 +79,7 @@ test("existing unsubscribed contact is not treated as a successful signup", asyn
   };
   try {
     const res = response();
-    await handler({ method: "POST", body: { email: "person@example.com", customFields: { question_1: "answer", question_7: 3 } } }, res);
+    await handler({ method: "POST", body: { email: "person@example.com", customFields: completedAnswers } }, res);
     assert.equal(res.code, 409);
     assert.equal(calls, 1);
   } finally {
@@ -108,7 +125,11 @@ test("completed quiz answers survive a result-page reload", () => {
     const completed = {
       ...blank,
       QuestionOne: { value: "Nairobi" },
+      QuestionTwo: { value: 2 },
+      QuestionThree: { value: 3 },
+      QuestionFour: { value: 4 },
       QuestionFive: { value: 4 },
+      ChocolateConsumer: { value: 1 },
       QuestionSix: { shoppingList: ["Coffee"] },
       QuestionSeven: { value: 3 },
     };
@@ -120,5 +141,21 @@ test("completed quiz answers survive a result-page reload", () => {
     assert.equal(restored.question_7, 3);
   } finally {
     globalThis.window = originalWindow;
+  }
+});
+
+test("oversized answer stops before contact creation", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = () => { throw new Error("unexpected fetch"); };
+  try {
+    const res = response();
+    await handler({ method: "POST", body: {
+      email: "person@example.com",
+      customFields: { ...completedAnswers, question_1: "x".repeat(256) },
+    } }, res);
+    assert.equal(res.code, 400);
+    assert.match(res.body.error, /too long/);
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 });

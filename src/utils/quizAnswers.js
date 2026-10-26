@@ -20,10 +20,23 @@ export function hasAnswer(value) {
   return typeof value === "number" || (typeof value === "string" && value.trim() !== "");
 }
 
+export function hasCompletedQuizAnswers(answers) {
+  const sliderQuestions = [
+    "question_2", "question_3", "question_4", "question_5",
+    "chocolate_consumer", "question_7",
+  ];
+  return typeof answers?.question_1 === "string" && answers.question_1.trim() !== "" &&
+    sliderQuestions.every((key) => Number.isInteger(answers[key]) && answers[key] >= 1 && answers[key] <= 5) &&
+    Array.isArray(answers.shopping_cart) && answers.shopping_cart.length > 0 &&
+    answers.shopping_cart.every((item) => typeof item === "string" && item.trim() !== "") &&
+    Array.isArray(answers.ft_shopping_cart) &&
+    answers.ft_shopping_cart.every((item) => typeof item === "string" && item.trim() !== "");
+}
+
 export function saveCompletedQuiz(state) {
   if (typeof window === "undefined") return;
   const answers = getQuizAnswers(state);
-  if (!hasAnswer(answers.question_1) || !hasAnswer(answers.question_7)) return;
+  if (!hasCompletedQuizAnswers(answers)) return;
   try {
     window.sessionStorage.setItem(
       STORAGE_KEY,
@@ -36,7 +49,7 @@ export function saveCompletedQuiz(state) {
 
 export function getCompletedQuiz(state) {
   const current = getQuizAnswers(state);
-  if (hasAnswer(current.question_1) && hasAnswer(current.question_7)) return current;
+  if (hasCompletedQuizAnswers(current)) return current;
   if (typeof window === "undefined") return current;
   try {
     const saved = JSON.parse(window.sessionStorage.getItem(STORAGE_KEY) || "null");
@@ -44,8 +57,7 @@ export function getCompletedQuiz(state) {
       saved &&
       Date.now() - saved.savedAt >= 0 &&
       Date.now() - saved.savedAt < MAX_AGE_MS &&
-      hasAnswer(saved.answers?.question_1) &&
-      hasAnswer(saved.answers?.question_7)
+      hasCompletedQuizAnswers(saved.answers)
     ) {
       return saved.answers;
     }

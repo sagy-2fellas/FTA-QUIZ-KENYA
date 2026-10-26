@@ -14,7 +14,9 @@ Do not use a `NEXT_PUBLIC_` prefix for the key. The route returns an availabilit
 
 ## Data saved
 
-The route upserts the email, first name, and last name; adds `BFA Quiz` and `Kenya` tags; and stores every submitted quiz answer in contact notes. Notes are split below Mailchimp's 1,000-character limit.
+The route upserts the email, first name, last name, and quiz answers in the same Mailchimp member request. `BFA Quiz` and `Kenya` tags identify the signup. Each answer has a visible audience field (`BFAQ1` through `BFAQ8`, plus `BFAQ7FT` for Fairtrade basket items); `BFACTRY`, `BFARESULT`, `BFAINTER`, and `BFAWBUY` record country, result page, interest, and purchase intent. Field values are limited to Mailchimp's 255-byte maximum. A full snapshot is also stored in contact notes, split below Mailchimp's 1,000-character note limit.
+
+Before deploying this version against a new audience, run `node --env-file=.env.local scripts/setup-mailchimp-quiz-fields.mjs` to create missing fields. The script is safe to rerun and verifies all 13 fields. South Africa and Kenya currently use the same audience, so setup only needs to run once for that audience.
 
 Only new contacts are set to `subscribed`. An existing unsubscribed or cleaned contact retains its status and the form shows an error instead of claiming a successful entry.
 
@@ -26,6 +28,6 @@ When the email sequences are ready, activate both flows before expecting automat
 
 ## Verification
 
-Run `npm run test:mailchimp` for mocked API checks. After configuring credentials, submit one consented test address through the deployed form and verify its status, tags, and notes in the intended audience. The Playwright files named `klaviyo-*` document the previous integration and should not be used as Mailchimp verification.
+Run `npm run test:mailchimp` for mocked API checks. After configuring credentials, submit one consented test address through the deployed form and verify its status, tags, quiz fields, and notes in the intended audience. The Playwright files named `klaviyo-*` document the previous integration and should not be used as Mailchimp verification.
 
 API references: [upsert member](https://mailchimp.com/developer/marketing/api/lists/members/upsert-member), [member notes](https://mailchimp.com/developer/marketing/api/lists/create-member-note), [tag-triggered flows](https://mailchimp.com/help/send-tags/).
