@@ -43,7 +43,7 @@ test("Kenya signup creates a Mailchimp contact and saves quiz answers", async ()
     const fields = JSON.parse(calls[0].options.body).merge_fields;
     assert.equal(fields.BFACTRY, "Kenya");
     assert.equal(fields.BFAQ1, "Nairobi");
-    assert.equal(fields.BFAQ5, "2/5: More than a year ago");
+    assert.equal(fields.BFAQ5, "2/5: A glass every now and then");
     assert.equal(fields.BFAQ7, "Coffee, Tea");
     assert.equal(fields.BFAQ8, "3/5 on the label-checking scale");
     assert.equal(fields.BFARESULT, "/result-1");

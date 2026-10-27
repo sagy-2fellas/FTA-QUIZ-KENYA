@@ -178,6 +178,11 @@ test.describe("mobile quiz completion", () => {
       // Heading must be visible and clear of the fixed header.
       const heading = current.locator("h2").last();
       await expect(heading).toBeVisible();
+      if (i === 4) {
+        await expect(heading).toHaveText("Between us friends, how much wine do you actually drink?");
+        await expect(current.locator(".message-box")).toHaveText("A glass every now and then");
+        await expect(current.locator(".wine-level-bottle")).toBeVisible();
+      }
       const headerHeight = await page.evaluate(() => {
         const nav = document.querySelector(".quiz-nav");
         return nav ? nav.getBoundingClientRect().height : 0;
@@ -245,6 +250,10 @@ test.describe("mobile quiz completion", () => {
       // Each question now routes onward through a fact dialog.
       const dialog = page.getByRole("dialog");
       if (await dialog.isVisible().catch(() => false)) {
+        if (i === 4) {
+          await expect(dialog).toContainText("In South Africa’s Cape Winelands");
+          await expect(dialog).toContainText("Fairtrade is using that benchmark");
+        }
         const close = dialog.getByRole("button", { name: "Close" });
         const proceed = dialog.getByRole("button", {
           name: /Go to Next Question|View your results/,

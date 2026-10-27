@@ -26,13 +26,6 @@ const wineChoices = [
   "Weekends are for wine",
   "Pass me the whole bottle!",
 ];
-const flowerChoices = [
-  "Never bought flowers",
-  "More than a year ago",
-  "In the past year",
-  "In the past month",
-  "This week!",
-];
 const chocolateChoices = [
   "I can live without it",
   "I'll have a piece… if you offer",
@@ -61,7 +54,6 @@ const scored = (value, choices) => `${value}/5: ${choices[value - 1]}`;
 const list = (items) => items.length ? items.join(", ") : "None selected";
 
 export function buildQuizMergeFields(country, answers) {
-  const q5Choices = country === "Kenya" ? flowerChoices : wineChoices;
   const buyingHabit = answers.question_7 === 1
     ? "1/5: I don't really look at labels"
     : answers.question_7 === 5
@@ -74,7 +66,7 @@ export function buildQuizMergeFields(country, answers) {
     BFAQ2: scored(answers.question_2, logoChoices),
     BFAQ3: scored(answers.question_3, coffeeChoices),
     BFAQ4: scored(answers.question_4, teaChoices),
-    BFAQ5: scored(answers.question_5, q5Choices),
+    BFAQ5: scored(answers.question_5, wineChoices),
     BFAQ6: scored(answers.chocolate_consumer, chocolateChoices),
     BFAQ7: list(answers.shopping_cart),
     BFAQ7FT: list(answers.ft_shopping_cart),
