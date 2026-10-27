@@ -36,7 +36,7 @@ test("Kenya signup creates a Mailchimp contact and saves quiz answers", async ()
       customFields: completedAnswers,
     } }, res);
     assert.equal(res.code, 200);
-    assert.equal(calls.length, 2);
+    assert.equal(calls.length, 3);
     assert.match(calls[0].url, /us20\.api\.mailchimp\.com/);
     assert.equal(JSON.parse(calls[0].options.body).email_address, "person@example.com");
     assert.equal(JSON.parse(calls[0].options.body).status_if_new, "subscribed");
@@ -49,8 +49,8 @@ test("Kenya signup creates a Mailchimp contact and saves quiz answers", async ()
     assert.equal(fields.BFARESULT, "/result-1");
     assert.equal(fields.BFAINTER, "Coffee");
     assert.equal(fields.BFAWBUY, "Yes");
-    assert.match(JSON.parse(calls[1].options.body).note, /Kenya/);
-    assert.match(JSON.parse(calls[1].options.body).note, /question_1/);
+    assert.match(JSON.parse(calls[2].options.body).note, /Kenya/);
+    assert.match(JSON.parse(calls[2].options.body).note, /question_1/);
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -159,3 +159,84 @@ test("oversized answer stops before contact creation", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+const preferenceProducts = {
+  question_3: "Coffee", question_4: "Tea", question_5: "Wine", chocolate_consumer: "Chocolate",
+};
+
+for (const score of [1, 2, 3, 4, 5]) {
+  test(`product score ${score} syncs the correct country tags`, async () => {
+    const originalFetch = globalThis.fetch;
+    const calls = [];
+    globalThis.fetch = async (url, options) => {
+      calls.push({ url, body: JSON.parse(options.body), method: options.method });
+      return options.method === "PUT"
+        ? { ok: true, json: async () => ({ status: "subscribed" }) }
+        : { ok: true, json: async () => { throw new SyntaxError("204 No Content"); } };
+    };
+    try {
+      const res = response();
+      const answers = { ...completedAnswers,
+        ...Object.fromEntries(Object.keys(preferenceProducts).map(key => [key, score])) };
+      await handler({ method: "POST", body: { email: "person@example.com", customFields: answers } }, res);
+      assert.equal(res.code, 200);
+      const tagsCall = calls.find(call => call.url.endsWith("/tags"));
+      assert.equal(tagsCall.method, "POST");
+      assert.deepEqual(tagsCall.body.tags.slice(0, 2), [
+        { name: "BFA Quiz", status: "active" },
+        { name: "Kenya", status: "active" },
+      ]);
+      assert.deepEqual(tagsCall.body.tags.slice(2), Object.values(preferenceProducts).map(product => ({
+        name: `${product} Lovers KE`, status: score >= 2 ? "active" : "inactive",
+      })));
+      // Only our country tags are touched; unrelated and other-country tags survive.
+      assert.equal(tagsCall.body.tags.length, 6);
+      assert.deepEqual(calls[0].body.tags, ["BFA Quiz", "Kenya",
+        ...(score >= 2 ? Object.values(preferenceProducts).map(product => `${product} Lovers KE`) : [])]);
+    } finally { globalThis.fetch = originalFetch; }
+  });
+}
+
+test("mixed preferences map each answer independently", async () => {
+  const originalFetch = globalThis.fetch;
+  let syncedTags;
+  globalThis.fetch = async (url, options) => {
+    if (url.endsWith("/tags")) syncedTags = JSON.parse(options.body).tags;
+    return { ok: true, json: async () => ({ status: "subscribed" }) };
+  };
+  try {
+    const res = response();
+    await handler({ method: "POST", body: { email: "person@example.com", customFields: {
+      ...completedAnswers, question_3: 1, question_4: 2, question_5: 1, chocolate_consumer: 5,
+    } } }, res);
+    assert.equal(res.code, 200);
+    assert.deepEqual(syncedTags.slice(2).map(tag => tag.status), ["inactive", "active", "inactive", "active"]);
+  } finally { globalThis.fetch = originalFetch; }
+});
+
+test("tag failure prevents a false successful signup", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => ({
+    ok: !url.endsWith("/tags"), status: url.endsWith("/tags") ? 503 : 200,
+    json: async () => ({ status: "subscribed", title: "Unavailable" }),
+  });
+  try {
+    const res = response();
+    await handler({ method: "POST", body: { email: "person@example.com", customFields: completedAnswers } }, res);
+    assert.equal(res.code, 502);
+    assert.ok(res.body.error);
+  } finally { globalThis.fetch = originalFetch; }
+});
+
+for (const invalid of [0, 6, 2.5, "2", null, true]) {
+  test(`invalid preference ${JSON.stringify(invalid)} never reaches Mailchimp`, async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = () => { throw new Error("unexpected fetch"); };
+    try {
+      const res = response();
+      await handler({ method: "POST", body: { email: "person@example.com",
+        customFields: { ...completedAnswers, question_3: invalid } } }, res);
+      assert.equal(res.code, 400);
+    } finally { globalThis.fetch = originalFetch; }
+  });
+}

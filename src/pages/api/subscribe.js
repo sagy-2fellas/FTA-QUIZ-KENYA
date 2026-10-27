@@ -51,6 +51,16 @@ export default async function handler(req, res) {
   if (!hasCompletedQuizAnswers(answers)) {
     return res.status(400).json({ error: "Complete the quiz before signing up so your answers can be saved." });
   }
+  // These names match the existing Mailchimp tags used for country segmentation.
+  const preferenceTags = [
+    ["Coffee", answers.question_3],
+    ["Tea", answers.question_4],
+    ["Wine", answers.question_5],
+    ["Chocolate", answers.chocolate_consumer],
+  ].map(([product, score]) => ({
+    name: `${product} Lovers KE`,
+    status: score >= 2 ? "active" : "inactive",
+  }));
   const quizFields = buildQuizMergeFields(COUNTRY, answers);
   if (!mergeFieldsFitMailchimp(quizFields)) {
     return res.status(400).json({ error: "A quiz answer is too long to save. Please shorten your answer." });
@@ -70,13 +80,27 @@ export default async function handler(req, res) {
         LNAME: typeof lastName === "string" ? lastName.trim() : "",
         ...quizFields,
       },
-      tags: ["BFA Quiz", COUNTRY],
+      // Include preferences at creation so signup automations can see them.
+      tags: ["BFA Quiz", COUNTRY, ...preferenceTags
+        .filter((tag) => tag.status === "active")
+        .map((tag) => tag.name)],
     });
     if (member.status !== "subscribed") {
       return res.status(409).json({
         error: "This email address is not subscribed. Please contact us to complete your signup.",
       });
     }
+
+    // PUT's tags apply to new members. Explicitly sync existing members too,
+    // removing only this country's product tags when a retake scores 1.
+    // A failed tag sync must not be reported as a successful signup.
+    await request(config, `${memberPath}/tags`, "POST", {
+      tags: [
+        { name: "BFA Quiz", status: "active" },
+        { name: COUNTRY, status: "active" },
+        ...preferenceTags,
+      ],
+    });
 
     // Notes retain a full snapshot, including the original numeric answers.
     const chunks = note.match(/[\s\S]{1,900}/g) || [];
