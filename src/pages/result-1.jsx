@@ -2,6 +2,7 @@ import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
 import MobileFactDialog from "../components/MobileFactDialog";
+import TeaStory from "../components/TeaStory";
 import styles from "../style";
 import Image from "next/image";
 import ArrowIcon from "../components/svg/ArrowIcon";
@@ -325,31 +326,7 @@ const FullpageWrapper = () => {
                       </div>
                     </div>
                   </div>
-                  <MobileFactDialog open={teaToggled} onClose={() => setTeaToggled(false)} title="Your tea"><div className="font-exo text-base leading-relaxed">
-                        <span className="text-ft-blue text-2xl">
-                          Patrick picks the leaves for your evening cup of
-                          rooibos tea.
-                        </span>{" "}
-                        <br />
-                        <br />
-                        His cooperative or farm receives the Fairtrade Premium –
-                        an amount of the selling price that he can invest in
-                        initiatives that support his community. The farm he
-                        works on works with nature, not against it. It uses
-                        sustainable practices to ensure rooibos can be grown
-                        there for centuries to come. When his daughter gets ill,
-                        he knows he can take her to the new clinic Fairtrade
-                        built nearby. He sleeps easier knowing this is an
-                        option.
-                        <span className="text-lg sm:text-2xl">
-                          <br /> <br />
-                          Someone’s looking out for Patrick and the land he
-                          works on.
-                          <br /> <br />
-                        </span>
-                        That someone is you, every time you buy
-                        Fairtrade-certified tea.
-                      </div></MobileFactDialog>
+                  <MobileFactDialog open={teaToggled} onClose={() => setTeaToggled(false)} title="Your tea"><TeaStory /></MobileFactDialog>
                   <MobileFactDialog open={wineToggled} onClose={() => setWineToggled(false)} title="Your wine"><div className="font-exo text-base leading-relaxed">
                         <span className="text-ft-blue text-2xl">
                           Patrick helps fuel wine-o'clock.

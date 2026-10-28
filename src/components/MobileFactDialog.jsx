@@ -43,6 +43,7 @@ const MobileFactDialog = ({
   // longer the right place to send focus — restoring it would drop keyboard and
   // screen-reader users back on the previous question's off-screen button.
   const advancedRef = useRef(false);
+  const previousOverflowRef = useRef("");
   const titleId = useId();
 
   // Remember the trigger so focus can return to it on close.
@@ -104,6 +105,7 @@ const MobileFactDialog = ({
   useEffect(() => {
     if (!open || typeof document === "undefined") return undefined;
     const previous = document.body.style.overflow;
+    previousOverflowRef.current = previous;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = previous;
@@ -167,6 +169,9 @@ const MobileFactDialog = ({
               type="button"
               onClick={() => {
                 advancedRef.current = true;
+                // fullpage's mobile transition needs native scrolling unlocked
+                // before it moves; React closes this dialog after the handler.
+                document.body.style.overflow = previousOverflowRef.current;
                 onContinue();
               }}
               className="bg-ft-dark-green text-white px-6 rounded-md shadow-lg font-exo text-base w-full touch-manipulation min-h-[44px]"

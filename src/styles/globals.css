@@ -817,6 +817,20 @@ a {
   background: linear-gradient(to top, #f2f2f2 82%, rgba(242, 242, 242, 0));
 }
 
+/* Short laptop windows use the scrolling quiz layout and its fact dialog.
+   Hide the desktop card so the same fact is never presented twice. */
+.quiz-mobile #fullpage .engagement-fact {
+  display: none !important;
+}
+
+.quiz-mobile #fullpage [data-anchor="Question-7"] [data-quiz-pane] {
+  justify-content: flex-start;
+  gap: 24px;
+}
+.quiz-mobile #fullpage [data-anchor="Question-7"] [data-quiz-pane] > div:first-child > div:first-child {
+  display: none !important;
+}
+
 /* --- Shared mobile fact dialog ------------------------------- */
 .quiz-dialog-backdrop {
   position: fixed;
