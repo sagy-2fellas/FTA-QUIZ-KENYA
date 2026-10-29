@@ -16,6 +16,7 @@ const QuestionSix = () => {
   const [refineToggled, setRefineToggled] = useState(false);
   const [shoppingFactToggled, setShoppingFactToggled] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
+  const [noneSelected, setNoneSelected] = useState(false);
 
   const [isHerbal, setIsHerbal] = useState(false);
   const [isRed, setIsRed] = useState(false);
@@ -29,6 +30,7 @@ const QuestionSix = () => {
   const [handProduct, setHandProduct] = useState("");
 
   const clearShelf = () => {
+    setNoneSelected(false);
     setIsHerbal(false);
     setIsRed(false);
     setIsWhite(false);
@@ -41,12 +43,20 @@ const QuestionSix = () => {
   };
 
   const dispatch = useDispatch();
-  let allowNext = shopArray.length > 0 ? "enabled" : "";
+  let allowNext = shopArray.length > 0 || noneSelected ? "enabled" : "";
 
   const selectProduct = (product) => {
+    setNoneSelected(false);
     updateShopArray((arr) =>
       arr.includes(product) ? arr.filter((item) => item !== product) : [...arr, product]
     );
+  };
+
+  const selectNone = () => {
+    updateShopArray([]);
+    updateRefinedCart([]);
+    clearShelf();
+    setNoneSelected(true);
   };
 
   const mobileProducts = [
@@ -71,6 +81,12 @@ const QuestionSix = () => {
     window.fullpage_api.moveSectionUp();
   };
   const navigateNext = () => {
+    if (noneSelected) {
+      dispatch(goShopping([]));
+      dispatch(goFTShopping([]));
+      setShoppingFactToggled(true);
+      return;
+    }
     if (shopArray.length === 0) return;
     setRefineToggled(true);
   };
@@ -264,6 +280,14 @@ const QuestionSix = () => {
           <p className="quiz-shop-count" aria-live="polite">
             <span key={shopArray.length}>{shopArray.length ? `${shopArray.length} in your basket · Tap again to remove` : "Tap your favourites to fill your basket"}</span>
           </p>
+          <button
+            type="button"
+            aria-pressed={noneSelected}
+            onClick={selectNone}
+            className={`quiz-shop-none ${noneSelected ? "quiz-shop-none-selected" : ""}`}
+          >
+            I don't buy any of these
+          </button>
         </div>
         <div className="hidden lg:block">
           {" "}
@@ -271,7 +295,7 @@ const QuestionSix = () => {
             initial={{ opacity: 0, x: -300 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, type: "spring", delay: 0.5 }}
-            className="flex items-end justify-center w-full h-full pb-28 lg:pb-0 lg:p-8 mt-2"
+            className="relative flex items-end justify-center w-full h-full pb-28 lg:pb-0 lg:p-8 mt-2"
           >
             <ShoppingIcon
               selectProduct={selectProduct}
@@ -294,6 +318,14 @@ const QuestionSix = () => {
               handProduct={handProduct}
               setHandProduct={setHandProduct}
             />
+            <button
+              type="button"
+              aria-pressed={noneSelected}
+              onClick={selectNone}
+              className={`quiz-shop-none quiz-shop-none-desktop ${noneSelected ? "quiz-shop-none-selected" : ""}`}
+            >
+              I don't buy any of these
+            </button>
           </motion.div>
         </div>
         <div className="hidden lg:flex flex-initial w-1/5 items-end">
@@ -391,7 +423,7 @@ const QuestionSix = () => {
       <MobileQuizNav
         onPrev={navigatePrev}
         onNext={navigateNext}
-        canContinue={shopArray.length > 0}
+        canContinue={shopArray.length > 0 || noneSelected}
         nextAriaLabel="Continue to the next question"
       />
 

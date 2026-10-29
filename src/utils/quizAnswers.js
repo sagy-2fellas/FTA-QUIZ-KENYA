@@ -27,7 +27,7 @@ export function hasCompletedQuizAnswers(answers) {
   ];
   return typeof answers?.question_1 === "string" && answers.question_1.trim() !== "" &&
     sliderQuestions.every((key) => Number.isInteger(answers[key]) && answers[key] >= 1 && answers[key] <= 5) &&
-    Array.isArray(answers.shopping_cart) && answers.shopping_cart.length > 0 &&
+    Array.isArray(answers.shopping_cart) &&
     answers.shopping_cart.every((item) => typeof item === "string" && item.trim() !== "") &&
     Array.isArray(answers.ft_shopping_cart) &&
     answers.ft_shopping_cart.every((item) => typeof item === "string" && item.trim() !== "");

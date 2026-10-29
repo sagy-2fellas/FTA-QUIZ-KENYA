@@ -1033,6 +1033,20 @@ a {
   text-align: center;
   font: 14px/1.3 Exo, sans-serif;
 }
+.quiz-shop-none {
+  display: block;
+  min-height: 44px;
+  margin: 12px auto 0;
+  padding: 9px 16px;
+  border: 2px solid #001b6e;
+  border-radius: 12px;
+  background: #fff;
+  color: #001b6e;
+  font: 700 15px/1.25 Exo, sans-serif;
+  cursor: pointer;
+}
+.quiz-shop-none-selected { background: #d4ff47; color: #1e1e1e; border-color: #1e1e1e; }
+.quiz-shop-none-desktop { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 
 /* Fairtrade digital brand trial: vivid actions, clear supporting typography. */
 #fullpage, .quiz-dialog-panel, .quiz-nav {

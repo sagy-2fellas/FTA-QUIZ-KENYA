@@ -601,7 +601,9 @@ test("refinement keeps Submit visible with all eight products and supports untic
 
 test("Fairtrade logo and answer bubble do not overlap", async ({ page }) => {
   await gotoQuiz(page);
-  await page.evaluate(() => window.fullpage_api.moveTo("Question-2"));
+  await activeSection(page).locator("#kenya-region").selectOption("Nairobi");
+  await continueButton(page).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Go to Next Question" }).click();
   await expectActiveSection(page, 1);
   const logo = activeSection(page).getByAltText("Fairtrade Mark");
   await expect(logo).toBeVisible();
