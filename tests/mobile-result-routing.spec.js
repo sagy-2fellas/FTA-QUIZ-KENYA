@@ -57,6 +57,11 @@ test("mixed Fairtrade choices within one product type reach the mixed result", a
   await expect(page).toHaveURL(/\/result-8$/);
 });
 
+test("fully Fairtrade tea and coffee reach their combined result", async ({ page }) => {
+  await finishFromShop(page, ["Black Tea", "Coffee Beans"], ["Black Tea", "Coffee Beans"]);
+  await expect(page).toHaveURL(/\/result-13$/);
+});
+
 test("shoppers who buy none of the listed products can reach their result", async ({ page }) => {
   await goToShop(page);
   const none = page.getByRole("button", { name: "I don't buy any of these" });
