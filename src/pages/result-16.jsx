@@ -88,7 +88,7 @@ const FullpageWrapper = () => {
             </FullScreenSection>
 
             <FullScreenSection>
-              <NotFair />
+              <NotFair unknownFarmer />
             </FullScreenSection>
           </div>
         );

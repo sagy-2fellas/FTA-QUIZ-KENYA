@@ -1418,3 +1418,5 @@ body:has(.results-page) .quiz-dialog-body .text-ft-blue { color: #001b6e; }
  #fullpage [data-anchor="Question-7"] .customSlider-thumb-2 { width: 44px; height: 44px; top: 20px; }
  #fullpage [data-anchor="Question-7"] .customSlider-thumb-2::before { width: 120px; height: 120px; top: 50%; }
 }
+
+.signup-portrait .signup-unknown-farmer { position: absolute; width: 75%; height: 75%; inset: 5% 12.5% auto; }

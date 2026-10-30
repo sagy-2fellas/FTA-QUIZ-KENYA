@@ -2,8 +2,12 @@ import { useStore } from "react-redux";
 import { getCompletedQuiz, hasCompletedQuizAnswers } from "../utils/quizAnswers";
 import { useState, useEffect, useRef } from "react";
 import styles from "../style";
+import UnknownFarmer from "./UnknownFarmer";
+import useResultStory from "./useResultStory";
 
-const NotFair = () => {
+const NotFair = ({ unknownFarmer = false, farmerPhoto = null, resultId }) => {
+  const story = useResultStory(resultId);
+  const portrait = farmerPhoto || (story?.photo ? { src: story.photo, alt: story.alt, href: story.video, position: story.position } : null);
   const store = useStore();
   const [formData, setFormData] = useState({
     email: "",
@@ -142,7 +146,7 @@ const NotFair = () => {
   return (
     <div className="results-signup relative z-50 min-h-[100dvh] w-full overflow-y-auto overscroll-contain">
       <div className="signup-portrait">
-        <img src="/img/patrick-full-alt.jpg" alt="Portrait illustrating Patrick’s story" />
+        {portrait ? (portrait.href ? <a href={portrait.href} target="_blank" rel="noreferrer" aria-label="Watch the tea community’s story"><img src={portrait.src} alt={portrait.alt} style={{ objectPosition: portrait.position }} /></a> : <img src={portrait.src} alt={portrait.alt} style={{ objectPosition: portrait.position }} />) : unknownFarmer || resultId ? <UnknownFarmer className="signup-unknown-farmer" /> : <img src="/img/patrick-full-alt.jpg" alt="Portrait illustrating Patrick’s story" />}
         <div><h2 className="font-alegreya">Every choice has a story.</h2><p className="font-exo">Keep yours going.</p></div>
       </div>
       <div className={`${styles.boxWidth} mx-auto z-50`}>

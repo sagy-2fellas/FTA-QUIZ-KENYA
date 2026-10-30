@@ -1,3 +1,4 @@
+import GrowerStorySection from "../components/GrowerStorySection";
 import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
@@ -82,98 +83,11 @@ const FullpageWrapper = () => {
               </div>
             </FullScreenSection>
             <FullScreenSection>
-              <div className=" z-50  w-screen h-full">
-                <MobileFactDialog open={disclamerToggled} onClose={() => setDisclamerToggled(false)} title="About Patrick"><div className="font-exo text-base leading-relaxed">
-                      <span className="text-ft-blue">* </span>* Patrick isn’t a
-                      real person. His story is based on the data around the
-                      average Kenyan farm worker. He’s a face we’ve put to this
-                      data to get you to care and start thinking Fair. He’s a
-                      blend of all the people who grow and pick your coffee, tea
-                      and wine.
-                    </div></MobileFactDialog>
-                <div className={` mx-auto h-full z-50 !px-0`}>
-                  <div className="grid sm:grid-cols-2 h-full">
-                    <div className="col-span-1 ">
-                      <img
-                        src="/img/patrick-full-alt.jpg"
-                        className="w-full object-cover h-full"
-                      />
-                    </div>
-                    <div className="col-span-1 ">
-                      <div className="flex justify-center items-center h-full">
-                        <div className=" flex flex-col justify-center items-center sm:mx-4 lg:mx-0">
-                          <div className="mx-4 sm:mx-0">
-                            <h1 className="font-alegreya 2xl:!text-7xl sm:!text-5xl text-base xs:text-3xl lg:max-w-2xl text-center xs:mb-6 pt-2 xs:t-6 sm:pt-0">
-                              Oh, and we’d like you to introduce you to &nbsp;
-                              <span
-                                onClick={() => {
-                                  setDisclamerToggled(!disclamerToggled);
-                                }}
-                                className="text-ft-blue cursor-pointer underline"
-                              >
-                                Patrick*
-                              </span>
-                              .
-                            </h1>
-
-                            <p className="font-exo 2xl:!text-2xl text-xs xs:text-lg text-gray-700 max-w-xl mx-auto text-center">
-                              Patrick works on a Fairtrade-certified farm.
-                            </p>
-
-                            <p className="font-exo 2xl:text-xl text-xs xs:text-base lg:text-lg lg:px-4 2xl:pt-6 xs:pt-4 pt-2 text-center mx-auto max-w-xl">
-                              Click on the image below to learn about the life
-                              you’re supporting for him every time you buy
-                              Fairtrade-certified coffee:
-                            </p>
-                          </div>
-                          <div className="lg:col-span-1 relative grid grid-cols-3 max-w-lg">
-                            <div></div>
-                            <div
-                              onClick={() => {
-                                setCoffeeToggled(!coffeeToggled);
-                              }}
-                              className="col-span-1 coffee cursor-pointer flex items-end "
-                            >
-                              <Image
-                                src="/img/ft-coffee.png"
-                                width={400}
-                                height={500}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <MobileFactDialog open={coffeeToggled} onClose={() => setCoffeeToggled(false)} title="Your coffee"><div className="font-exo text-base leading-relaxed">
-                          <span className="text-ft-blue text-2xl">
-                            Patrick grows your morning caffeine fix.
-                          </span>{" "}
-                          <br />
-                          <br />
-                          He is not a child. His farm receives a fair price for
-                          the coffee beans they produce. His wife, Grace, who
-                          works with him on the farm, is paid like an equal, and
-                          feels heard and treated well. He receives hands-on
-                          support to protect biodiversity and combat climate
-                          change on the farm. The Earth is better off for it,
-                          and so is he.
-                          <span className=" sm:text-2xl text-lg">
-                            <br /> <br />
-                            Someone’s looking out for Patrick and the land he
-                            works on.
-                            <br /> <br />
-                          </span>
-                          That someone is you, every time you buy
-                          Fairtrade-certified coffee.
-                        </div></MobileFactDialog>
-                  </div>
-                </div>
-              </div>
+              <GrowerStorySection resultId={11} />
             </FullScreenSection>
 
             <FullScreenSection>
-              <NotFair />
+              <NotFair resultId={11} />
             </FullScreenSection>
           </div>
         );

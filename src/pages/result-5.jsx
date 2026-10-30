@@ -1,3 +1,5 @@
+import GrowerStorySection from "../components/GrowerStorySection";
+import UnknownFarmerIntro from "../components/UnknownFarmerIntro";
 import ResultBasket from "../components/ResultBasket";
 import React, { useState, useEffect } from "react";
 import ReactFullpage from "../components/ResultsFullpage";
@@ -18,7 +20,6 @@ const FullScreenSection = ({ children }) => {
 };
 
 const FullpageWrapper = () => {
-  const [disclamerToggled, setDisclamerToggled] = useState(false);
   const [adultToggled, setAdultToggled] = useState(false);
   const [wageToggled, setWageToggled] = useState(false);
   const [farmToggled, setFarmToggled] = useState(false);
@@ -38,62 +39,7 @@ const FullpageWrapper = () => {
         return (
           <div className="h-full">
             <FullScreenSection>
-              <div className=" z-50  w-full h-full">
-                <MobileFactDialog open={disclamerToggled} onClose={() => setDisclamerToggled(false)} title="About Patrick"><div className="font-exo text-base leading-relaxed">
-                      <span className="text-ft-blue">* </span>* Patrick isn’t a
-                      real person. His story is based on the data around the
-                      average Kenyan farm worker. He’s a face we’ve put to this
-                      data to get you to care and start thinking Fair. He’s a
-                      blend of all the people who grow and pick your coffee, tea
-                      and wine.
-                    </div></MobileFactDialog>
-                <div className={`mx-auto h-full z-50 !px-0`}>
-                  <div className="flex flex-col  sm:flex-row h-full">
-                    <div className="flex-1 h-full">
-                      <img
-                        src="/img/patrick-full-alt.jpg"
-                        className="w-full object-cover h-full"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      {" "}
-                      <div className=" flex flex-col justify-center items-center h-full">
-                        <h1 className="font-alegreya lg:text-7xl text-5xl ">
-                          Meet{" "}
-                          <span
-                            onClick={() => {
-                              setDisclamerToggled(!disclamerToggled);
-                            }}
-                            className="text-ft-blue cursor-pointer underline"
-                          >
-                            Patrick*
-                          </span>
-                          .
-                        </h1>
-                <ResultBasket />
-
-                        <p className="font-exo 2xl:text-2xl xs:text-lg text-gray-700">
-                          He produces your coffee.
-                        </p>
-                        <h3 className="font-alegreya 2xl:text-4xl sm:text-2xl text-xl 2xl:pt-16 pt-4 text-center ">
-                          What can we tell you about Patrick?
-                        </h3>
-
-                        <div className=" shadow-xl border rounded-2xl text-ft-light-green bg-ft-blue border-ft-blue py-2 sm:py-4 px-4 md:px-40 text-2xl sm:text-5xl font-alegreya mt-4">
-                          Nothing.
-                        </div>
-
-                        <h3 className="font-alegreya 2xl:text-4xl text-2xl 2xl:pt-6 pt-4 text-center text-ft-blue">
-                          This is not a good thing
-                        </h3>
-                        <p className="font-alegreya 2xl:text-2xl sm:text-2xl 2xl:pt-16 pt-4 text-center lg:mx-10">
-                          Scroll down to read more.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <UnknownFarmerIntro />
             </FullScreenSection>
             <FullScreenSection>
               <div className="relative w-full h-full">
@@ -110,18 +56,18 @@ const FullpageWrapper = () => {
                       school.
                     </p></MobileFactDialog>
                 <MobileFactDialog open={farmToggled} onClose={() => setFarmToggled(false)} title="Farming and the environment"><p className="font-exo text-base leading-relaxed">
-                      It’s likely that Patrick works with unsafe pesticides,
+                      It’s likely that the farmer works with unsafe pesticides,
                       which end up in your products. We can’t say anything about
                       how the Earth gets treated on the farm where he works, or
-                      if they use GMOs. We have no idea whether Patrick gets
+                      if they use GMOs. We have no idea whether the farmer gets
                       sustainability support or training to protect the land for
                       future generations.
                     </p></MobileFactDialog>
                 <MobileFactDialog open={facilitiesToggled} onClose={() => setFacilitiesToggled(false)} title="Access to basic facilities"><p className="font-exo text-base leading-relaxed">
-                      If Patrick falls sick or is injured, there may not be a
+                      If the farmer falls sick or is injured, there may not be a
                       hospital close by. His children may have to also work on
                       the farm because there might not be a school close by, or
-                      one that Patrick can afford to send them to.
+                      one that the farmer can afford to send them to.
                     </p></MobileFactDialog>
                 <div className="absolute top-0 h-full w-3/5 bg-cover bgWeCantPromise bg-no-repeat right-0 hidden md:block"></div>
                 <div className={`${styles.boxWidth} mx-auto h-full z-50`}>
@@ -135,7 +81,7 @@ const FullpageWrapper = () => {
                           className="grid grid-cols-9  cursor-pointer shadow-xl border rounded-2xl text-ft-light-green bg-ft-blue border-ft-blue py-1 xs:py-4 px-4 2xl:px-10 2xl:py-10 sm:text-4xl text-xl font-alegreya "
                         >
                           <div className="col-span-7 flex  items-center">
-                            <h3>We can't promise that Patrick is an adult. </h3>
+                            <h3>We can't promise that the farmer is an adult. </h3>
                           </div>
                           <div className="flex justify-center items-center col-start-9">
                             <svg
@@ -162,7 +108,7 @@ const FullpageWrapper = () => {
                         >
                           <div className="col-span-7 flex  items-center">
                             <h3>
-                              We can't promise you what Patrick is earning.
+                              We can't promise you what the farmer is earning.
                             </h3>
                           </div>
                           <div className="flex justify-center items-center col-start-9">
@@ -219,7 +165,7 @@ const FullpageWrapper = () => {
                         >
                           <div className="col-span-7 flex  items-center">
                             <h3>
-                              We don't know if Patrick has access to basic
+                              We don't know if the farmer has access to basic
                               facilities.
                             </h3>
                           </div>
@@ -249,84 +195,10 @@ const FullpageWrapper = () => {
             </FullScreenSection>
 
             <FullScreenSection>
-              <div className="relative w-screen h-full">
-                <div className="absolute top-0 h-full bgFairtradeCertified bg-no-repeat bg-cover w-screen md:w-2/3 bg-center right-0  "></div>
-                <div className={`${styles.boxWidth} h-full z-50 !px-0 mx-auto`}>
-                  <div className="grid md:grid-cols-2 h-full">
-                    <div className="flex h-full lg:justify-end items-end flex-col">
-                      <div className=" shadow-xl border rounded-2xl  md:rounded-t-2xl flex flex-col  gap-y-8 sm:gap-y-16 2xl:gap-y-28 bg-white lg:ml-4 2xl:ml-0 lg:mt-4 border-black p-2 xs:p-10 sm:p-12 2xl:p-20 m-4  mx-auto lg:h-full  w-10/12 lg:w-auto">
-                        <div className="h-12 w-12 sm:h-16 sm:w-16 lg:h-28 lg:w-28 ">
-                          <Image
-                            src="/img/logo-fairtrade.png"
-                            width={150}
-                            height={178}
-                          />
-                        </div>{" "}
-                        <div className="space-y-4 xs:space-y-10">
-                          <p className="text-black text-base xs:text-xl sm:text-4xl lg:!text-5xl font-alegreya  text-left">
-                            <span className=" text-ft-blue">
-                              But if Patrick's organisation was
-                              Fairtrade-certified,
-                            </span>{" "}
-                            we could tell so much more about him and what the
-                            farm he works on is doing to protect him.
-                          </p>
-
-                          <p className="text-left font-exo text-sm xs:text-base sm:!text-2xl">
-                            Click on the icons to see how Patrick's life changes
-                            when you choose Fairtrade.
-                            <ArrowIcon />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="md:col-span-1 relative grid grid-cols-3  col-span-2">
-                      <div className="flex items-end">
-                        <div
-                          onClick={() => {
-                            setCoffeeToggled(!coffeeToggled);
-                          }}
-                          className="col-span-1 coffee cursor-pointer w-40 md:w-auto mb-20 h-fit mx-auto"
-                        >
-                          <Image
-                            src="/img/ft-coffee.png"
-                            width={400}
-                            height={500}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <MobileFactDialog open={coffeeToggled} onClose={() => setCoffeeToggled(false)} title="Your coffee"><div className="font-exo text-base leading-relaxed">
-                        <span className="text-ft-blue text-2xl">
-                          Patrick grows your morning caffeine fix.
-                        </span>{" "}
-                        <br />
-                        <br />
-                        He is not a child. His farm receives a fair price for
-                        the coffee beans they produce. His wife, Grace, who
-                        works with him on the farm, is paid like an equal, and
-                        feels heard and treated well. He receives hands-on
-                        support to protect biodiversity and combat climate
-                        change on the farm. The Earth is better off for it, and
-                        so is he.
-                        <span className=" sm:text-2xl text-lg">
-                          <br /> <br />
-                          Someone’s looking out for Patrick and the land he
-                          works on.
-                          <br /> <br />
-                        </span>
-                        That someone is you, every time you buy
-                        Fairtrade-certified coffee.
-                      </div></MobileFactDialog>
-
-                </div>
-              </div>
+              <GrowerStorySection resultId={5} />
             </FullScreenSection>
             <FullScreenSection>
-              <NotFair />
+              <NotFair resultId={5} />
             </FullScreenSection>
           </div>
         );

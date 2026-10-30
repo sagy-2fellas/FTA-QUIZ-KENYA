@@ -88,3 +88,12 @@ test("shoppers who buy none of the listed products can reach their result", asyn
   );
   expect(savedAnswers.some((value) => value.includes('"shopping_cart":[]'))).toBe(true);
 });
+
+
+test("no Fairtrade tea selections reach the unidentified farmer result", async ({ page }) => {
+  await finishFromShop(page, ["Spiced Tea"], []);
+  await expect(page).toHaveURL(/\/result-6$/);
+  await expect(page.getByRole("heading", { name: "We can’t tell who the farmer is." })).toBeVisible();
+  await expect(page.getByText("Spiced Tea", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Patrick/)).toHaveCount(0);
+});
