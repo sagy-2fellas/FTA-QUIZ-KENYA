@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { getResultRoute } from "../src/utils/resultRoute";
 
 test("every designed result has a matching answer combination", () => {
-  const tea = "Black Tea";
+  const tea = "Spiced Tea";
   const coffee = "Coffee Beans";
   const wine = "Red Wine";
   const combinations = [
@@ -30,6 +30,12 @@ async function goToShop(page) {
     await page.getByRole("dialog").getByRole("button", { name: "Go to Next Question" }).click();
     await expect(page.locator(".section.active")).toHaveAttribute("data-anchor", anchor);
   }
+  const shop = page.locator(".section.active");
+  await expect(shop.locator(".quiz-shop-product")).toHaveCount(8);
+  for (const tea of ["Black Tea", "Herbal Tea", "Spiced Tea"]) {
+    await expect(shop.getByRole("button", { name: tea, exact: true })).toBeVisible();
+  }
+  await expect(shop.getByRole("button", { name: /rooibos|chocolate/i })).toHaveCount(0);
 }
 
 async function finishFromShop(page, products, fairtradeProducts) {
@@ -53,7 +59,7 @@ async function finishFromShop(page, products, fairtradeProducts) {
 }
 
 test("mixed Fairtrade choices within one product type reach the mixed result", async ({ page }) => {
-  await finishFromShop(page, ["Black Tea", "Herbal Tea"], ["Black Tea"]);
+  await finishFromShop(page, ["Spiced Tea", "Herbal Tea"], ["Spiced Tea"]);
   await expect(page).toHaveURL(/\/result-8$/);
 });
 

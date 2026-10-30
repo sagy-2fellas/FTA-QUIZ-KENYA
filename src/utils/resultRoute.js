@@ -1,5 +1,5 @@
 const productsByType = {
-  tea: ["Black Tea", "Rooibos Tea", "Herbal Tea"],
+  tea: ["Black Tea", "Spiced Tea", "Herbal Tea"],
   coffee: ["Coffee Beans", "Ground Coffee"],
   wine: ["White Wine", "Red Wine", "Rosé"],
 };

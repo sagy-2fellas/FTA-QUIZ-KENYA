@@ -25,7 +25,7 @@ const QuestionSix = () => {
   const [isBeans, setIsBeans] = useState(false);
   const [isGround, setIsGround] = useState(false);
   const [isBlack, setIsBlack] = useState(false);
-  const [isRooibos, setIsRooibos] = useState(false);
+  const [isSpiced, setIsSpiced] = useState(false);
 
   const [handProduct, setHandProduct] = useState("");
 
@@ -38,7 +38,7 @@ const QuestionSix = () => {
     setIsBeans(false);
     setIsGround(false);
     setIsBlack(false);
-    setIsRooibos(false);
+    setIsSpiced(false);
     setHandProduct("");
   };
 
@@ -66,7 +66,7 @@ const QuestionSix = () => {
     ["Coffee Beans", setIsBeans, "coffee-beans"],
     ["Ground Coffee", setIsGround, "ground-coffee"],
     ["Black Tea", setIsBlack, "black-tea"],
-    ["Rooibos Tea", setIsRooibos, "rooibos-tea"],
+    ["Spiced Tea", setIsSpiced, "spiced-tea"],
     ["Herbal Tea", setIsHerbal, "herbal-tea"],
   ];
 
@@ -313,8 +313,8 @@ const QuestionSix = () => {
               setIsGround={setIsGround}
               isBlack={isBlack}
               setIsBlack={setIsBlack}
-              isRooibos={isRooibos}
-              setIsRooibos={setIsRooibos}
+              isSpiced={isSpiced}
+              setIsSpiced={setIsSpiced}
               handProduct={handProduct}
               setHandProduct={setHandProduct}
             />
@@ -381,8 +381,8 @@ const QuestionSix = () => {
               setIsGround={setIsGround}
               isBlack={isBlack}
               setIsBlack={setIsBlack}
-              isRooibos={isRooibos}
-              setIsRooibos={setIsRooibos}
+              isSpiced={isSpiced}
+              setIsSpiced={setIsSpiced}
               handProduct={handProduct}
               setHandProduct={setHandProduct}
             />

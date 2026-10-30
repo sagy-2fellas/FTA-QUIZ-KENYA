@@ -65,7 +65,7 @@ const QuestionEight = () => {
       }
     });
     cart.find((element) => {
-      if (element.includes("Rooibos Tea")) {
+      if (element.includes("Spiced Tea")) {
         teaDrinker = true;
       }
     });
@@ -108,7 +108,7 @@ const QuestionEight = () => {
       }
     });
     filteredCart.find((element) => {
-      if (element.includes("Rooibos Tea")) {
+      if (element.includes("Spiced Tea")) {
         FTteaDrinker = true;
       }
     });

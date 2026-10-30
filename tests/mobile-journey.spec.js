@@ -575,7 +575,7 @@ test("refinement keeps Submit visible with all eight products and supports untic
     await expectActiveSection(page, i + 1);
   }
   await expectActiveSection(page, 6);
-  for (const name of ["White Wine", "Red Wine", "Rosé", "Coffee Beans", "Ground Coffee", "Black Tea", "Rooibos Tea", "Herbal Tea"]) {
+  for (const name of ["White Wine", "Red Wine", "Rosé", "Coffee Beans", "Ground Coffee", "Black Tea", "Spiced Tea", "Herbal Tea"]) {
     await activeSection(page).getByRole("button", { name, exact: true }).click();
   }
   await continueButton(page).click();
