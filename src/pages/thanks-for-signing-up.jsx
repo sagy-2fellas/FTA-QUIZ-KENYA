@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 
-const giveawayUrl = "https://gleam.io/BRBiR/befairrightnow-kenya-2025";
+const giveawayUrl = "https://gleam.io/2NA8m/befairrightnow-kenya-2026";
 
 export default function ThankYou() {
   return (
@@ -16,7 +16,7 @@ export default function ThankYou() {
         <p>Complete your giveaway entry below, then explore the extra ways to enter.</p>
       </header>
       <section className="giveaway-embed" aria-label="Kenya Fairtrade giveaway">
-        <a className="e-widget generic-loader no-button" href={giveawayUrl} rel="nofollow">Be Fair Right Now Kenya giveaway</a>
+        <a className="e-widget generic-loader no-button" href={giveawayUrl} rel="nofollow">#BeFairRightNow Kenya 2026</a>
       </section>
       <p className="giveaway-fallback">Can’t see the giveaway? <a href={giveawayUrl} target="_blank" rel="noopener noreferrer">Open it on Gleam</a>.</p>
       <Script src="https://widget.gleamjs.io/e.js" strategy="afterInteractive" />
